@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D87C9309-81A9-450A-B66F-0F0A6AC41C98}</ProjectGuid>
+    <ProjectGuid>{10A804EF-6332-4FE7-912B-F91382FA447B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MSDatabaseService</RootNamespace>
-    <AssemblyName>MSDatabaseService</AssemblyName>
+    <RootNamespace>UberService</RootNamespace>
+    <AssemblyName>UberService</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,16 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,25 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context.cs" />
-    <Compile Include="Entities\BusPrice.cs" />
-    <Compile Include="Entities\BusSchedule.cs" />
-    <Compile Include="Entities\Dormitory.cs" />
-    <Compile Include="Entities\DubkiBusSchedule.cs" />
-    <Compile Include="Entities\HSEBuilding.cs" />
-    <Compile Include="Entities\LocalTrainPrice.cs" />
-    <Compile Include="Entities\LocalTrainSchedule.cs" />
-    <Compile Include="Entities\LocalTrainStation.cs" />
-    <Compile Include="Entities\LocalTrainStop.cs" />
-    <Compile Include="Entities\SubwayElapsedTime.cs" />
-    <Compile Include="Entities\SubwayStation.cs" />
-    <Compile Include="Entities\TramPrice.cs" />
-    <Compile Include="Entities\TramSchedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
