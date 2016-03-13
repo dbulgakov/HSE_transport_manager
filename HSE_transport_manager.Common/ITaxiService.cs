@@ -10,6 +10,6 @@ namespace HSE_transport_manager.Common
     interface ITaxiService
     {
         void Initialize();
-        TripData GetRoute(Coordinate StartingPoint, Coordinate EndingPoint);
+        TripData GetRoute(Coordinate startingPoint, Coordinate endingPoint);
     }
 }
