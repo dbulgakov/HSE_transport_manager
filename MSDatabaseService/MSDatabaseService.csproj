@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context.cs" />
+    <Compile Include="DatabaseQuery.cs" />
     <Compile Include="Entities\BusPrice.cs" />
     <Compile Include="Entities\BusSchedule.cs" />
     <Compile Include="Entities\Dormitory.cs" />

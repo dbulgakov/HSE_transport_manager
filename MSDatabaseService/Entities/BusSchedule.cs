@@ -17,5 +17,7 @@ namespace HSE_transport_manager.Entities
         public SubwayStation Destination { get; set; }
         [Required]
         public BusPrice Price { get; set; }
+        [Required]
+        public DateTime Date { get; set; }
     }
 }
