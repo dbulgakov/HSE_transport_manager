@@ -5,6 +5,14 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HSE_transport_manager", "HSE_transport_manager\HSE_transport_manager.csproj", "{B82200C0-EC3B-4A56-BC38-2A0295E78951}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UberService", "UberService\UberService.csproj", "{10A804EF-6332-4FE7-912B-F91382FA447B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YandexScheduleService", "YandexScheduleService\YandexScheduleService.csproj", "{894A5E05-765A-41EF-B5A9-C3840589A797}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDatabaseService", "MSDatabaseService\MSDatabaseService.csproj", "{D87C9309-81A9-450A-B66F-0F0A6AC41C98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HSE_transport_manager.Common", "HSE_transport_manager.Common\HSE_transport_manager.Common.csproj", "{F3C4EC9C-2D9E-419B-96D2-DAB5CE3500AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +23,22 @@ Global
 		{B82200C0-EC3B-4A56-BC38-2A0295E78951}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B82200C0-EC3B-4A56-BC38-2A0295E78951}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B82200C0-EC3B-4A56-BC38-2A0295E78951}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10A804EF-6332-4FE7-912B-F91382FA447B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10A804EF-6332-4FE7-912B-F91382FA447B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10A804EF-6332-4FE7-912B-F91382FA447B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10A804EF-6332-4FE7-912B-F91382FA447B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{894A5E05-765A-41EF-B5A9-C3840589A797}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{894A5E05-765A-41EF-B5A9-C3840589A797}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{894A5E05-765A-41EF-B5A9-C3840589A797}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{894A5E05-765A-41EF-B5A9-C3840589A797}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D87C9309-81A9-450A-B66F-0F0A6AC41C98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D87C9309-81A9-450A-B66F-0F0A6AC41C98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D87C9309-81A9-450A-B66F-0F0A6AC41C98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D87C9309-81A9-450A-B66F-0F0A6AC41C98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3C4EC9C-2D9E-419B-96D2-DAB5CE3500AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3C4EC9C-2D9E-419B-96D2-DAB5CE3500AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3C4EC9C-2D9E-419B-96D2-DAB5CE3500AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3C4EC9C-2D9E-419B-96D2-DAB5CE3500AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
