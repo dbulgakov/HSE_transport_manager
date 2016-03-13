@@ -48,6 +48,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context.cs" />
+    <Compile Include="Entities\BusPrice.cs" />
+    <Compile Include="Entities\BusSchedule.cs" />
+    <Compile Include="Entities\Dormitory.cs" />
+    <Compile Include="Entities\DubkiBusSchedule.cs" />
+    <Compile Include="Entities\HSEBuilding.cs" />
+    <Compile Include="Entities\LocalTrainPrice.cs" />
+    <Compile Include="Entities\LocalTrainSchedule.cs" />
+    <Compile Include="Entities\LocalTrainStation.cs" />
+    <Compile Include="Entities\LocalTrainStop.cs" />
+    <Compile Include="Entities\SubwayElapsedTime.cs" />
+    <Compile Include="Entities\SubwayStation.cs" />
+    <Compile Include="Entities\TramPrice.cs" />
+    <Compile Include="Entities\TramSchedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
