@@ -39,6 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ITaxiService.cs" />
+    <Compile Include="ITransportSchedulerService.cs" />
+    <Compile Include="Models\Coordinate.cs" />
+    <Compile Include="Models\TripData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
