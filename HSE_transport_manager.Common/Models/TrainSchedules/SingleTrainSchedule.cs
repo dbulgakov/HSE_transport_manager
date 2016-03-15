@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HSE_transport_manager.Common.Models.TrainSchedules
 {
-    class SingleTrainSchedule
+    public class SingleTrainSchedule
     {
         public string TrainUid { get; set; }
 

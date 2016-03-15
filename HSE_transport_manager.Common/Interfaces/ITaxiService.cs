@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using HSE_transport_manager.Common.Models.TaxiData;
 
-namespace HSE_transport_manager.Common
+namespace HSE_transport_manager.Common.Interfaces
 {
-    interface ITaxiService
+    public interface ITaxiService
     {
-        TripData GetRoute(Coordinate startingPoint, Coordinate endingPoint);
+        TaxiTripData GetRoute(Coordinate startingPoint, Coordinate endingPoint);
     }
 }
