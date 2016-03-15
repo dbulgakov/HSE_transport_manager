@@ -39,9 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ITaxiService.cs" />
-    <Compile Include="ITransportSchedulerService.cs" />
-    <Compile Include="ITransportService.cs" />
+    <Compile Include="Interfaces\ITaxiService.cs" />
+    <Compile Include="Interfaces\ITransportSchedulerService.cs" />
+    <Compile Include="Interfaces\ITransportService.cs" />
     <Compile Include="Models\Coordinate.cs" />
     <Compile Include="Models\TaxiTripData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
