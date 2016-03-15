@@ -20,5 +20,8 @@ namespace UberService.DTO.Response
 
         [JsonProperty("distance")]
         public double Distance { get; set; }
+
+        [JsonProperty("duration")]
+        public int Duration { get; set; }
     }
 }
