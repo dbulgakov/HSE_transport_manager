@@ -56,6 +56,7 @@
     <Compile Include="DTO\Response\PriceQueryResponse.cs" />
     <Compile Include="DTO\Response\RideOffer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestBuilder.cs" />
     <Compile Include="UberService.cs" />
   </ItemGroup>
   <ItemGroup>
