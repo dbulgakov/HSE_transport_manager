@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HSE_transport_manager.Common
+namespace HSE_transport_manager.Common.Interfaces
 {
-    interface ITransportService
+    public interface ITransportService
     {
         void Initialize(string authKey);
     }

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HSE_transport_manager.Common.Models.TaxiData;
+using HSE_transport_manager.Common.Models.TrainSchedules;
 
-namespace HSE_transport_manager.Common
+namespace HSE_transport_manager.Common.Interfaces
 {
-    interface ITransportSchedulerService
+    public interface ITransportSchedulerService
     {
-        TripData GetRoute(string startingStation, string endingStation);
+         DailyTrainSchedule GetRoute(string startingStation, string endingStation);
     }
 }
