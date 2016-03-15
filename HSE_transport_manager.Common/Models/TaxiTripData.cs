@@ -14,7 +14,7 @@ namespace HSE_transport_manager.Common.Models
         Taxi
     }
 
-    public class TripData
+    public class TaxiTripData
     {
         public double Price { get; set; }
         public DateTime Duration { get; set; }

@@ -9,6 +9,6 @@ namespace HSE_transport_manager.Common
 {
     interface ITransportSchedulerService
     {
-        TripData GetRoute(string startingStation, string endingStation);
+        TaxiTripData GetRoute(string startingStation, string endingStation);
     }
 }

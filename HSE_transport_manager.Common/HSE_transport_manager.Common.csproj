@@ -43,7 +43,7 @@
     <Compile Include="ITransportSchedulerService.cs" />
     <Compile Include="ITransportService.cs" />
     <Compile Include="Models\Coordinate.cs" />
-    <Compile Include="Models\TripData.cs" />
+    <Compile Include="Models\TaxiTripData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
