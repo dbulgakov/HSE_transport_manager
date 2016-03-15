@@ -11,7 +11,9 @@ namespace HSE_transport_manager.Entities
     {
         public int Id { get; set; }
         [Required]
-        public LocalTrainStop Station { get; set; }
+        public LocalTrainStop StationFrom { get; set; }
+        [Required]
+        public LocalTrainStop StationTo { get; set; }
         [Required]
         public double Price { get; set; }
     }

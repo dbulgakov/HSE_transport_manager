@@ -67,6 +67,10 @@
     <Compile Include="Migrations\201603131716429_Initial.Designer.cs">
       <DependentUpon>201603131716429_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603151807297_DropCreateColumns.cs" />
+    <Compile Include="Migrations\201603151807297_DropCreateColumns.Designer.cs">
+      <DependentUpon>201603151807297_DropCreateColumns.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -77,6 +81,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201603131716429_Initial.resx">
       <DependentUpon>201603131716429_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603151807297_DropCreateColumns.resx">
+      <DependentUpon>201603151807297_DropCreateColumns.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -14,7 +14,7 @@ namespace HSE_transport_manager.Entities
         [Required]
         public string Uid { get; set; }
         [Required]
-        public DateTime Date { get; set; }
+        public LocalTrainStation DepartureStation { get; set; }
         public List<LocalTrainStop> Stops { get; set; }
     }
 }

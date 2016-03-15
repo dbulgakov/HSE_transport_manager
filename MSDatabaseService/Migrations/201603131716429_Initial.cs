@@ -129,7 +129,7 @@ namespace MSDatabaseService.Migrations
                         Station_Id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.LocalTrainStops", t => t.Station_Id, cascadeDelete: true)
+                .ForeignKey("dbo.LocalTrainStops", t => t.Station_Id, cascadeDelete: false)
                 .Index(t => t.Station_Id);
             
             CreateTable(

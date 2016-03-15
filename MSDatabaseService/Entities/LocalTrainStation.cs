@@ -8,11 +8,10 @@ using System.ComponentModel.DataAnnotations;
 namespace HSE_transport_manager.Entities
 {
     class LocalTrainStation
-    {
-        public int Id { get; set; }
+    { 
+        [Key]
+        public string Code { get; set; }
         [Required]
         public string Name { get; set; }
-        [Required]
-        public string Code { get; set; }
     }
 }
