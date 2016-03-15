@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HSE_transport_manager.Common.Models;
 
 namespace HSE_transport_manager.Common
 {
-    interface ITaxiService
+    interface ITransportService
     {
-        TripData GetRoute(Coordinate startingPoint, Coordinate endingPoint);
+        void Initialize(string authKey);
     }
 }

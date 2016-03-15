@@ -9,7 +9,6 @@ namespace HSE_transport_manager.Common
 {
     interface ITransportSchedulerService
     {
-        void Initialize();
         TripData GetRoute(string startingStation, string endingStation);
     }
 }

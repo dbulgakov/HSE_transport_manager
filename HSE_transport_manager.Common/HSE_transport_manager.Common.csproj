@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="ITaxiService.cs" />
     <Compile Include="ITransportSchedulerService.cs" />
+    <Compile Include="ITransportService.cs" />
     <Compile Include="Models\Coordinate.cs" />
     <Compile Include="Models\TripData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
