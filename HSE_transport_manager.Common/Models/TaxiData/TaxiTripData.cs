@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HSE_transport_manager.Common.Models
+namespace HSE_transport_manager.Common.Models.TaxiData
 {
     public enum Transport
     {
@@ -14,7 +14,7 @@ namespace HSE_transport_manager.Common.Models
         Taxi
     }
 
-    public class TaxiTripData
+    public class TripData
     {
         public double Price { get; set; }
         public DateTime Duration { get; set; }

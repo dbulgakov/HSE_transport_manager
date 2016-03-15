@@ -42,8 +42,8 @@
     <Compile Include="Interfaces\ITaxiService.cs" />
     <Compile Include="Interfaces\ITransportSchedulerService.cs" />
     <Compile Include="Interfaces\ITransportService.cs" />
-    <Compile Include="Models\Coordinate.cs" />
-    <Compile Include="Models\TaxiTripData.cs" />
+    <Compile Include="Models\TaxiData\Coordinate.cs" />
+    <Compile Include="Models\TaxiData\TaxiTripData.cs" />
     <Compile Include="Models\TrainSchedules\DailyTrainSchedule.cs" />
     <Compile Include="Models\TrainSchedules\SingleTrainSchedule.cs" />
     <Compile Include="Models\TrainSchedules\TrainStation.cs" />
