@@ -10,9 +10,11 @@ namespace UberService
 {
     class UberService : ITransportService, ITaxiService
     {
+        private string _authKey;
+
         public void Initialize(string authKey)
         {
-            throw new NotImplementedException();
+            _authKey = authKey;
         }
 
         public TaxiTripData GetRoute(Coordinate startingPoint, Coordinate endingPoint)
