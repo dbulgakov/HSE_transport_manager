@@ -10,8 +10,6 @@ namespace MSDatabaseService
 {
     class Context: DbContext  
     {
-        public DbSet<TramSchedule> TramsSchedule { get; set; }
-        public DbSet<TramPrice> TramPrices { get; set; }
         public DbSet<SubwayStation> SubwayStations { get; set; }
         public DbSet<SubwayElapsedTime> SubwayRouteElapsedTime { get; set; }
         public DbSet<LocalTrainSchedule> LocalTrainsSchedule { get; set; }
@@ -21,8 +19,8 @@ namespace MSDatabaseService
         public DbSet<HSEBuilding> HSEBuildings { get; set; }
         public DbSet<Dormitory> Dormitories { get; set; }
         public DbSet<DubkiBusSchedule> DubkiBusesSchedule { get; set; }
-        public DbSet<BusSchedule> BusesSchedule { get; set; }
-        public DbSet<BusPrice> BusPrices { get; set; }
+        public DbSet<PublicTransport> BusesSchedule { get; set; }
+        public DbSet<PublicTransportPrice> BusPrices { get; set; }
         public Context()
             : base("HSE_transport_manager")
         {

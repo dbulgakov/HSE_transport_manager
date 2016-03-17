@@ -7,15 +7,17 @@ using System.Threading.Tasks;
 
 namespace HSE_transport_manager.Entities
 {
-    class TramSchedule
+    class PublicTransport
     {
         [Key]
         public DateTime DepartureTime { get; set; }
         [Required]
         public int Number { get; set; }
         [Required]
-        public string Stop { get; set; }
+        public SubwayStation SubwayStation { get; set; }
         [Required]
-        public TramPrice Price { get; set; }
+        public PublicTransportPrice Price { get; set; }
+        [Required]
+        public string From { get; set; }
     }
 }

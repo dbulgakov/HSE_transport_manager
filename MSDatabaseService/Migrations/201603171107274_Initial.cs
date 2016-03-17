@@ -8,19 +8,35 @@ namespace MSDatabaseService.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.BusSchedules",
+                "dbo.PublicTransports",
                 c => new
                     {
                         DepartureTime = c.DateTime(nullable: false),
                         Number = c.Int(nullable: false),
-                        Destination_Id = c.Int(nullable: false),
+                        From = c.String(nullable: false),
                         Price_Id = c.Int(nullable: false),
+                        SubwayStation_Id = c.Int(nullable: false),
+                        Dormitory_Id = c.Int(),
+                        Dormitory_Id1 = c.Int(),
                     })
                 .PrimaryKey(t => t.DepartureTime)
-                .ForeignKey("dbo.SubwayStations", t => t.Destination_Id, cascadeDelete: true)
-                .ForeignKey("dbo.BusPrices", t => t.Price_Id, cascadeDelete: true)
-                .Index(t => t.Destination_Id)
-                .Index(t => t.Price_Id);
+                .ForeignKey("dbo.PublicTransportPrices", t => t.Price_Id, cascadeDelete: true)
+                .ForeignKey("dbo.SubwayStations", t => t.SubwayStation_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Dormitories", t => t.Dormitory_Id)
+                .ForeignKey("dbo.Dormitories", t => t.Dormitory_Id1)
+                .Index(t => t.Price_Id)
+                .Index(t => t.SubwayStation_Id)
+                .Index(t => t.Dormitory_Id)
+                .Index(t => t.Dormitory_Id1);
+            
+            CreateTable(
+                "dbo.PublicTransportPrices",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Price = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.SubwayStations",
@@ -40,71 +56,37 @@ namespace MSDatabaseService.Migrations
                 .Index(t => t.HSEBuilding_Id);
             
             CreateTable(
-                "dbo.BusPrices",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Price = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
                 "dbo.Dormitories",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false),
                         Region = c.String(),
                         City = c.String(nullable: false),
                         Address = c.String(nullable: false),
                         Latitude = c.Double(nullable: false),
                         Longitude = c.Double(nullable: false),
-                        LocalTrainStation_Id = c.Int(),
+                        CheckDubkiBus = c.Boolean(nullable: false),
+                        LocalTrainStation_Code = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.LocalTrainStations", t => t.LocalTrainStation_Id)
-                .Index(t => t.LocalTrainStation_Id);
+                .ForeignKey("dbo.LocalTrainStations", t => t.LocalTrainStation_Code)
+                .Index(t => t.LocalTrainStation_Code);
             
             CreateTable(
                 "dbo.LocalTrainStations",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Code = c.String(nullable: false, maxLength: 128),
                         Name = c.String(nullable: false),
-                        Code = c.String(nullable: false),
                     })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.TramSchedules",
-                c => new
-                    {
-                        DepartureTime = c.DateTime(nullable: false),
-                        Number = c.Int(nullable: false),
-                        Stop = c.String(nullable: false),
-                        Price_Id = c.Int(nullable: false),
-                        Dormitory_Id = c.Int(),
-                    })
-                .PrimaryKey(t => t.DepartureTime)
-                .ForeignKey("dbo.TramPrices", t => t.Price_Id, cascadeDelete: true)
-                .ForeignKey("dbo.Dormitories", t => t.Dormitory_Id)
-                .Index(t => t.Price_Id)
-                .Index(t => t.Dormitory_Id);
-            
-            CreateTable(
-                "dbo.TramPrices",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Price = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Code);
             
             CreateTable(
                 "dbo.DubkiBusSchedules",
                 c => new
                     {
                         DepartureTime = c.DateTime(nullable: false),
+                        From = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.DepartureTime);
             
@@ -113,7 +95,6 @@ namespace MSDatabaseService.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
                         Address = c.String(nullable: false),
                         Latitude = c.Double(nullable: false),
                         Longitude = c.Double(nullable: false),
@@ -126,11 +107,14 @@ namespace MSDatabaseService.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Price = c.Double(nullable: false),
-                        Station_Id = c.Int(nullable: false),
+                        StationFrom_Id = c.Int(nullable: false),
+                        StationTo_Id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.LocalTrainStops", t => t.Station_Id, cascadeDelete: false)
-                .Index(t => t.Station_Id);
+                .ForeignKey("dbo.LocalTrainStops", t => t.StationFrom_Id, cascadeDelete: true)
+                .ForeignKey("dbo.LocalTrainStops", t => t.StationTo_Id, cascadeDelete: true)
+                .Index(t => t.StationFrom_Id)
+                .Index(t => t.StationTo_Id);
             
             CreateTable(
                 "dbo.LocalTrainStops",
@@ -139,13 +123,13 @@ namespace MSDatabaseService.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         ArrivalTime = c.DateTime(nullable: false),
                         ElapsedTime = c.DateTime(nullable: false),
-                        Station_Id = c.Int(nullable: false),
+                        Station_Code = c.String(nullable: false, maxLength: 128),
                         LocalTrainSchedule_DepartureTime = c.DateTime(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.LocalTrainStations", t => t.Station_Id, cascadeDelete: true)
+                .ForeignKey("dbo.LocalTrainStations", t => t.Station_Code, cascadeDelete: true)
                 .ForeignKey("dbo.LocalTrainSchedules", t => t.LocalTrainSchedule_DepartureTime)
-                .Index(t => t.Station_Id)
+                .Index(t => t.Station_Code)
                 .Index(t => t.LocalTrainSchedule_DepartureTime);
             
             CreateTable(
@@ -154,9 +138,11 @@ namespace MSDatabaseService.Migrations
                     {
                         DepartureTime = c.DateTime(nullable: false),
                         Uid = c.String(nullable: false),
-                        Date = c.DateTime(nullable: false),
+                        DepartureStation_Code = c.String(nullable: false, maxLength: 128),
                     })
-                .PrimaryKey(t => t.DepartureTime);
+                .PrimaryKey(t => t.DepartureTime)
+                .ForeignKey("dbo.LocalTrainStations", t => t.DepartureStation_Code, cascadeDelete: true)
+                .Index(t => t.DepartureStation_Code);
             
             CreateTable(
                 "dbo.SubwayElapsedTimes",
@@ -168,8 +154,8 @@ namespace MSDatabaseService.Migrations
                         StationTo_Id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.SubwayStations", t => t.StationFrom_Id, cascadeDelete: false)
-                .ForeignKey("dbo.SubwayStations", t => t.StationTo_Id, cascadeDelete: false)
+                .ForeignKey("dbo.SubwayStations", t => t.StationFrom_Id, cascadeDelete: true)
+                .ForeignKey("dbo.SubwayStations", t => t.StationTo_Id, cascadeDelete: true)
                 .Index(t => t.StationFrom_Id)
                 .Index(t => t.StationTo_Id);
             
@@ -180,40 +166,42 @@ namespace MSDatabaseService.Migrations
             DropForeignKey("dbo.SubwayElapsedTimes", "StationTo_Id", "dbo.SubwayStations");
             DropForeignKey("dbo.SubwayElapsedTimes", "StationFrom_Id", "dbo.SubwayStations");
             DropForeignKey("dbo.LocalTrainStops", "LocalTrainSchedule_DepartureTime", "dbo.LocalTrainSchedules");
-            DropForeignKey("dbo.LocalTrainPrices", "Station_Id", "dbo.LocalTrainStops");
-            DropForeignKey("dbo.LocalTrainStops", "Station_Id", "dbo.LocalTrainStations");
+            DropForeignKey("dbo.LocalTrainSchedules", "DepartureStation_Code", "dbo.LocalTrainStations");
+            DropForeignKey("dbo.LocalTrainPrices", "StationTo_Id", "dbo.LocalTrainStops");
+            DropForeignKey("dbo.LocalTrainPrices", "StationFrom_Id", "dbo.LocalTrainStops");
+            DropForeignKey("dbo.LocalTrainStops", "Station_Code", "dbo.LocalTrainStations");
             DropForeignKey("dbo.SubwayStations", "HSEBuilding_Id", "dbo.HSEBuildings");
-            DropForeignKey("dbo.TramSchedules", "Dormitory_Id", "dbo.Dormitories");
-            DropForeignKey("dbo.TramSchedules", "Price_Id", "dbo.TramPrices");
+            DropForeignKey("dbo.PublicTransports", "Dormitory_Id1", "dbo.Dormitories");
             DropForeignKey("dbo.SubwayStations", "Dormitory_Id", "dbo.Dormitories");
-            DropForeignKey("dbo.Dormitories", "LocalTrainStation_Id", "dbo.LocalTrainStations");
-            DropForeignKey("dbo.BusSchedules", "Price_Id", "dbo.BusPrices");
-            DropForeignKey("dbo.BusSchedules", "Destination_Id", "dbo.SubwayStations");
+            DropForeignKey("dbo.Dormitories", "LocalTrainStation_Code", "dbo.LocalTrainStations");
+            DropForeignKey("dbo.PublicTransports", "Dormitory_Id", "dbo.Dormitories");
+            DropForeignKey("dbo.PublicTransports", "SubwayStation_Id", "dbo.SubwayStations");
+            DropForeignKey("dbo.PublicTransports", "Price_Id", "dbo.PublicTransportPrices");
             DropIndex("dbo.SubwayElapsedTimes", new[] { "StationTo_Id" });
             DropIndex("dbo.SubwayElapsedTimes", new[] { "StationFrom_Id" });
+            DropIndex("dbo.LocalTrainSchedules", new[] { "DepartureStation_Code" });
             DropIndex("dbo.LocalTrainStops", new[] { "LocalTrainSchedule_DepartureTime" });
-            DropIndex("dbo.LocalTrainStops", new[] { "Station_Id" });
-            DropIndex("dbo.LocalTrainPrices", new[] { "Station_Id" });
-            DropIndex("dbo.TramSchedules", new[] { "Dormitory_Id" });
-            DropIndex("dbo.TramSchedules", new[] { "Price_Id" });
-            DropIndex("dbo.Dormitories", new[] { "LocalTrainStation_Id" });
+            DropIndex("dbo.LocalTrainStops", new[] { "Station_Code" });
+            DropIndex("dbo.LocalTrainPrices", new[] { "StationTo_Id" });
+            DropIndex("dbo.LocalTrainPrices", new[] { "StationFrom_Id" });
+            DropIndex("dbo.Dormitories", new[] { "LocalTrainStation_Code" });
             DropIndex("dbo.SubwayStations", new[] { "HSEBuilding_Id" });
             DropIndex("dbo.SubwayStations", new[] { "Dormitory_Id" });
-            DropIndex("dbo.BusSchedules", new[] { "Price_Id" });
-            DropIndex("dbo.BusSchedules", new[] { "Destination_Id" });
+            DropIndex("dbo.PublicTransports", new[] { "Dormitory_Id1" });
+            DropIndex("dbo.PublicTransports", new[] { "Dormitory_Id" });
+            DropIndex("dbo.PublicTransports", new[] { "SubwayStation_Id" });
+            DropIndex("dbo.PublicTransports", new[] { "Price_Id" });
             DropTable("dbo.SubwayElapsedTimes");
             DropTable("dbo.LocalTrainSchedules");
             DropTable("dbo.LocalTrainStops");
             DropTable("dbo.LocalTrainPrices");
             DropTable("dbo.HSEBuildings");
             DropTable("dbo.DubkiBusSchedules");
-            DropTable("dbo.TramPrices");
-            DropTable("dbo.TramSchedules");
             DropTable("dbo.LocalTrainStations");
             DropTable("dbo.Dormitories");
-            DropTable("dbo.BusPrices");
             DropTable("dbo.SubwayStations");
-            DropTable("dbo.BusSchedules");
+            DropTable("dbo.PublicTransportPrices");
+            DropTable("dbo.PublicTransports");
         }
     }
 }

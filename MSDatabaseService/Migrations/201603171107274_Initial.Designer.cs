@@ -7,13 +7,13 @@ namespace MSDatabaseService.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class DropCreateColumns : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(DropCreateColumns));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201603151807297_DropCreateColumns"; }
+            get { return "201603171107274_Initial"; }
         }
         
         string IMigrationMetadata.Source

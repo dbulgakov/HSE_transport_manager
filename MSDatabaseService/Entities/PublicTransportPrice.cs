@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HSE_transport_manager.Entities
 {
-    class BusPrice
+    class PublicTransportPrice
     {
         public int Id { get; set; }
         [Required]

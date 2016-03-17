@@ -50,8 +50,8 @@
   <ItemGroup>
     <Compile Include="Context.cs" />
     <Compile Include="DatabaseQuery.cs" />
-    <Compile Include="Entities\BusPrice.cs" />
-    <Compile Include="Entities\BusSchedule.cs" />
+    <Compile Include="Entities\PublicTransportPrice.cs" />
+    <Compile Include="Entities\PublicTransport.cs" />
     <Compile Include="Entities\Dormitory.cs" />
     <Compile Include="Entities\DubkiBusSchedule.cs" />
     <Compile Include="Entities\HSEBuilding.cs" />
@@ -61,17 +61,14 @@
     <Compile Include="Entities\LocalTrainStop.cs" />
     <Compile Include="Entities\SubwayElapsedTime.cs" />
     <Compile Include="Entities\SubwayStation.cs" />
-    <Compile Include="Entities\TramPrice.cs" />
-    <Compile Include="Entities\TramSchedule.cs" />
-    <Compile Include="Migrations\201603131716429_Initial.cs" />
-    <Compile Include="Migrations\201603131716429_Initial.Designer.cs">
-      <DependentUpon>201603131716429_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603151807297_DropCreateColumns.cs" />
-    <Compile Include="Migrations\201603151807297_DropCreateColumns.Designer.cs">
-      <DependentUpon>201603151807297_DropCreateColumns.cs</DependentUpon>
+    <Compile Include="Migrations\201603171107274_Initial.cs" />
+    <Compile Include="Migrations\201603171107274_Initial.Designer.cs">
+      <DependentUpon>201603171107274_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DormitoryData.cs" />
+    <Compile Include="Models\HSEBuildingData.cs" />
+    <Compile Include="Models\SubwayStationData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -79,11 +76,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603131716429_Initial.resx">
-      <DependentUpon>201603131716429_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603151807297_DropCreateColumns.resx">
-      <DependentUpon>201603151807297_DropCreateColumns.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201603171107274_Initial.resx">
+      <DependentUpon>201603171107274_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -10,6 +10,8 @@ namespace HSE_transport_manager.Entities
     class DubkiBusSchedule
     {
         [Key]
-        public DateTime DepartureTime { get; set; } 
+        public DateTime DepartureTime { get; set; }
+        [Required]
+        public string From { get; set; }
     }
 }
