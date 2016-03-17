@@ -33,7 +33,9 @@ namespace YandexScheduleService
             {
                 var scheduledTrains = new List<SingleTrainSchedule>();
                 var requestString = _requestBuilder.ThreadsListRequest(startingStationCode, endingStationCode);
+
                 HttpClient client = new HttpClient();
+
                 var responseString = client.GetAsync(requestString).Result.Content.ReadAsStringAsync().Result;
                 var threadListResponse = JsonConvert.DeserializeObject<TrainThreadsListResponse>(responseString);
 
@@ -66,13 +68,7 @@ namespace YandexScheduleService
 
                 var trainStopList = ConvertStopList(threadInfoResponse);
 
-                var trainSchedule = new SingleTrainSchedule
-                {   
-                    TrainUid = transportId,
-                    DepartureTime = threadInfoResponse.StartTime,
-                    Stops = trainStopList
-                };
-                return trainSchedule;
+                return CreateTrainSchedule(transportId, threadInfoResponse.StartTime, trainStopList);
             });
         }
 
@@ -86,15 +82,8 @@ namespace YandexScheduleService
                 var responseString = client.GetAsync(requestString).Result.Content.ReadAsStringAsync().Result;
                 var threadInfoResponse = JsonConvert.DeserializeObject<TrainThreadInfoResponse>(responseString);
 
-                var trainStopList = ConvertStopList(threadInfoResponse);
-
-                var trainSchedule = new SingleTrainSchedule
-                {
-                    TrainUid = transportId,
-                    DepartureTime = threadInfoResponse.StartTime,
-                    Stops = trainStopList
-                };
-                return trainSchedule;
+                var trainStopList = ConvertStopList(threadInfoResponse, baseStationId);
+                return CreateTrainSchedule(transportId, threadInfoResponse.StartTime, trainStopList);
             });
         }
 
@@ -141,6 +130,19 @@ namespace YandexScheduleService
                 });
             }
             return StopList;
+        }
+
+
+        private SingleTrainSchedule CreateTrainSchedule(string transportId, DateTime departureTime,
+            List<HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop> stops)
+        {
+            var trainSchedule = new SingleTrainSchedule
+            {
+                TrainUid = transportId,
+                DepartureTime = departureTime,
+                Stops = stops
+            };
+            return trainSchedule;
         }
     }
 }
