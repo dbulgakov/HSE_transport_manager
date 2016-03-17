@@ -59,7 +59,7 @@ namespace YandexScheduleService
             return StopList;
         }
 
-        private async Task<List<HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop>> ConvertStopListAsync(
+        private List<HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop> ConvertStopList(
            TrainThreadInfoResponse trainThread, string baseStationId)
         {
             var StopList = new List<HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop>();
