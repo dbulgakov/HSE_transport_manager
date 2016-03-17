@@ -3,16 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HSE_transport_manager.Common.Interfaces;
 
 namespace HSE_transport_manager.Common.Models.TaxiData
 {
-    public enum Transport
-    {
-        Suburban,
-        Tram,
-        Bus,
-        Taxi
-    }
+
 
     public class TaxiTripData
     {
