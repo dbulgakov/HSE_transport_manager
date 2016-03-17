@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HSE_transport_manager.Common.Models.TrainSchedules
+namespace HSE_transport_manager.Common.Models.TrainSchedulesData
 {
-    public class DailyTrainSchedule
+    public class SingleTrainSchedule
     {
-        public List<SingleTrainSchedule> ScheduledTrains { get; set; }
+        public string TrainUid { get; set; }
+
+        public List<TrainStop> Stops { get; set; }
+
+        public DateTime DepartureTime { get; set; }
 
         public TrainStation DepartureStation { get; set; }
 
