@@ -1,6 +1,8 @@
 namespace MSDatabaseService.Migrations
 {
+    using HSE_transport_manager.Entities;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -26,6 +28,136 @@ namespace MSDatabaseService.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+
+            //LocalTrainStations
+            context.LocalTrainStations.AddOrUpdate(
+                s => s.Name,
+                new LocalTrainStation
+                {
+                    Code = "s9600721",
+                    Name = "Одинцово"
+                },
+                new LocalTrainStation 
+                {
+                    Code = "s9601728",
+                    Name="Кунцево"
+                },
+                new LocalTrainStation
+                {
+                    Code = "s9600821",
+                    Name = "Фили"
+                },
+                new LocalTrainStation
+                {
+                    Code = "s9601666",
+                    Name = "Беговая"
+                },
+                new LocalTrainStation
+                {
+                    Code = "s2000006",
+                    Name = "Белорусский вокзал"
+                });
+            context.SaveChanges();
+
+
+            //PublicTransport
+            //Soon
+
+            //PublicTransportPrices
+            //Soon
+
+            //DayWeek
+            //Soon
+
+            //DubkiBusSchedule
+            //Soon
+
+            //LocalTrainPrice
+            context.LocalTrainPrices.AddOrUpdate(
+                p => p.Id,
+                new LocalTrainPrice
+                {
+                    StationFrom = context.LocalTrainStations.Single(s => s.Name == "Одинцово"),
+                    StationTo = context.LocalTrainStations.Single(s => s.Name == "Кунцево"),
+                    Price = 20.50,
+                    ModifiedDate = DateTime.Now
+                },
+                new LocalTrainPrice
+                {
+                    StationFrom = context.LocalTrainStations.Single(s => s.Name == "Одинцово"),
+                    StationTo = context.LocalTrainStations.Single(s => s.Name == "Фили"),
+                    Price = 20.50,
+                    ModifiedDate = DateTime.Now
+                },
+                new LocalTrainPrice
+                {
+                    StationFrom = context.LocalTrainStations.Single(s => s.Name == "Одинцово"),
+                    StationTo = context.LocalTrainStations.Single(s => s.Name == "Беговая"),
+                    Price = 41,
+                    ModifiedDate = DateTime.Now
+                },
+                new LocalTrainPrice
+                {
+                    StationFrom = context.LocalTrainStations.Single(s => s.Name == "Одинцово"),
+                    StationTo = context.LocalTrainStations.Single(s => s.Name == "Белорусский вокзал"),
+                    Price = 61.50,
+                    ModifiedDate = DateTime.Now
+                });
+            context.SaveChanges();
+
+            //SubwayStations
+            var subwayData = LoadFromCSV.LoadSubwayStationData("MSDatabaseService.Data.SubwayStations.csv");
+            foreach (var station in subwayData)
+                context.SubwayStations.AddOrUpdate(
+                    s => s.Name,
+                    new SubwayStation
+                    {
+                        Name = station.Name,
+                        Latitude = station.Latitude,
+                        Longitude = station.Longitude
+                    });
+            context.SaveChanges();
+
+            //SubwayStationsElapsedTime
+            //Soon
+
+            //Dormitories
+            //var dormData = LoadFromCSV.LoadDormitoryData("MSDatabaseService.Data.Dormitories.csv");
+            //foreach (var dorm in dormData)
+            //    context.Dormitories.AddOrUpdate(
+            //        d => d.Address,
+            //        new Dormitory
+            //        {
+            //            Name = dorm.Name,
+            //            Region = dorm.Region,
+            //            City = dorm.City,
+            //            Address = dorm.Address,
+            //            Latitude = dorm.Latitude,
+            //            Longitude = dorm.Longitude,
+            //            SubwayStation = context.SubwayStations.Where(s => dorm.SubwayStation.Contains(s.Name)).ToList(),
+            //            CheckDubkiBus = dorm.ChechDubkiBus,
+            //            LocalTrainStation = context.LocalTrainStations.Single(s => s.Name == dorm.LocalTrainStation),
+            //            From = context.PublicTransportSchedule.Where(t => dorm.From.Contains(t.Number.ToString())).ToList(),
+            //            To = context.PublicTransportSchedule.Where(t => dorm.To.Contains(t.Number.ToString())).ToList()
+            //        });
+            //context.SaveChanges();
+
+            //HSEBuildings
+            var hseBuildings = LoadFromCSV.LoadHSEBuildingData("MSDatabaseService.Data.HSEBuildings.csv");
+            foreach (var hse in hseBuildings)
+                context.HSEBuildings.AddOrUpdate(
+                    h => h.Address,
+                    new HSEBuilding
+                    {
+                        Name = hse.Name,
+                        Address = hse.Address,
+                        Latitude = hse.Latitude,
+                        Longitude = hse.Longitude,
+                        //?????
+                        SubwayStation = context.SubwayStations.Where(s => hse.SubwayStation.Contains(s.Name)).ToList()
+                    });
+            context.SaveChanges();
         }
     }
 }

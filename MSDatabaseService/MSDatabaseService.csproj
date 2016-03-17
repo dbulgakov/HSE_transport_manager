@@ -75,6 +75,10 @@
     <Compile Include="Migrations\201603172038562_SomeChanges.Designer.cs">
       <DependentUpon>201603172038562_SomeChanges.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603172117207_ManyToManyConnection.cs" />
+    <Compile Include="Migrations\201603172117207_ManyToManyConnection.Designer.cs">
+      <DependentUpon>201603172117207_ManyToManyConnection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DormitoryData.cs" />
     <Compile Include="Models\HSEBuildingData.cs">
@@ -94,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603172038562_SomeChanges.resx">
       <DependentUpon>201603172038562_SomeChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603172117207_ManyToManyConnection.resx">
+      <DependentUpon>201603172117207_ManyToManyConnection.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <EmbeddedResource Include="Data\Dormitories.csv" />

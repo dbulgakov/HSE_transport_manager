@@ -17,7 +17,7 @@ namespace MSDatabaseService
             using (var stream = assembly.GetManifestResourceStream(filename))
             {
                 var dormitories = new List<DormitoryData>();
-                using (var sr = new StreamReader(stream))
+                using (var sr = new StreamReader(stream, Encoding.Default))
                 {
                     sr.ReadLine();
                     while (!sr.EndOfStream)
@@ -51,7 +51,7 @@ namespace MSDatabaseService
             using (var stream = assembly.GetManifestResourceStream(filename))
             {
                 var buildings = new List<HSEBuildingData>();
-                using (var sr = new StreamReader(stream))
+                using (var sr = new StreamReader(stream, Encoding.Default))
                 {
                     sr.ReadLine();
                     while (!sr.EndOfStream)
@@ -65,7 +65,7 @@ namespace MSDatabaseService
                                 Address = items[1],
                                 Latitude = double.Parse(items[2]),
                                 Longitude = double.Parse(items[3]),    
-                                SubwayStation = items[6].Split(',').ToList()
+                                SubwayStation = items[4].Split(',').ToList()
                             });
                     }
                 }
@@ -79,7 +79,7 @@ namespace MSDatabaseService
             using (var stream = assembly.GetManifestResourceStream(filename))
             {
                 var subway = new List<SubwayStationData>();
-                using (var sr = new StreamReader(stream))
+                using (var sr = new StreamReader(stream, Encoding.Default))
                 {
                     sr.ReadLine();
                     while (!sr.EndOfStream)
