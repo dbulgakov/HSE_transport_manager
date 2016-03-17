@@ -22,7 +22,12 @@ namespace YandexScheduleService
             _authKey = authKey;
         }
 
-        public Task<DailyTrainSchedule> GetScheduleAsync(string startingStationCode, string endingStationCode)
+        public Task<DailyTrainSchedule> GetDailyScheduleAsync(string startingStationCode, string endingStationCode)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<SingleTrainSchedule> GetScheduleAsync(string trainId)
         {
             throw new NotImplementedException();
         }

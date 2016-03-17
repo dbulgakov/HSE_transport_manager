@@ -9,6 +9,7 @@ namespace HSE_transport_manager.Common.Interfaces
 {
     public interface ITransportSchedulerService
     {
-         Task<DailyTrainSchedule> GetScheduleAsync(string startingStationCode, string endingStationCode);
+        Task<DailyTrainSchedule> GetDailyScheduleAsync(string startingStationCode, string endingStationCode);
+        Task<SingleTrainSchedule> GetScheduleAsync(string trainId);
     }
 }
