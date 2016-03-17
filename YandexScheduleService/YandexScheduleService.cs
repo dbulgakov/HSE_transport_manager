@@ -27,7 +27,7 @@ namespace YandexScheduleService
             throw new NotImplementedException();
         }
 
-        public Task<SingleTrainSchedule> GetScheduleAsync(string trainId)
+        public Task<SingleTrainSchedule> GetScheduleAsync(string transportId)
         {
             throw new NotImplementedException();
         }
