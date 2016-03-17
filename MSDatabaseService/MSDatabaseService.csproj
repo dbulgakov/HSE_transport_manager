@@ -82,9 +82,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Data\Dormitories.csv" />
-    <None Include="Data\HSEBuildings.csv" />
-    <None Include="Data\SubwayStations.csv" />
+    <EmbeddedResource Include="Data\Dormitories.csv" />
+    <EmbeddedResource Include="Data\HSEBuildings.csv" />
+    <EmbeddedResource Include="Data\SubwayStations.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
