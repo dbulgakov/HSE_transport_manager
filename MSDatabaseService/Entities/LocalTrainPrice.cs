@@ -16,5 +16,7 @@ namespace HSE_transport_manager.Entities
         public LocalTrainStation StationTo { get; set; }
         [Required]
         public double Price { get; set; }
+        [Required]
+        public DateTime ModifiedDate { get; set; }
     }
 }

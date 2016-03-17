@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Context.cs" />
     <Compile Include="DatabaseQuery.cs" />
+    <Compile Include="Entities\DayWeek.cs" />
     <Compile Include="Entities\PublicTransportPrice.cs" />
     <Compile Include="Entities\PublicTransport.cs" />
     <Compile Include="Entities\Dormitory.cs" />
@@ -66,6 +67,14 @@
     <Compile Include="Migrations\201603171638480_Initial.Designer.cs">
       <DependentUpon>201603171638480_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603171645456_CreateColumn.cs" />
+    <Compile Include="Migrations\201603171645456_CreateColumn.Designer.cs">
+      <DependentUpon>201603171645456_CreateColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603172038562_SomeChanges.cs" />
+    <Compile Include="Migrations\201603172038562_SomeChanges.Designer.cs">
+      <DependentUpon>201603172038562_SomeChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DormitoryData.cs" />
     <Compile Include="Models\HSEBuildingData.cs">
@@ -79,6 +88,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201603171638480_Initial.resx">
       <DependentUpon>201603171638480_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603171645456_CreateColumn.resx">
+      <DependentUpon>201603171645456_CreateColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603172038562_SomeChanges.resx">
+      <DependentUpon>201603172038562_SomeChanges.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <EmbeddedResource Include="Data\Dormitories.csv" />

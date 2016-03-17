@@ -15,6 +15,7 @@ namespace MSDatabaseService
         //{
         //    if (context.LocalTrainsSchedule!=null)
         //        RemoveTrainSchedule();
+
         //    var stopsList = new List<LocalTrainStop();
         //    foreach (var train in trainSchedule.SingleTrainSchedule)
         //    {

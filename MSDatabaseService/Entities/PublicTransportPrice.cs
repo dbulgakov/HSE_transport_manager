@@ -12,5 +12,7 @@ namespace HSE_transport_manager.Entities
         public int Id { get; set; }
         [Required]
         public int Price { get; set; }
+        [Required]
+        public DateTime ModifiedDate { get; set; }
     }
 }

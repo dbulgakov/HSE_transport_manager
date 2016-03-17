@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace MSDatabaseService
 {
-    class LoadFromCSV
+    public class LoadFromCSV
     {
-        public List<DormitoryData> LoadDormitoryData(string filename)
+        public static List<DormitoryData> LoadDormitoryData(string filename)
         {
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream(filename))
@@ -27,11 +27,11 @@ namespace MSDatabaseService
                         dormitories.Add(
                             new DormitoryData
                             {
-                                Name = items[0].Split(',').ToList(),
+                                Name = items[0],
                                 Region = items[1],
                                 City = items[2],
-                                Latitude = decimal.Parse(items[3]),
-                                Longitude = decimal.Parse(items[4]),
+                                Latitude = double.Parse(items[3]),
+                                Longitude = double.Parse(items[4]),
                                 Address = items[5],
                                 SubwayStation = items[6].Split(',').ToList(),
                                 LocalTrainStation = items[7],
@@ -45,7 +45,7 @@ namespace MSDatabaseService
             }
         }
 
-        public List<HSEBuildingData> LoadHSEBuildingData(string filename)
+        public static List<HSEBuildingData> LoadHSEBuildingData(string filename)
         {
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream(filename))
@@ -61,10 +61,10 @@ namespace MSDatabaseService
                         buildings.Add(
                             new HSEBuildingData
                             {
-                                Name = items[0].Split(',').ToList(),
+                                Name = items[0],
                                 Address = items[1],
-                                Latitude = decimal.Parse(items[2]),
-                                Longitude = decimal.Parse(items[3]),    
+                                Latitude = double.Parse(items[2]),
+                                Longitude = double.Parse(items[3]),    
                                 SubwayStation = items[6].Split(',').ToList()
                             });
                     }
@@ -73,7 +73,7 @@ namespace MSDatabaseService
             }
         }
 
-        public List<SubwayStationData> LoadSubwayStationData(string filename)
+        public static List<SubwayStationData> LoadSubwayStationData(string filename)
         {
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream(filename))
@@ -90,8 +90,8 @@ namespace MSDatabaseService
                             new SubwayStationData
                             {
                                 Name = items[0],
-                                Latitude = decimal.Parse(items[1]),
-                                Longitude = decimal.Parse(items[2])
+                                Latitude = double.Parse(items[1]),
+                                Longitude = double.Parse(items[2])
                             });
                     }
                 }

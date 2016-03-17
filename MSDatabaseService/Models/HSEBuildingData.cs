@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace MSDatabaseService.Models
 {
-    class HSEBuildingData
+    public class HSEBuildingData
     {
-        public List<string> Name { get; set; }
+        public string Name { get; set; }
         public string Address { get; set; }
-        public decimal Latitude { get; set; }   
-        public decimal Longitude { get; set; }
+        public double Latitude { get; set; }   
+        public double Longitude { get; set; }
         public List<string> SubwayStation { get; set; }
     }
 }

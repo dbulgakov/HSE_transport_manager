@@ -10,7 +10,8 @@ namespace HSE_transport_manager.Entities
     class HSEBuilding
     {
         public int Id { get; set; }
-        public List<string> Name { get; set; }
+        [Required]
+        public string Name { get; set; }
         [Required]
         public string Address { get; set; }
         public List<SubwayStation> SubwayStation { get; set; }
