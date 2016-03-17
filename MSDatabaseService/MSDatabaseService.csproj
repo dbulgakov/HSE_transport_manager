@@ -62,13 +62,9 @@
     <Compile Include="Entities\SubwayElapsedTime.cs" />
     <Compile Include="Entities\SubwayStation.cs" />
     <Compile Include="LoadFromCSV.cs" />
-    <Compile Include="Migrations\201603171107274_Initial.cs" />
-    <Compile Include="Migrations\201603171107274_Initial.Designer.cs">
-      <DependentUpon>201603171107274_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603171208385_AddField.cs" />
-    <Compile Include="Migrations\201603171208385_AddField.Designer.cs">
-      <DependentUpon>201603171208385_AddField.cs</DependentUpon>
+    <Compile Include="Migrations\201603171638480_Initial.cs" />
+    <Compile Include="Migrations\201603171638480_Initial.Designer.cs">
+      <DependentUpon>201603171638480_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DormitoryData.cs" />
@@ -81,19 +77,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201603171638480_Initial.resx">
+      <DependentUpon>201603171638480_Initial.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="App.config" />
     <EmbeddedResource Include="Data\Dormitories.csv" />
     <EmbeddedResource Include="Data\HSEBuildings.csv" />
     <EmbeddedResource Include="Data\SubwayStations.csv" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603171107274_Initial.resx">
-      <DependentUpon>201603171107274_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603171208385_AddField.resx">
-      <DependentUpon>201603171208385_AddField.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
