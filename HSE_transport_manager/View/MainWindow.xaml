@@ -1,8 +1,22 @@
-﻿<Window x:Class="HSE_transport_manager.MainWindow"
+﻿<controls:MetroWindow x:Class="HSE_transport_manager.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        Title="MainWindow" Height="350" Width="525" MaxHeight="350" MinHeight="350" MaxWidth="525" MinWidth="525"
+                      DataContext="{Binding Main, Source={StaticResource Locator}}">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Name="btn_control" Content="Control" Command="{Binding ControlViewCommand}"/>
+        <Button Name="btn_settings" Content="Settings" Grid.Column="1" Command="{Binding SettingsViewCommand}"/>
+        <Button Name="btn_statiscs" Content="Statistics" Grid.Column="2" Command="{Binding StatisticsViewCommand}"/>
+        <ContentControl Grid.Row="1" Grid.ColumnSpan="3" Content="{Binding CurrentViewModel}"/>
     </Grid>
-</Window>
+</controls:MetroWindow>

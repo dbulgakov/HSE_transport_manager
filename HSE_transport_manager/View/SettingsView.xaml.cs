@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HSE_transport_manager
+namespace HSE_transport_manager.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SettingsView.xaml
     /// </summary>
-    public partial class MainWindow
+    public partial class SettingsView : Window
     {
-        public MainWindow()
+        public SettingsView()
         {
             InitializeComponent();
         }
