@@ -67,8 +67,12 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DormitoryData.cs" />
-    <Compile Include="Models\HSEBuildingData.cs" />
-    <Compile Include="Models\SubwayStationData.cs" />
+    <Compile Include="Models\HSEBuildingData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\SubwayStationData.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
