@@ -61,6 +61,7 @@
     <Compile Include="Entities\LocalTrainStop.cs" />
     <Compile Include="Entities\SubwayElapsedTime.cs" />
     <Compile Include="Entities\SubwayStation.cs" />
+    <Compile Include="LoadFromCSV.cs" />
     <Compile Include="Migrations\201603171107274_Initial.cs" />
     <Compile Include="Migrations\201603171107274_Initial.Designer.cs">
       <DependentUpon>201603171107274_Initial.cs</DependentUpon>
@@ -81,6 +82,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Data\Dormitories.csv" />
+    <None Include="Data\HSEBuildings.csv" />
+    <None Include="Data\SubwayStations.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
