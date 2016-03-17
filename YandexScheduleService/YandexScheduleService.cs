@@ -8,6 +8,7 @@ using HSE_transport_manager.Common.Models.TrainSchedulesData;
 using Newtonsoft.Json;
 using System.Net.Http;
 using YandexScheduleService.DTO.Response.ThreadInfoResponse;
+using YandexScheduleService.DTO.Response.ThreadListResponse;
 
 namespace YandexScheduleService
 {
@@ -28,48 +29,87 @@ namespace YandexScheduleService
 
         public async Task<DailyTrainSchedule> GetDailyScheduleAsync(string startingStationCode, string endingStationCode)
         {
-            throw new NotImplementedException();
+            return await Task<DailyTrainSchedule>.Factory.StartNew(() =>
+            {
+                var scheduledTrains = new List<SingleTrainSchedule>();
+                var requestString = _requestBuilder.ThreadsListRequest(startingStationCode, endingStationCode);
+                HttpClient client = new HttpClient();
+                var responseString = client.GetAsync(requestString).Result.Content.ReadAsStringAsync().Result;
+                var threadListResponse = JsonConvert.DeserializeObject<TrainThreadsListResponse>(responseString);
+
+                foreach (var train in threadListResponse.TrainThreadList)
+                {
+                    scheduledTrains.Add(GetScheduleAsync(train.TrainInfo.TrainUid).Result);
+                }
+
+
+                var dailyTrainSchedule = new DailyTrainSchedule
+                {
+                    DepartureStation = startingStationCode,
+                    ArrivalStation = endingStationCode,
+                    ScheduledTrains = scheduledTrains
+                };
+
+                return dailyTrainSchedule;
+            });
         }
 
         public async Task<SingleTrainSchedule> GetScheduleAsync(string transportId)
         {
-            throw new NotImplementedException();
-        }
-
-
-        public Task<SingleTrainSchedule> GetScheduleAsync(string transportId, string baseStationId)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        private async Task<List<HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop>> ConvertStopListAsync(
-            TrainThreadInfoResponse trainThread)
-        {
-            var StopList = new List<HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop>();
-            foreach (var stop in trainThread.TrainStops)
+            return await Task<SingleTrainSchedule>.Factory.StartNew(() =>
             {
-                StopList.Add(new HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop
-                {
-                    ArrivalTime = stop.ArrivalTime == null ? trainThread.StartTime : (DateTime)stop.ArrivalTime,
-                    ElapsedTime = new DateTime().AddSeconds(stop.TripDuration == null ? 0 : (double)stop.TripDuration),
-                    StationCode = stop.StopStation.StationCode.YandexStationCode
-                });
-            }
-            return StopList;
+                var requestString = _requestBuilder.ThreadInfoRequest(transportId);
+                HttpClient client = new HttpClient();
+
+                var responseString = client.GetAsync(requestString).Result.Content.ReadAsStringAsync().Result;
+                var threadInfoResponse = JsonConvert.DeserializeObject<TrainThreadInfoResponse>(responseString);
+
+                var trainStopList = ConvertStopList(threadInfoResponse);
+
+                var trainSchedule = new SingleTrainSchedule
+                {   
+                    TrainUid = transportId,
+                    DepartureTime = threadInfoResponse.StartTime,
+                    Stops = trainStopList
+                };
+                return trainSchedule;
+            });
         }
+
+
+        public async Task<SingleTrainSchedule> GetScheduleAsync(string transportId, string baseStationId)
+        {
+            return await Task<SingleTrainSchedule>.Factory.StartNew(() =>
+            {
+                var requestString = _requestBuilder.ThreadInfoRequest(transportId);
+                HttpClient client = new HttpClient();
+                var responseString = client.GetAsync(requestString).Result.Content.ReadAsStringAsync().Result;
+                var threadInfoResponse = JsonConvert.DeserializeObject<TrainThreadInfoResponse>(responseString);
+
+                var trainStopList = ConvertStopList(threadInfoResponse);
+
+                var trainSchedule = new SingleTrainSchedule
+                {
+                    TrainUid = transportId,
+                    DepartureTime = threadInfoResponse.StartTime,
+                    Stops = trainStopList
+                };
+                return trainSchedule;
+            });
+        }
+
 
         private List<HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop> ConvertStopList(
            TrainThreadInfoResponse trainThread, string baseStationId)
         {
-            var StopList = new List<HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop>();
-            bool reachedBase = false;
+            var stopList = new List<HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop>();
+            var reachedBase = false;
             double elapsedTime = 0;
             foreach (var stop in trainThread.TrainStops)
             {         
                 if (reachedBase)
                 {
-                    StopList.Add(new HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop
+                    stopList.Add(new HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop
                     {
                         ArrivalTime = stop.ArrivalTime == null ? trainThread.StartTime : (DateTime)(stop.ArrivalTime),
                         ElapsedTime = new DateTime().AddSeconds(stop.TripDuration == null ? 0 : (double)stop.TripDuration - elapsedTime),
@@ -82,6 +122,23 @@ namespace YandexScheduleService
                     reachedBase = true;
                     elapsedTime = elapsedTime + stop.TripDuration ?? (double)stop.TripDuration;
                 }
+            }
+            return stopList;
+        }
+
+
+        private List<HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop> ConvertStopList(
+           TrainThreadInfoResponse trainThread)
+        {
+            var StopList = new List<HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop>();
+            foreach (var stop in trainThread.TrainStops)
+            {
+                StopList.Add(new HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop
+                {
+                    ArrivalTime = stop.ArrivalTime == null ? trainThread.StartTime : (DateTime) (stop.ArrivalTime),
+                    ElapsedTime = new DateTime().AddSeconds(stop.TripDuration == null? 0 : (double) stop.TripDuration),
+                    StationCode = stop.StopStation.StationCode.YandexStationCode
+                });
             }
             return StopList;
         }
