@@ -10,7 +10,7 @@ namespace HSE_transport_manager.Common.Models.TrainSchedulesData
     {
         public string TrainUid { get; set; }
 
-        public List<TrainStop> Stops { get; set; }
+        public IList<TrainStop> Stops { get; set; }
 
         public DateTime DepartureTime { get; set; }
     }
