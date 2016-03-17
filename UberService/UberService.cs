@@ -29,8 +29,7 @@ namespace UberService
 
         public async Task<TaxiTripData> GetRouteAsync(Coordinate startingPoint, Coordinate endingPoint)
         {
-            TaxiTripData tripData = null;
-            await Task.Factory.StartNew(() =>
+            return await Task<TaxiTripData>.Factory.StartNew(() =>
             {
                 var requestString = _requestBuilder.PriceRequest(startingPoint, endingPoint);
                 HttpClient client = new HttpClient();
@@ -38,7 +37,7 @@ namespace UberService
                 var deserializedResponse = JsonConvert.DeserializeObject<PriceQueryResponse>(requestString);
                 
                 var cheapestTrip = deserializedResponse.Trips.First(p => p.Low == deserializedResponse.Trips.Min(a => a.Low));
-                tripData = new TaxiTripData
+                TaxiTripData tripData  = new TaxiTripData
                 {
                     StartingPoint = startingPoint,
                     FinishPoint = endingPoint,
@@ -46,8 +45,8 @@ namespace UberService
                     Price = cheapestTrip.High,
                     TransportType = Transport.Taxi
                 };
+                return tripData;
             });
-            return tripData;
         }
     }
 }

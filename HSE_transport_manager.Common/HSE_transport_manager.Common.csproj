@@ -44,10 +44,9 @@
     <Compile Include="Interfaces\ITransportService.cs" />
     <Compile Include="Models\TaxiData\Coordinate.cs" />
     <Compile Include="Models\TaxiData\TaxiTripData.cs" />
-    <Compile Include="Models\TrainSchedules\DailyTrainSchedule.cs" />
-    <Compile Include="Models\TrainSchedules\SingleTrainSchedule.cs" />
-    <Compile Include="Models\TrainSchedules\TrainStation.cs" />
-    <Compile Include="Models\TrainSchedules\TrainStop.cs" />
+    <Compile Include="Models\TrainSchedulesData\DailyTrainSchedule.cs" />
+    <Compile Include="Models\TrainSchedulesData\SingleTrainSchedule.cs" />
+    <Compile Include="Models\TrainSchedulesData\TrainStop.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

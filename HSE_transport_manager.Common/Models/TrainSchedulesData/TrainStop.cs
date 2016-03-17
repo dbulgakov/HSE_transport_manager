@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HSE_transport_manager.Common.Models.TrainSchedules
+namespace HSE_transport_manager.Common.Models.TrainSchedulesData
 {
     public class TrainStop
     {
-        public TrainStation Station { get; set; }
+        public string StationCode { get; set; }
 
         public DateTime ArrivalTime { get; set; }
 
