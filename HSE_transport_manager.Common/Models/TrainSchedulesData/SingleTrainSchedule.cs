@@ -13,9 +13,5 @@ namespace HSE_transport_manager.Common.Models.TrainSchedulesData
         public List<TrainStop> Stops { get; set; }
 
         public DateTime DepartureTime { get; set; }
-
-        public TrainStation DepartureStation { get; set; }
-
-        public TrainStation ArrivalStation { get; set; }
     }
 }
