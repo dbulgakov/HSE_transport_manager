@@ -141,7 +141,7 @@ namespace MSDatabaseService.Migrations
                         DepartureStation_Code = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.DepartureTime)
-                .ForeignKey("dbo.LocalTrainStations", t => t.DepartureStation_Code, cascadeDelete: true)
+                .ForeignKey("dbo.LocalTrainStations", t => t.DepartureStation_Code, cascadeDelete: false)
                 .Index(t => t.DepartureStation_Code);
             
             CreateTable(
