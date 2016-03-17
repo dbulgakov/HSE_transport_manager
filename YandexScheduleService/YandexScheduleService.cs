@@ -36,6 +36,12 @@ namespace YandexScheduleService
             throw new NotImplementedException();
         }
 
+
+        public Task<SingleTrainSchedule> GetScheduleAsync(string transportId, string baseStationId)
+        {
+            throw new NotImplementedException();
+        }
+
         private async Task<List<HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop>> ConvertStopListAsync(
             TrainThreadInfoResponse trainThread)
         {
