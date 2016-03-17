@@ -8,7 +8,7 @@ namespace HSE_transport_manager.Common.Models.TrainSchedulesData
 {
     public class TrainStop
     {
-        public TrainStation Station { get; set; }
+        public string StationCode { get; set; }
 
         public DateTime ArrivalTime { get; set; }
 

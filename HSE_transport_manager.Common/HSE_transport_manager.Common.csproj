@@ -46,7 +46,6 @@
     <Compile Include="Models\TaxiData\TaxiTripData.cs" />
     <Compile Include="Models\TrainSchedulesData\DailyTrainSchedule.cs" />
     <Compile Include="Models\TrainSchedulesData\SingleTrainSchedule.cs" />
-    <Compile Include="Models\TrainSchedulesData\TrainStation.cs" />
     <Compile Include="Models\TrainSchedulesData\TrainStop.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

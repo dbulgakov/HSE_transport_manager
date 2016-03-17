@@ -42,6 +42,11 @@ namespace YandexScheduleService
             throw new NotImplementedException();
         }
 
+
+
+
+
+
         private async Task<List<HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop>> ConvertStopListAsync(
             TrainThreadInfoResponse trainThread)
         {
@@ -51,12 +56,8 @@ namespace YandexScheduleService
                 StopList.Add(new HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop
                 {
                     ArrivalTime = stop.ArrivalTime == null ? trainThread.StartTime : (DateTime)stop.ArrivalTime,
-                    ElapsedTime = new DateTime(),
-                    Station = new HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStation
-                    {
-                        Code = stop.StopStation.StationCode.YandexStationCode,
-                        Name = stop.StopStation.StationName
-                    }
+                    ElapsedTime = new DateTime().AddSeconds(stop.TripDuration == null ? 0 : (double)stop.TripDuration),
+                    StationCode = stop.StopStation.StationCode.YandexStationCode
                 });
             }
             return StopList;

@@ -10,8 +10,8 @@ namespace HSE_transport_manager.Common.Models.TrainSchedulesData
     {
         public List<SingleTrainSchedule> ScheduledTrains { get; set; }
 
-        public TrainStation DepartureStation { get; set; }
+        public string DepartureStation { get; set; }
 
-        public TrainStation ArrivalStation { get; set; }
+        public string ArrivalStation { get; set; }
     }
 }
