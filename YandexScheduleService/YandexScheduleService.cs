@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using HSE_transport_manager.Common.Interfaces;
 using HSE_transport_manager.Common.Models.TrainSchedulesData;
+using Newtonsoft.Json;
+using System.Net.Http;
+using YandexScheduleService.DTO.Response.ThreadInfoResponse;
 
 namespace YandexScheduleService
 {
@@ -20,16 +23,37 @@ namespace YandexScheduleService
         public void Initialize(string authKey)
         {
             _authKey = authKey;
+            _requestBuilder = new RequestBuilder(ApiUrl, ApiVer, _authKey);
         }
 
-        public Task<DailyTrainSchedule> GetDailyScheduleAsync(string startingStationCode, string endingStationCode)
+        public async Task<DailyTrainSchedule> GetDailyScheduleAsync(string startingStationCode, string endingStationCode)
         {
             throw new NotImplementedException();
         }
 
-        public Task<SingleTrainSchedule> GetScheduleAsync(string transportId)
+        public async Task<SingleTrainSchedule> GetScheduleAsync(string transportId)
         {
             throw new NotImplementedException();
+        }
+
+        private async Task<List<HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop>> ConvertStopListAsync(
+            TrainThreadInfoResponse trainThread)
+        {
+            var StopList = new List<HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop>();
+            foreach (var stop in trainThread.TrainStops)
+            {
+                StopList.Add(new HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop
+                {
+                    ArrivalTime = stop.ArrivalTime == null ? trainThread.StartTime : (DateTime)stop.ArrivalTime,
+                    ElapsedTime = new DateTime(),
+                    Station = new HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStation
+                    {
+                        Code = stop.StopStation.StationCode.YandexStationCode,
+                        Name = stop.StopStation.StationName
+                    }
+                });
+            }
+            return StopList;
         }
     }
 }
