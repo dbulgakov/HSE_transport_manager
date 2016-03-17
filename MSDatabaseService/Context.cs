@@ -19,8 +19,8 @@ namespace MSDatabaseService
         public DbSet<HSEBuilding> HSEBuildings { get; set; }
         public DbSet<Dormitory> Dormitories { get; set; }
         public DbSet<DubkiBusSchedule> DubkiBusesSchedule { get; set; }
-        public DbSet<PublicTransport> BusesSchedule { get; set; }
-        public DbSet<PublicTransportPrice> BusPrices { get; set; }
+        public DbSet<PublicTransport> PublicTransportSchedule { get; set; }
+        public DbSet<PublicTransportPrice> PublicTransportPrices { get; set; }
         public Context()
             : base("HSE_transport_manager")
         {

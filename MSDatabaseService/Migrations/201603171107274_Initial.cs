@@ -111,8 +111,8 @@ namespace MSDatabaseService.Migrations
                         StationTo_Id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.LocalTrainStops", t => t.StationFrom_Id, cascadeDelete: true)
-                .ForeignKey("dbo.LocalTrainStops", t => t.StationTo_Id, cascadeDelete: true)
+                .ForeignKey("dbo.LocalTrainStops", t => t.StationFrom_Id, cascadeDelete: false)
+                .ForeignKey("dbo.LocalTrainStops", t => t.StationTo_Id, cascadeDelete: false)
                 .Index(t => t.StationFrom_Id)
                 .Index(t => t.StationTo_Id);
             
@@ -154,8 +154,8 @@ namespace MSDatabaseService.Migrations
                         StationTo_Id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.SubwayStations", t => t.StationFrom_Id, cascadeDelete: true)
-                .ForeignKey("dbo.SubwayStations", t => t.StationTo_Id, cascadeDelete: true)
+                .ForeignKey("dbo.SubwayStations", t => t.StationFrom_Id, cascadeDelete: false)
+                .ForeignKey("dbo.SubwayStations", t => t.StationTo_Id, cascadeDelete: false)
                 .Index(t => t.StationFrom_Id)
                 .Index(t => t.StationTo_Id);
             
