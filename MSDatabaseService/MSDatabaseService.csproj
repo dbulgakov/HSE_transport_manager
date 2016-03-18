@@ -51,6 +51,7 @@
     <Compile Include="Context.cs" />
     <Compile Include="DatabaseQuery.cs" />
     <Compile Include="Entities\DayofWeek.cs" />
+    <Compile Include="Entities\LocalTrainStop.cs" />
     <Compile Include="Entities\PublicTransportPrice.cs" />
     <Compile Include="Entities\PublicTransport.cs" />
     <Compile Include="Entities\Dormitory.cs" />
@@ -59,7 +60,6 @@
     <Compile Include="Entities\LocalTrainPrice.cs" />
     <Compile Include="Entities\LocalTrainSchedule.cs" />
     <Compile Include="Entities\LocalTrainStation.cs" />
-    <Compile Include="Entities\LocalTrainStop.cs" />
     <Compile Include="Entities\SubwayElapsedTime.cs" />
     <Compile Include="Entities\SubwayStation.cs" />
     <Compile Include="LoadFromCSV.cs" />
@@ -118,11 +118,13 @@
     <EmbeddedResource Include="Migrations\201603182021522_AddedTripField.resx">
       <DependentUpon>201603182021522_AddedTripField.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config" />
     <EmbeddedResource Include="Data\Dormitories.csv" />
     <EmbeddedResource Include="Data\HSEBuildings.csv" />
     <EmbeddedResource Include="Data\SubwayStations.csv" />
     <EmbeddedResource Include="Data\Dubki.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
