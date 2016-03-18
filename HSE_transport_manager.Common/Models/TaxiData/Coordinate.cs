@@ -10,7 +10,5 @@ namespace HSE_transport_manager.Common.Models.TaxiData
     {
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-        public List<Dormitory> Dormitory { get; set; }
-        public List<HSEBuilding> HSEBuilding { get; set; }
     }
 }
