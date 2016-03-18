@@ -1,6 +1,4 @@
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using System.Windows.Input;
 
 namespace HSE_transport_manager.ViewModel
 {
@@ -21,43 +19,16 @@ namespace HSE_transport_manager.ViewModel
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        private ViewModelBase _currentViewModel;
-
-        readonly static SettingsViewModel _settingsViewModel = new SettingsViewModel();
-        readonly static ControlViewModel _controlViewModel = new ControlViewModel();
-
-        public ViewModelBase CurrentViewModel
-        {
-            get
-            {
-                return _currentViewModel;
-            }
-            set
-            {
-                if (_currentViewModel == value)
-                    return;
-                _currentViewModel = value;
-                RaisePropertyChanged("CurrentViewModel");
-            }
-        }
-        public ICommand ControlViewCommand { get; private set; }
-        public ICommand SettingsViewCommand { get; private set; }
-
         public MainViewModel()
         {
-            CurrentViewModel = MainViewModel._controlViewModel;
-            ControlViewCommand = new RelayCommand(() => ExecuteControlViewCommand());
-            SettingsViewCommand = new RelayCommand(() => ExecuteSettingsViewCommand());
-        }
-
-        private void ExecuteControlViewCommand()
-        {
-            CurrentViewModel = MainViewModel._controlViewModel;
-        }
-
-        private void ExecuteSettingsViewCommand()
-        {
-            CurrentViewModel = MainViewModel._settingsViewModel;
+            ////if (IsInDesignMode)
+            ////{
+            ////    // Code runs in Blend --> create design time data.
+            ////}
+            ////else
+            ////{
+            ////    // Code runs "for real"
+            ////}
         }
     }
 }

@@ -24,7 +24,6 @@ namespace HSE_transport_manager.ViewModel
     /// </summary>
     public class ViewModelLocator
     {
-        private static MainViewModel _main;
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
@@ -43,15 +42,14 @@ namespace HSE_transport_manager.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
 
-            //SimpleIoc.Default.Register<MainViewModel>();
-            _main = new MainViewModel();
+            SimpleIoc.Default.Register<MainViewModel>();
         }
 
         public MainViewModel Main
         {
             get
             {
-                return _main;
+                return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
         
