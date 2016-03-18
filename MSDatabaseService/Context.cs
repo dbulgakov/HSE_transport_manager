@@ -1,4 +1,5 @@
 ﻿using HSE_transport_manager.Entities;
+using MSDatabaseService.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -21,8 +22,9 @@ namespace MSDatabaseService
         public DbSet<DubkiBusSchedule> DubkiBusesSchedule { get; set; }
         public DbSet<PublicTransport> PublicTransportSchedule { get; set; }
         public DbSet<PublicTransportPrice> PublicTransportPrices { get; set; }
+        public DbSet<DayofWeek> DayofWeek { get; set; }
         public Context()
-            : base("HSE_transport_manager")
+            : base("HSE_transport_manager2")
         {
 
         }

@@ -13,11 +13,13 @@ namespace HSE_transport_manager.Entities
     {
         public int Id { get; set; }
         [Required]
+        public int Trip { get; set; }
+        [Required]
         public DateTime DepartureTime { get; set; }
         [Required]
         public string From { get; set; }
         [Required]
-        public List<DayWeek> DayOfWeek { get; set; }
+        public List<DayofWeek> DayOfWeek { get; set; }
         [Required]
         public string To { get; set; }
     }

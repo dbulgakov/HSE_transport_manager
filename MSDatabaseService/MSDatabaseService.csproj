@@ -50,7 +50,7 @@
   <ItemGroup>
     <Compile Include="Context.cs" />
     <Compile Include="DatabaseQuery.cs" />
-    <Compile Include="Entities\DayWeek.cs" />
+    <Compile Include="Entities\DayofWeek.cs" />
     <Compile Include="Entities\PublicTransportPrice.cs" />
     <Compile Include="Entities\PublicTransport.cs" />
     <Compile Include="Entities\Dormitory.cs" />
@@ -79,11 +79,21 @@
     <Compile Include="Migrations\201603172117207_ManyToManyConnection.Designer.cs">
       <DependentUpon>201603172117207_ManyToManyConnection.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603180125166_UpdatedDubkiBusSchedule-Entity.cs" />
+    <Compile Include="Migrations\201603180125166_UpdatedDubkiBusSchedule-Entity.Designer.cs">
+      <DependentUpon>201603180125166_UpdatedDubkiBusSchedule-Entity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603182021522_AddedTripField.cs" />
+    <Compile Include="Migrations\201603182021522_AddedTripField.Designer.cs">
+      <DependentUpon>201603182021522_AddedTripField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DormitoryData.cs" />
+    <Compile Include="Models\DubkiBusData.cs" />
     <Compile Include="Models\HSEBuildingData.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\PublicTransportData.cs" />
     <Compile Include="Models\SubwayStationData.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -102,10 +112,17 @@
     <EmbeddedResource Include="Migrations\201603172117207_ManyToManyConnection.resx">
       <DependentUpon>201603172117207_ManyToManyConnection.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603180125166_UpdatedDubkiBusSchedule-Entity.resx">
+      <DependentUpon>201603180125166_UpdatedDubkiBusSchedule-Entity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603182021522_AddedTripField.resx">
+      <DependentUpon>201603182021522_AddedTripField.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="App.config" />
     <EmbeddedResource Include="Data\Dormitories.csv" />
     <EmbeddedResource Include="Data\HSEBuildings.csv" />
     <EmbeddedResource Include="Data\SubwayStations.csv" />
+    <EmbeddedResource Include="Data\Dubki.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

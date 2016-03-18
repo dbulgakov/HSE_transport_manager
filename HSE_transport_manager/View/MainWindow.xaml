@@ -3,6 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Button Height="70" Width="65" Content="CLICK ME" Click="Button_Click"/>
     </Grid>
 </Window>

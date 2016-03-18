@@ -1,6 +1,7 @@
 namespace MSDatabaseService.Migrations
 {
     using HSE_transport_manager.Entities;
+    using MSDatabaseService.Entities;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
@@ -28,7 +29,6 @@ namespace MSDatabaseService.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-
 
             //LocalTrainStations
             context.LocalTrainStations.AddOrUpdate(
@@ -67,11 +67,53 @@ namespace MSDatabaseService.Migrations
             //PublicTransportPrices
             //Soon
 
-            //DayWeek
-            //Soon
+            context.DayofWeek.AddOrUpdate(
+                d => d.Name,
+                new DayofWeek
+                {
+                    Name = "ом"
+                },
+                new DayofWeek
+                {
+                    Name = "бр"
+                },
+                new DayofWeek
+                {
+                    Name = "яп"
+                },
+                new DayofWeek
+                {
+                    Name = "вр"
+                },
+                new DayofWeek
+                {
+                    Name = "ор"
+                },
+                new DayofWeek
+                {
+                    Name = "яа"
+                },
+                new DayofWeek
+                {
+                    Name = "бя"
+                });
+            context.SaveChanges();
 
             //DubkiBusSchedule
-            //Soon
+            var dubkiData = LoadFromCSV.LoadDubkiBusData("MSDatabaseService.Data.Dubki.csv");
+            foreach(var bus in dubkiData)
+                context.DubkiBusesSchedule.AddOrUpdate(
+                    s => s.Trip,
+                    new DubkiBusSchedule
+                    {
+                        Trip = bus.Trip,
+                        DepartureTime = bus.DepartureTime,
+                        From = bus.From,
+                        DayOfWeek = context.DayofWeek.Where(d => bus.DayOfWeek.Contains(d.Name)).ToList(),
+                        To = bus.To
+                    });
+            context.SaveChanges();
+
 
             //LocalTrainPrice
             context.LocalTrainPrices.AddOrUpdate(
@@ -119,9 +161,6 @@ namespace MSDatabaseService.Migrations
                     });
             context.SaveChanges();
 
-            //SubwayStationsElapsedTime
-            //Soon
-
             //Dormitories
             //var dormData = LoadFromCSV.LoadDormitoryData("MSDatabaseService.Data.Dormitories.csv");
             //foreach (var dorm in dormData)
@@ -154,9 +193,9 @@ namespace MSDatabaseService.Migrations
                         Address = hse.Address,
                         Latitude = hse.Latitude,
                         Longitude = hse.Longitude,
-                        //?????
                         SubwayStation = context.SubwayStations.Where(s => hse.SubwayStation.Contains(s.Name)).ToList()
                     });
+            Console.WriteLine();
             context.SaveChanges();
         }
     }

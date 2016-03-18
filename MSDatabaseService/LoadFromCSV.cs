@@ -98,5 +98,48 @@ namespace MSDatabaseService
                 return subway;
             }
         }
+
+        public static List<DubkiBusData> LoadDubkiBusData(string filename)
+        {
+            int i = 0;
+            var assembly = Assembly.GetExecutingAssembly();
+            using (var stream = assembly.GetManifestResourceStream(filename))
+            {
+                var dubki = new List<DubkiBusData>();
+                using (var sr = new StreamReader(stream, Encoding.Default))
+                {
+                    sr.ReadLine();
+                    while (!sr.EndOfStream)
+                    {
+                        var line = sr.ReadLine();
+                        var items = line.Split(';');
+                        if (items[0] != "" && items[1] != "" && items[3] != "")
+                        {
+                            i++;
+                            dubki.Add(
+                            new DubkiBusData
+                            {
+                                Trip = i,
+                                DepartureTime = DateTime.Parse(items[0]),
+                                DayOfWeek = items[2].Split(',').ToList(),
+                                From = items[1],
+                                To = items[3]
+                            });
+                        }
+                        i++;
+                        dubki.Add(
+                            new DubkiBusData
+                            {
+                                Trip=i,
+                                DepartureTime = DateTime.Parse(items[4]),
+                                DayOfWeek = items[2].Split(',').ToList(),
+                                From = items[5],
+                                To = items[6]
+                            });
+                    }
+                }
+                return dubki;
+            }
+        }
     }
 }
