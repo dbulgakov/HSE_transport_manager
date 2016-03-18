@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HSE_transport_manager.Common.Models.TaxiData
+namespace MSDatabaseService.Models
 {
-    public class Coordinate
+    public class SubwayStationData
     {
+        public string Name { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-        public List<Dormitory> Dormitory { get; set; }
-        public List<HSEBuilding> HSEBuilding { get; set; }
     }
 }
