@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HSE_transport_manager.Common.Models
+namespace HSE_transport_manager.Common.Models.TaxiData
 {
-    class Coordinate
+    public class Coordinate
     {
         public double Latitude { get; set; }
         public double Longitude { get; set; }
