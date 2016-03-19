@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MSDatabaseService.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,10 +15,12 @@ namespace HSE_transport_manager.Entities
         [Required]
         public int Number { get; set; }
         [Required]
-        public SubwayStation SubwayStation { get; set; }
+        public string From { get; set; }
         [Required]
         public PublicTransportPrice Price { get; set; }
         [Required]
-        public string From { get; set; }
+        public string To { get; set; }
+        [Required]
+        public TransportType Type { get; set; }
     }
 }

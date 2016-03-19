@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D87C9309-81A9-450A-B66F-0F0A6AC41C98}</ProjectGuid>
+    <ProjectGuid>{CB489998-75E3-461C-A5BA-95544607039A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MSDatabaseService</RootNamespace>
@@ -30,16 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,83 +42,34 @@
     <Compile Include="Context.cs" />
     <Compile Include="DatabaseQuery.cs" />
     <Compile Include="Entities\DayofWeek.cs" />
-    <Compile Include="Entities\LocalTrainStop.cs" />
-    <Compile Include="Entities\PublicTransportPrice.cs" />
-    <Compile Include="Entities\PublicTransport.cs" />
     <Compile Include="Entities\Dormitory.cs" />
     <Compile Include="Entities\DubkiBusSchedule.cs" />
     <Compile Include="Entities\HSEBuilding.cs" />
     <Compile Include="Entities\LocalTrainPrice.cs" />
     <Compile Include="Entities\LocalTrainSchedule.cs" />
     <Compile Include="Entities\LocalTrainStation.cs" />
+    <Compile Include="Entities\LocalTrainStop.cs" />
+    <Compile Include="Entities\PublicTransport.cs" />
+    <Compile Include="Entities\PublicTransportPrice.cs" />
     <Compile Include="Entities\SubwayElapsedTime.cs" />
     <Compile Include="Entities\SubwayStation.cs" />
+    <Compile Include="Entities\TransportType.cs" />
+    <Compile Include="IDatabaseService.cs" />
     <Compile Include="LoadFromCSV.cs" />
-    <Compile Include="Migrations\201603171638480_Initial.cs" />
-    <Compile Include="Migrations\201603171638480_Initial.Designer.cs">
-      <DependentUpon>201603171638480_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603171645456_CreateColumn.cs" />
-    <Compile Include="Migrations\201603171645456_CreateColumn.Designer.cs">
-      <DependentUpon>201603171645456_CreateColumn.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603172038562_SomeChanges.cs" />
-    <Compile Include="Migrations\201603172038562_SomeChanges.Designer.cs">
-      <DependentUpon>201603172038562_SomeChanges.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603172117207_ManyToManyConnection.cs" />
-    <Compile Include="Migrations\201603172117207_ManyToManyConnection.Designer.cs">
-      <DependentUpon>201603172117207_ManyToManyConnection.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603180125166_UpdatedDubkiBusSchedule-Entity.cs" />
-    <Compile Include="Migrations\201603180125166_UpdatedDubkiBusSchedule-Entity.Designer.cs">
-      <DependentUpon>201603180125166_UpdatedDubkiBusSchedule-Entity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603182021522_AddedTripField.cs" />
-    <Compile Include="Migrations\201603182021522_AddedTripField.Designer.cs">
-      <DependentUpon>201603182021522_AddedTripField.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DormitoryData.cs" />
     <Compile Include="Models\DubkiBusData.cs" />
-    <Compile Include="Models\HSEBuildingData.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Models\HSEBuildingData.cs" />
     <Compile Include="Models\PublicTransportData.cs" />
-    <Compile Include="Models\SubwayStationData.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Models\QueryResult.cs" />
+    <Compile Include="Models\SubwayStationData.cs" />
+    <Compile Include="Models\Transport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603171638480_Initial.resx">
-      <DependentUpon>201603171638480_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603171645456_CreateColumn.resx">
-      <DependentUpon>201603171645456_CreateColumn.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603172038562_SomeChanges.resx">
-      <DependentUpon>201603172038562_SomeChanges.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603172117207_ManyToManyConnection.resx">
-      <DependentUpon>201603172117207_ManyToManyConnection.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603180125166_UpdatedDubkiBusSchedule-Entity.resx">
-      <DependentUpon>201603180125166_UpdatedDubkiBusSchedule-Entity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603182021522_AddedTripField.resx">
-      <DependentUpon>201603182021522_AddedTripField.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Data\SubwayStations.csv" />
-    <EmbeddedResource Include="Data\Dubki.csv" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
     <EmbeddedResource Include="Data\Dormitories.csv" />
+    <EmbeddedResource Include="Data\Dubki.csv" />
     <EmbeddedResource Include="Data\HSEBuildings.csv" />
-    <None Include="packages.config" />
+    <EmbeddedResource Include="Data\SubwayStations.csv" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
