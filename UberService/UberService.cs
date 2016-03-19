@@ -34,8 +34,8 @@ namespace UberService
             {
                 var requestString = _requestBuilder.PriceRequest(startingPoint, endingPoint);
                 HttpClient client = new HttpClient();
-                var responseString = client.GetAsync(requestString).Result.Content.ReadAsStringAsync();
-                var deserializedResponse = JsonConvert.DeserializeObject<PriceQueryResponse>(requestString);
+                var responseString = client.GetAsync(requestString).Result.Content.ReadAsStringAsync().Result;
+                var deserializedResponse = JsonConvert.DeserializeObject<PriceQueryResponse>(responseString);
                 
                 var cheapestTrip = deserializedResponse.Trips.First(p => p.Low == deserializedResponse.Trips.Min(a => a.Low));
                 TaxiTripData tripData  = new TaxiTripData
