@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace GoogleGeoMatrixService.DTO.Response.EstimeTripTimeRequest
+namespace GoogleGeoMatrixService.DTO.Response.EstimateTripTimeRequest
 {
     class ResponseRow
     {

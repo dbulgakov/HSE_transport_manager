@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using GoogleGeoMatrixService.DTO.Response.EstimateTripTimeRequest;
 using HSE_transport_manager.Common.Interfaces;
 using HSE_transport_manager.Common.Models;
+using HSE_transport_manager.Common.Models.TaxiData;
+using Newtonsoft.Json;
 
 namespace GoogleGeoMatrixService
 {
@@ -23,9 +27,18 @@ namespace GoogleGeoMatrixService
             _requestBuilder = new RequestBuilder(ApiUrl, _authKey);
         }
 
-        public Task<DateTime> EstimateTripTimeAsync(Coordinate startingPoint, Coordinate endingPoint)
+        public async Task<DateTime> EstimateTripTimeAsync(Coordinate startingPoint, Coordinate endingPoint)
         {
-            throw new NotImplementedException();
+            return await Task<DateTime>.Factory.StartNew(() =>
+            {
+                var requestString = _requestBuilder.TimeEstimateRequest(startingPoint, endingPoint);
+                HttpClient client = new HttpClient();
+                var responseString = client.GetAsync(requestString).Result.Content.ReadAsStringAsync().Result;
+                var deserializedResponse = JsonConvert.DeserializeObject<EstimateTimeResponse>(responseString);
+
+                return
+                    new DateTime().AddSeconds(deserializedResponse.RowList[0].ElementsList[0].TripDuration.DurationTime);
+            });
         }
     }
 }

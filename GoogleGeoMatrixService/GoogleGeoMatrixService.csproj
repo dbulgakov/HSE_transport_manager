@@ -53,10 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTO\Response\EstimeTripTimeRequest\EstimateTimeResponse.cs" />
-    <Compile Include="DTO\Response\EstimeTripTimeRequest\ResponseElement.cs" />
-    <Compile Include="DTO\Response\EstimeTripTimeRequest\ResponseRow.cs" />
-    <Compile Include="DTO\Response\EstimeTripTimeRequest\TripDuration.cs" />
+    <Compile Include="DTO\Response\EstimateTripTimeRequest\EstimateTimeResponse.cs" />
+    <Compile Include="DTO\Response\EstimateTripTimeRequest\ResponseElement.cs" />
+    <Compile Include="DTO\Response\EstimateTripTimeRequest\ResponseRow.cs" />
+    <Compile Include="DTO\Response\EstimateTripTimeRequest\TripDuration.cs" />
     <Compile Include="GoogleGeoMatrixService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestBuilder.cs" />
