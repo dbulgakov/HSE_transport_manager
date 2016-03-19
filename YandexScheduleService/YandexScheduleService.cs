@@ -30,7 +30,7 @@ namespace YandexScheduleService
 
         public async Task<DailyTrainSchedule> GetDailyScheduleAsync(string startingStationCode, string endingStationCode)
         {
-            return await Task<DailyTrainSchedule>.Factory.StartNew(() =>
+            return await Task.Run(() =>
             {
                 var scheduledTrains = new List<SingleTrainSchedule>();
                 var requestString = _requestBuilder.ThreadsListRequest(startingStationCode, endingStationCode);
@@ -59,7 +59,7 @@ namespace YandexScheduleService
 
         public async Task<SingleTrainSchedule> GetScheduleAsync(string transportId)
         {
-            return await Task<SingleTrainSchedule>.Factory.StartNew(() =>
+            return await Task.Run(() =>
             {
                 var requestString = _requestBuilder.ThreadInfoRequest(transportId);
                 HttpClient client = new HttpClient();
@@ -76,7 +76,7 @@ namespace YandexScheduleService
 
         public async Task<SingleTrainSchedule> GetScheduleAsync(string transportId, string baseStationId)
         {
-            return await Task<SingleTrainSchedule>.Factory.StartNew(() =>
+            return await Task.Run(() =>
             {
                 var requestString = _requestBuilder.ThreadInfoRequest(transportId);
                 HttpClient client = new HttpClient();
@@ -90,7 +90,7 @@ namespace YandexScheduleService
 
         public async Task<SingleTrainSchedule> GetScheduleAsync(string transportId, string baseStationId, string trainType)
         {
-            return await Task<SingleTrainSchedule>.Factory.StartNew(() =>
+            return await Task.Run(() =>
             {
                 var requestString = _requestBuilder.ThreadInfoRequest(transportId);
                 HttpClient client = new HttpClient();

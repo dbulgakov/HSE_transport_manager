@@ -30,7 +30,7 @@ namespace UberService
 
         public async Task<TaxiTripData> GetRouteAsync(Coordinate startingPoint, Coordinate endingPoint)
         {
-            return await Task<TaxiTripData>.Factory.StartNew(() =>
+            return await Task.Run(() =>
             {
                 var requestString = _requestBuilder.PriceRequest(startingPoint, endingPoint);
                 HttpClient client = new HttpClient();

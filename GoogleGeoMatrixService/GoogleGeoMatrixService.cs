@@ -29,7 +29,7 @@ namespace GoogleGeoMatrixService
 
         public async Task<DateTime> EstimateTripTimeAsync(Coordinate startingPoint, Coordinate endingPoint)
         {
-            return await Task<DateTime>.Factory.StartNew(() =>
+            return await Task.Run(() =>
             {
                 var requestString = _requestBuilder.TimeEstimateRequest(startingPoint, endingPoint);
                 HttpClient client = new HttpClient();
