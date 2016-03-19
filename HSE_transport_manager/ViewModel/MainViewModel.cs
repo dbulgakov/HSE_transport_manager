@@ -30,5 +30,6 @@ namespace HSE_transport_manager.ViewModel
             ////    // Code runs "for real"
             ////}
         }
+
     }
 }
