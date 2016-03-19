@@ -91,7 +91,8 @@ namespace MSDatabaseService
                             {
                                 Name = items[0],
                                 Latitude = double.Parse(items[1]),
-                                Longitude = double.Parse(items[2])
+                                Longitude = double.Parse(items[2]),
+                                Type=items[3]
                             });
                     }
                 }
@@ -123,7 +124,8 @@ namespace MSDatabaseService
                                 DepartureTime = DateTime.Parse(items[0]),
                                 DayOfWeek = items[2].Split(',').ToList(),
                                 From = items[1],
-                                To = items[3]
+                                To = items[3],
+                                Type=items[7]
                             });
                         }
                         i++;
@@ -134,11 +136,41 @@ namespace MSDatabaseService
                                 DepartureTime = DateTime.Parse(items[4]),
                                 DayOfWeek = items[2].Split(',').ToList(),
                                 From = items[5],
-                                To = items[6]
+                                To = items[6],
+                                Type=items[7]
                             });
                     }
                 }
                 return dubki;
+            }
+        }
+
+        public static List<PublicTransportData> LoadPublicTransportData(string filename)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            using (var stream = assembly.GetManifestResourceStream(filename))
+            {
+                var publicTransport = new List<PublicTransportData>();
+                using (var sr = new StreamReader(stream, Encoding.Default))
+                {
+                    sr.ReadLine();
+                    while (!sr.EndOfStream)
+                    {
+                        var line = sr.ReadLine();
+                        var items = line.Split(';');
+                        publicTransport.Add(
+                            new PublicTransportData
+                            {
+                                Number = int.Parse(items[0]),
+                                DepartureTime = DateTime.Parse(items[1]),
+                                DayOfWeek = items[2].Split(',').ToList(),
+                                From= items[3],
+                                To=items[4],
+                                Type = items[5]
+                            });
+                    }
+                }
+                return publicTransport;
             }
         }
     }

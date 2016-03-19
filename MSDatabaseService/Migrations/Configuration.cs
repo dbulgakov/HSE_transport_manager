@@ -30,6 +30,31 @@ namespace MSDatabaseService.Migrations
             //    );
             //
 
+            //TransportType
+            context.TransportTypes.AddOrUpdate(
+                t => t.Name,
+                new TransportType
+                {
+                    Name = "Suburban"
+                },
+                new TransportType
+                {
+                    Name = "ExpressSuburban"
+                },
+                new TransportType
+                {
+                    Name = "Bus"
+                },
+                new TransportType
+                {
+                    Name = "Tram"
+                },
+                new TransportType
+                {
+                    Name="Subway"
+                });
+            context.SaveChanges();
+
             //LocalTrainStations
             context.LocalTrainStations.AddOrUpdate(
                 s => s.Name,
@@ -110,7 +135,8 @@ namespace MSDatabaseService.Migrations
                         DepartureTime = bus.DepartureTime,
                         From = bus.From,
                         DayOfWeek = context.DayofWeek.Where(d => bus.DayOfWeek.Contains(d.Name)).ToList(),
-                        To = bus.To
+                        To = bus.To,
+                        Type=context.TransportTypes.Single( t=> t.Name.Equals(bus.Type))
                     });
             context.SaveChanges();
 
