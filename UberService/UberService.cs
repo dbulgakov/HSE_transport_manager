@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using HSE_transport_manager.Common.Interfaces;
+using HSE_transport_manager.Common.Models;
 using HSE_transport_manager.Common.Models.TaxiData;
 using Newtonsoft.Json;
 using UberService.DTO.Response;
@@ -33,8 +34,8 @@ namespace UberService
             {
                 var requestString = _requestBuilder.PriceRequest(startingPoint, endingPoint);
                 HttpClient client = new HttpClient();
-                var responseString = client.GetAsync(requestString).Result.Content.ReadAsStringAsync();
-                var deserializedResponse = JsonConvert.DeserializeObject<PriceQueryResponse>(requestString);
+                var responseString = client.GetAsync(requestString).Result.Content.ReadAsStringAsync().Result;
+                var deserializedResponse = JsonConvert.DeserializeObject<PriceQueryResponse>(responseString);
                 
                 var cheapestTrip = deserializedResponse.Trips.First(p => p.Low == deserializedResponse.Trips.Min(a => a.Low));
                 TaxiTripData tripData  = new TaxiTripData
