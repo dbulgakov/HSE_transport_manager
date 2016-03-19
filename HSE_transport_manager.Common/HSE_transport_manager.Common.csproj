@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\ITaxiService.cs" />
+    <Compile Include="Interfaces\ITransportMonitoringService.cs" />
     <Compile Include="Interfaces\ITransportSchedulerService.cs" />
     <Compile Include="Interfaces\ITransportService.cs" />
     <Compile Include="Models\Coordinate.cs" />
