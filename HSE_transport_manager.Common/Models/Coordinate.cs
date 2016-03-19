@@ -1,4 +1,4 @@
-﻿namespace HSE_transport_manager.Common.Models.TaxiData
+﻿namespace HSE_transport_manager.Common.Models
 {
     public class Coordinate
     {

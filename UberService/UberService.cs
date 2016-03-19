@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using HSE_transport_manager.Common.Interfaces;
+using HSE_transport_manager.Common.Models;
 using HSE_transport_manager.Common.Models.TaxiData;
 using Newtonsoft.Json;
 using UberService.DTO.Response;
