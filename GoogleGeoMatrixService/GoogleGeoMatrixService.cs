@@ -23,7 +23,7 @@ namespace GoogleGeoMatrixService
             _requestBuilder = new RequestBuilder(ApiUrl, _authKey);
         }
 
-        public int EstimateTripTime(Coordinate startingPoint, Coordinate endingPoint)
+        public DateTime EstimateTripTime(Coordinate startingPoint, Coordinate endingPoint)
         {
             throw new NotImplementedException();
         }
