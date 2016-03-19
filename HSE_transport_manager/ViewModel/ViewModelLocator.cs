@@ -1,4 +1,4 @@
-/*
+﻿/*
   In App.xaml:
   <Application.Resources>
       <vm:ViewModelLocator xmlns:vm="clr-namespace:HSE_transport_manager"
@@ -27,9 +27,11 @@ namespace HSE_transport_manager.ViewModel
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
+        /// 
+        private static MainViewModel _main;
         public ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+            //ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             ////if (ViewModelBase.IsInDesignModeStatic)
             ////{
@@ -42,17 +44,18 @@ namespace HSE_transport_manager.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
 
-            SimpleIoc.Default.Register<MainViewModel>();
+            //SimpleIoc.Default.Register<MainViewModel>();
+            _main = new MainViewModel();
         }
 
         public MainViewModel Main
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
+                return _main;
             }
         }
-        
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

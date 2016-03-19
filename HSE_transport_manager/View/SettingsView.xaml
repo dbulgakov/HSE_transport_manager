@@ -1,33 +1,11 @@
-﻿<Window x:Class="HSE_transport_manager.View.SettingsView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:HSE_transport_manager.View"
-        mc:Ignorable="d"
-        Title="SettingsView" Height="300" Width="300">
+﻿<UserControl x:Class="HSE_transport_manager.View.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Label Name="lbl_Uber" Content="Input Uber API Key:" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="3"  VerticalAlignment="Center" Height="31"  Width="114"></Label>
-        <Label Name="lbl_Yandex" Content="Input Yandex API Key:" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Height="31" Width="128"></Label>
-        <PasswordBox Name="tbx_Uber" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="31" Grid.Column="1" Grid.Row="3" Width="134" ></PasswordBox>
-        <PasswordBox Name="tbx_Yandex" HorizontalAlignment="Center" VerticalAlignment="Center" Height="31" Grid.Column="1" Grid.Row="4" Width="134"></PasswordBox>
-        <Button Name="btn_Save" Content="Save" Command="{Binding Save}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="31" Grid.Row="5" Width="134"></Button>
-        <Button Name="btn_Reset" Content="Reset" Command="{Binding Reset}" HorizontalAlignment="Center"  VerticalAlignment="Center" Height="31" Grid.Row="5" Grid.Column="1" Width="134"></Button>
-        <Label Name="lbl_frequency" Content="Set frequency rate of requests" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="28" Margin="-2,2,128,0" Width="174" Grid.ColumnSpan="2"/>
-        <RadioButton Name="rdb_frq_once" Content="Once per day" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="20,5,0,3" Width="105" Height="24"/>
-        <RadioButton Name="rdb_frq_twice" Content="Twice per day" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,5,0,3" Width="102" Height="22"/>
-        <RadioButton Name="rdb_frq_hourly" Content="Every hour" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,5,0,3" Width="102" Height="22"/>
+
     </Grid>
-</Window>
+</UserControl>

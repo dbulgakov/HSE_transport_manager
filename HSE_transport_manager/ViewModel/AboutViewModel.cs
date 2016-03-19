@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HSE_transport_manager.ViewModel
 {
-    public class SettingsViewModel : ViewModelBase
+    public class AboutViewModel : ViewModelBase
     {
     }
 }
