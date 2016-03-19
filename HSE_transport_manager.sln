@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDatabaseService", "MSData
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HSE_transport_manager.Common", "HSE_transport_manager.Common\HSE_transport_manager.Common.csproj", "{F3C4EC9C-2D9E-419B-96D2-DAB5CE3500AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleGeoMatrixService", "GoogleGeoMatrixService\GoogleGeoMatrixService.csproj", "{FC6538F8-F49A-4358-BE8E-1319D5C051A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{F3C4EC9C-2D9E-419B-96D2-DAB5CE3500AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3C4EC9C-2D9E-419B-96D2-DAB5CE3500AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3C4EC9C-2D9E-419B-96D2-DAB5CE3500AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC6538F8-F49A-4358-BE8E-1319D5C051A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC6538F8-F49A-4358-BE8E-1319D5C051A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC6538F8-F49A-4358-BE8E-1319D5C051A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC6538F8-F49A-4358-BE8E-1319D5C051A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
