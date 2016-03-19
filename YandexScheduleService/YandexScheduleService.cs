@@ -13,7 +13,7 @@ using YandexScheduleService.DTO.Response.ThreadListResponse;
 
 namespace YandexScheduleService
 {
-    class YandexScheduleService: ITransportService, ITransportSchedulerService
+    class YandexScheduleService: ITransportSchedulerService
     {
         private const string ApiUrl = "http://api.rasp.yandex.net";
         private const string ApiVer = "v1.0";

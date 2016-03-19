@@ -12,7 +12,7 @@ using UberService.DTO.Response;
 
 namespace UberService
 {
-    class UberService : ITransportService, ITaxiService
+    class UberService : ITaxiService
     {
         private const string ApiUrl = "https://api.uber.com";
         private const string ApiVer = "v1";

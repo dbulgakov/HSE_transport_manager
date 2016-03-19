@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace GoogleGeoMatrixService
 {
-    class GoogleGeoMatrixService : ITransportService, ITransportMonitoringService
+    class GoogleGeoMatrixService : ITransportMonitoringService
     {
 
         private const string ApiUrl = "https://maps.googleapis.com/maps/api";
