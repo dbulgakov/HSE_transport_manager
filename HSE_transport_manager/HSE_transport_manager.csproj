@@ -190,6 +190,10 @@
       <Project>{f3c4ec9c-2d9e-419b-96d2-dab5ce3500ae}</Project>
       <Name>HSE_transport_manager.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MSDatabaseService\MSDatabaseService.csproj">
+      <Project>{cb489998-75e3-461c-a5ba-95544607039a}</Project>
+      <Name>MSDatabaseService</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\AppIcon.ico" />

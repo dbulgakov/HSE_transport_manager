@@ -208,7 +208,7 @@ namespace HSE_transport_manager.ViewModel
 
         void Remove()
         {
-
+            
         }
 
 
