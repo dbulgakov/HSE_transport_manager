@@ -1,5 +1,4 @@
-﻿using HSE_transport_manager.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MSDatabaseService.Entities

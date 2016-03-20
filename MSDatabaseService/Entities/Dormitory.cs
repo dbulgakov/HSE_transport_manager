@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace HSE_transport_manager.Entities
+namespace MSDatabaseService.Entities
 {
     class Dormitory
     {

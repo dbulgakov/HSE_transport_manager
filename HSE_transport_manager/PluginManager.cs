@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using HSE_transport_manager.Common.Interfaces;
-using MSDatabaseService;
 
 namespace HSE_transport_manager
 {

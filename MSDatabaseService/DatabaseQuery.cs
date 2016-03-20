@@ -1,14 +1,11 @@
 ﻿using HSE_transport_manager.Common.Interfaces;
 using HSE_transport_manager.Common.Models;
 using HSE_transport_manager.Common.Models.TrainSchedulesData;
-using HSE_transport_manager.Entities;
-using MSDatabaseService.Models;
+using MSDatabaseService.Entities;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MSDatabaseService
 {

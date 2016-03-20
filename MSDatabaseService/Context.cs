@@ -1,5 +1,4 @@
-﻿using HSE_transport_manager.Entities;
-using MSDatabaseService.Entities;
+﻿using MSDatabaseService.Entities;
 using System.Data.Entity;
 
 namespace MSDatabaseService
