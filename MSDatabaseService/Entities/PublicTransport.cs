@@ -22,5 +22,6 @@ namespace HSE_transport_manager.Entities
         public string To { get; set; }
         [Required]
         public TransportType Type { get; set; }
+        public List<DayofWeek> DayOfWeek { get; set; }
     }
 }

@@ -14,5 +14,6 @@ namespace MSDatabaseService.Entities
         [Required]
         public string Name { get; set; }
         public List<DubkiBusSchedule> DubkiBusSchedule { get; set; }
+        public List<PublicTransport> PublicTransport { get; set; }
     }
 }
