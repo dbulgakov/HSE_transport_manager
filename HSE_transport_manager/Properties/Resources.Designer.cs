@@ -70,6 +70,15 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Неизвестная комманда..
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Unknown_input_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Unknown_input_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bot is active.
         /// </summary>
         internal static string StatusViewModel_Start_Bot_is_active_message {
