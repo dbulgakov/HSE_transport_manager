@@ -46,15 +46,7 @@ namespace YandexScheduleService
                     scheduledTrains.Add(GetScheduleAsync(train.TrainInfo.TrainUid, startingStationCode, train.TrainInfo.TrainExpressType, (DateTime)train.DepartureTime).Result);
                 }
 
-
-                var dailyTrainSchedule = new DailyTrainSchedule
-                {
-                    DepartureStation = startingStationCode,
-                    ArrivalStation = endingStationCode,
-                    ScheduledTrains = scheduledTrains
-                };
-
-                return dailyTrainSchedule;
+                return CreateDailyTrainSchedule(startingStationCode, endingStationCode, scheduledTrains);
             });
         }
 
@@ -94,7 +86,7 @@ namespace YandexScheduleService
            TrainThreadInfoResponse trainThread, string baseStationId)
         {
             var stopList = new List<TrainStop>();
-            var reachedBase = false;
+            var reachedBase = baseStationId == null;
             double elapsedTime = 0;
             foreach (var stop in trainThread.TrainStops)
             {         
@@ -102,34 +94,16 @@ namespace YandexScheduleService
                 {
                     stopList.Add(new TrainStop
                     {
-                        ArrivalTime = stop.ArrivalTime == null ? trainThread.StartTime : (DateTime)(stop.ArrivalTime),
-                        ElapsedTime = new DateTime().AddSeconds(stop.TripDuration == null ? 0 : (double)stop.TripDuration - elapsedTime),
+                        ArrivalTime = stop.ArrivalTime ?? trainThread.StartTime,
+                        ElapsedTime = new DateTime().AddSeconds(stop.TripDuration - elapsedTime ?? 0),
                         StationCode = stop.StopStation.StationCode.YandexStationCode
                     });
                 }
 
-                if (stop.StopStation.StationCode.YandexStationCode.Equals(baseStationId))
-                {
-                    reachedBase = true;
+                if (!stop.StopStation.StationCode.YandexStationCode.Equals(baseStationId)) continue;
+                reachedBase = true;
+                if (stop.TripDuration != null)
                     elapsedTime = elapsedTime + stop.TripDuration ?? (double)stop.TripDuration;
-                }
-            }
-            return stopList;
-        }
-
-
-        private List<TrainStop> ConvertStopList(
-           TrainThreadInfoResponse trainThread)
-        {
-            var stopList = new List<HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop>();
-            foreach (var stop in trainThread.TrainStops)
-            {
-                stopList.Add(new HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop
-                {
-                    ArrivalTime = stop.ArrivalTime ?? trainThread.StartTime,
-                    ElapsedTime = new DateTime().AddSeconds(stop.TripDuration ?? 0),
-                    StationCode = stop.StopStation.StationCode.YandexStationCode
-                });
             }
             return stopList;
         }
@@ -146,6 +120,18 @@ namespace YandexScheduleService
                 TransportType = trainType == null ? Transport.Suburban : Transport.ExpressSuburban 
             };
             return trainSchedule;
+        }
+
+
+        private DailyTrainSchedule CreateDailyTrainSchedule(string startingStationCode,
+            string endingStationCode, IList<SingleTrainSchedule> scheduledTrains)
+        {
+            return new DailyTrainSchedule
+            {
+                DepartureStation = startingStationCode,
+                ArrivalStation = endingStationCode,
+                ScheduledTrains = scheduledTrains
+            };
         }
     }
 }
