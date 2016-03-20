@@ -105,7 +105,7 @@ namespace MSDatabaseService.Migrations
             var transportData = LoadFromCSV.LoadPublicTransportData("MSDatabaseService.Data.PublicTransport.csv");
             foreach (var vehicle in transportData)
                 context.PublicTransportSchedule.AddOrUpdate(
-                    v => new {v.DayOfWeek, v.DepartureTime, v.Number, v.From},
+                    v => new {v.DepartureTime, v.Number, v.From},
                     new PublicTransport
                     {
                         Number = vehicle.Number,
