@@ -1,9 +1,12 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System.IO;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Xml.Serialization;
 using HSE_transport_manager.Common.Interfaces;
+using HSE_transport_manager.Common.Models;
 using HSE_transport_manager.Properties;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -15,6 +18,7 @@ namespace HSE_transport_manager.ViewModel
         private ICommand _startCommand;
         private CancellationTokenSource _ctoken;
         private readonly IDialogProvider _dialogProvider;
+        private const string FileName = "settings.xml";
 
         public StatusViewModel()
         {
@@ -145,18 +149,18 @@ namespace HSE_transport_manager.ViewModel
 
         async void Start()
         {
-            var bot = new Api("150491452:AAGaPUhZraEcZ84yxIxNTw5CdAC_oCHa7s4");
-            _ctoken = new CancellationTokenSource();
             try
             {
+                var keyData = ReadXml();
+                var bot = new Api(keyData.BotServiceKey);
                 var me = await bot.GetMe();
                 BotStatus = Resources.StatusViewModel_Start_Bot_is_active_message;
+                BotWork(bot);
             }
             catch
             {
                 _dialogProvider.ShowMessage(Resources.StatusViewModel_Start_Error_contacting_bot_message);
             }
-            BotWork(bot);
         }
 
         void Stop()
@@ -203,6 +207,17 @@ namespace HSE_transport_manager.ViewModel
                 }
             }, _ctoken.Token);
             
+        }
+
+        private KeyData ReadXml()
+        {
+            KeyData keyData;
+            using (var fs = new FileStream(FileName, FileMode.OpenOrCreate))
+            {
+                var formatter = new XmlSerializer(typeof(KeyData));
+                keyData = (KeyData)formatter.Deserialize(fs);
+            }
+            return keyData;
         }
     }
 }
