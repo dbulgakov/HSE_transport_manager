@@ -65,6 +65,11 @@
     <Compile Include="Entities\TransportType.cs" />
     <Compile Include="IDatabaseService.cs" />
     <Compile Include="LoadFromCSV.cs" />
+    <Compile Include="Migrations\201603201829270_Initial.cs" />
+    <Compile Include="Migrations\201603201829270_Initial.Designer.cs">
+      <DependentUpon>201603201829270_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DormitoryData.cs" />
     <Compile Include="Models\DubkiBusData.cs" />
     <Compile Include="Models\HSEBuildingData.cs" />
@@ -78,12 +83,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Data\Dubki.csv" />
     <EmbeddedResource Include="Data\HSEBuildings.csv" />
+    <EmbeddedResource Include="Migrations\201603201829270_Initial.resx">
+      <DependentUpon>201603201829270_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <EmbeddedResource Include="Data\SubwayStations.csv" />
-    <EmbeddedResource Include="Data\PublicTransport.csv" />
     <EmbeddedResource Include="Data\Dormitories.csv" />
+    <EmbeddedResource Include="Data\PublicTransport.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -145,7 +145,8 @@ namespace MSDatabaseService
                             FromPoint = query.FromPoint,
                             ToPoint = query.ToPoint,
                             Price = query.Price,
-                            TransportType = query.TransportType
+                            TransportType = query.TransportType,
+                            Number=query.Number
                         });
 
                         transportList.Add(new Transport
@@ -182,7 +183,8 @@ namespace MSDatabaseService
                                             FromPoint=query.FromPoint,
                                             ToPoint=query.ToPoint,
                                             Price=query.Price,
-                                            TransportType=query.TransportType
+                                            TransportType=query.TransportType,
+                                            Number=query.Number,
                                           });
 
                         
