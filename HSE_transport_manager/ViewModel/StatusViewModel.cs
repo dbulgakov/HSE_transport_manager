@@ -26,18 +26,18 @@ namespace HSE_transport_manager.ViewModel
             }
         }
 
-        private ICommand _logCommand;
+        private ICommand _stopCommand;
 
-        public ICommand LogCommand
+        public ICommand StopCommand
         {
             get
             {
-                if (_logCommand == null)
+                if (_stopCommand == null)
                 {
-                    _logCommand = new RelayCommand(
+                    _stopCommand = new RelayCommand(
                     ViewLogFile);
                 }
-                return _logCommand;
+                return _stopCommand;
             }
         }
 

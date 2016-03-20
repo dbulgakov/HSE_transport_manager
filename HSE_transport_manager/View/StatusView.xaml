@@ -42,7 +42,7 @@
             <Label Grid.Row="5" Grid.Column="2" Content="{Binding Errors}" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center" BorderThickness="0"/>
             <Label Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding BotStatus}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Foreground="#FF47A1D7"/>
             <Button Grid.Row="7" Grid.Column="1" Command="{Binding StartCommand}" Content="Start Bot" Style="{StaticResource AccentedSquareButtonStyle}" FontSize="14" Controls:ControlsHelper.ContentCharacterCasing="Normal" Width="{Binding ActualWidth, ElementName=logButton}" HorizontalAlignment="Left" BorderThickness="0"/>
-            <Button Grid.Row="7" Grid.Column="2" Command="{Binding LogCommand}" Content="View log file" Controls:ControlsHelper.ContentCharacterCasing="Normal" FontSize="14" Name="logButton" BorderThickness="0"/>
+            <Button Grid.Row="7" Grid.Column="2" Command="{Binding StopCommand}" Content="Stop Bot" Controls:ControlsHelper.ContentCharacterCasing="Normal" FontSize="14" Name="logButton" BorderThickness="0"/>
         </Grid>
     </Grid>
 </UserControl>
