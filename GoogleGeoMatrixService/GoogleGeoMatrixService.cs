@@ -32,7 +32,7 @@ namespace GoogleGeoMatrixService
             return await Task.Run(() =>
             {
                 var requestString = _requestBuilder.TimeEstimateRequest(startingPoint, endingPoint);
-                HttpClient client = new HttpClient();
+                var client = new HttpClient();
                 var responseString = client.GetAsync(requestString).Result.Content.ReadAsStringAsync().Result;
                 var deserializedResponse = JsonConvert.DeserializeObject<EstimateTimeResponse>(responseString);
 
