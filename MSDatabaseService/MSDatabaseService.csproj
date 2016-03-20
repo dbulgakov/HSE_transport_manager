@@ -65,17 +65,9 @@
     <Compile Include="Entities\TransportType.cs" />
     <Compile Include="IDatabaseService.cs" />
     <Compile Include="LoadFromCSV.cs" />
-    <Compile Include="Migrations\201603192251037_Initial.cs" />
-    <Compile Include="Migrations\201603192251037_Initial.Designer.cs">
-      <DependentUpon>201603192251037_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603200059093_Add_field.cs" />
-    <Compile Include="Migrations\201603200059093_Add_field.Designer.cs">
-      <DependentUpon>201603200059093_Add_field.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603200111297_NewMigration.cs" />
-    <Compile Include="Migrations\201603200111297_NewMigration.Designer.cs">
-      <DependentUpon>201603200111297_NewMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201603200925160_Initial.cs" />
+    <Compile Include="Migrations\201603200925160_Initial.Designer.cs">
+      <DependentUpon>201603200925160_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DormitoryData.cs" />
@@ -90,14 +82,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Data\Dubki.csv" />
     <EmbeddedResource Include="Data\HSEBuildings.csv" />
-    <EmbeddedResource Include="Migrations\201603192251037_Initial.resx">
-      <DependentUpon>201603192251037_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603200059093_Add_field.resx">
-      <DependentUpon>201603200059093_Add_field.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603200111297_NewMigration.resx">
-      <DependentUpon>201603200111297_NewMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201603200925160_Initial.resx">
+      <DependentUpon>201603200925160_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

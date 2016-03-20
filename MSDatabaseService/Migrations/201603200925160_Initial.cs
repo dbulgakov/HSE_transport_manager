@@ -20,14 +20,13 @@ namespace MSDatabaseService.Migrations
                 "dbo.DubkiBusSchedules",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
-                        Trip = c.Int(nullable: false),
+                        Trip = c.Int(nullable: false, identity: true),
                         DepartureTime = c.DateTime(nullable: false),
                         From = c.String(nullable: false),
                         To = c.String(nullable: false),
                         Type_Id = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.Id)
+                .PrimaryKey(t => t.Trip)
                 .ForeignKey("dbo.TransportTypes", t => t.Type_Id, cascadeDelete: true)
                 .Index(t => t.Type_Id);
             
@@ -39,6 +38,24 @@ namespace MSDatabaseService.Migrations
                         Name = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.PublicTransports",
+                c => new
+                    {
+                        Trip = c.Int(nullable: false, identity: true),
+                        DepartureTime = c.DateTime(nullable: false),
+                        Number = c.Int(nullable: false),
+                        From = c.String(nullable: false),
+                        To = c.String(nullable: false),
+                        Price_Id = c.Int(nullable: false),
+                        Type_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Trip)
+                .ForeignKey("dbo.PublicTransportPrices", t => t.Price_Id, cascadeDelete: true)
+                .ForeignKey("dbo.TransportTypes", t => t.Type_Id, cascadeDelete: true)
+                .Index(t => t.Price_Id)
+                .Index(t => t.Type_Id);
             
             CreateTable(
                 "dbo.Dormitories",
@@ -57,39 +74,6 @@ namespace MSDatabaseService.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.LocalTrainStations", t => t.LocalTrainStation_Code)
                 .Index(t => t.LocalTrainStation_Code);
-            
-            CreateTable(
-                "dbo.PublicTransports",
-                c => new
-                    {
-                        DepartureTime = c.DateTime(nullable: false),
-                        Number = c.Int(nullable: false),
-                        From = c.String(nullable: false),
-                        To = c.String(nullable: false),
-                        Price_Id = c.Int(nullable: false),
-                        Type_Id = c.Int(nullable: false),
-                        Dormitory_Id = c.Int(),
-                        Dormitory_Id1 = c.Int(),
-                    })
-                .PrimaryKey(t => t.DepartureTime)
-                .ForeignKey("dbo.PublicTransportPrices", t => t.Price_Id, cascadeDelete: true)
-                .ForeignKey("dbo.TransportTypes", t => t.Type_Id, cascadeDelete: true)
-                .ForeignKey("dbo.Dormitories", t => t.Dormitory_Id)
-                .ForeignKey("dbo.Dormitories", t => t.Dormitory_Id1)
-                .Index(t => t.Price_Id)
-                .Index(t => t.Type_Id)
-                .Index(t => t.Dormitory_Id)
-                .Index(t => t.Dormitory_Id1);
-            
-            CreateTable(
-                "dbo.PublicTransportPrices",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Price = c.Int(nullable: false),
-                        ModifiedDate = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.LocalTrainStations",
@@ -123,6 +107,16 @@ namespace MSDatabaseService.Migrations
                         Address = c.String(nullable: false),
                         Latitude = c.Double(nullable: false),
                         Longitude = c.Double(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.PublicTransportPrices",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Price = c.Int(nullable: false),
+                        ModifiedDate = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -195,14 +189,40 @@ namespace MSDatabaseService.Migrations
                 "dbo.DubkiBusScheduleDayofWeeks",
                 c => new
                     {
-                        DubkiBusSchedule_Id = c.Int(nullable: false),
+                        DubkiBusSchedule_Trip = c.Int(nullable: false),
                         DayofWeek_Id = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.DubkiBusSchedule_Id, t.DayofWeek_Id })
-                .ForeignKey("dbo.DubkiBusSchedules", t => t.DubkiBusSchedule_Id, cascadeDelete: true)
+                .PrimaryKey(t => new { t.DubkiBusSchedule_Trip, t.DayofWeek_Id })
+                .ForeignKey("dbo.DubkiBusSchedules", t => t.DubkiBusSchedule_Trip, cascadeDelete: true)
                 .ForeignKey("dbo.DayofWeeks", t => t.DayofWeek_Id, cascadeDelete: true)
-                .Index(t => t.DubkiBusSchedule_Id)
+                .Index(t => t.DubkiBusSchedule_Trip)
                 .Index(t => t.DayofWeek_Id);
+            
+            CreateTable(
+                "dbo.PublicTransportDayofWeeks",
+                c => new
+                    {
+                        PublicTransport_Trip = c.Int(nullable: false),
+                        DayofWeek_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.PublicTransport_Trip, t.DayofWeek_Id })
+                .ForeignKey("dbo.PublicTransports", t => t.PublicTransport_Trip, cascadeDelete: true)
+                .ForeignKey("dbo.DayofWeeks", t => t.DayofWeek_Id, cascadeDelete: true)
+                .Index(t => t.PublicTransport_Trip)
+                .Index(t => t.DayofWeek_Id);
+            
+            CreateTable(
+                "dbo.DormitoryPublicTransports",
+                c => new
+                    {
+                        Dormitory_Id = c.Int(nullable: false),
+                        PublicTransport_Trip = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Dormitory_Id, t.PublicTransport_Trip })
+                .ForeignKey("dbo.Dormitories", t => t.Dormitory_Id, cascadeDelete: true)
+                .ForeignKey("dbo.PublicTransports", t => t.PublicTransport_Trip, cascadeDelete: true)
+                .Index(t => t.Dormitory_Id)
+                .Index(t => t.PublicTransport_Trip);
             
             CreateTable(
                 "dbo.SubwayStationDormitories",
@@ -243,25 +263,31 @@ namespace MSDatabaseService.Migrations
             DropForeignKey("dbo.LocalTrainSchedules", "ArrivalStation_Code", "dbo.LocalTrainStations");
             DropForeignKey("dbo.LocalTrainPrices", "StationTo_Code", "dbo.LocalTrainStations");
             DropForeignKey("dbo.LocalTrainPrices", "StationFrom_Code", "dbo.LocalTrainStations");
-            DropForeignKey("dbo.PublicTransports", "Dormitory_Id1", "dbo.Dormitories");
+            DropForeignKey("dbo.PublicTransports", "Type_Id", "dbo.TransportTypes");
+            DropForeignKey("dbo.PublicTransports", "Price_Id", "dbo.PublicTransportPrices");
             DropForeignKey("dbo.SubwayStations", "Type_Id", "dbo.TransportTypes");
             DropForeignKey("dbo.HSEBuildingSubwayStations", "SubwayStation_Id", "dbo.SubwayStations");
             DropForeignKey("dbo.HSEBuildingSubwayStations", "HSEBuilding_Id", "dbo.HSEBuildings");
             DropForeignKey("dbo.SubwayStationDormitories", "Dormitory_Id", "dbo.Dormitories");
             DropForeignKey("dbo.SubwayStationDormitories", "SubwayStation_Id", "dbo.SubwayStations");
+            DropForeignKey("dbo.DormitoryPublicTransports", "PublicTransport_Trip", "dbo.PublicTransports");
+            DropForeignKey("dbo.DormitoryPublicTransports", "Dormitory_Id", "dbo.Dormitories");
             DropForeignKey("dbo.Dormitories", "LocalTrainStation_Code", "dbo.LocalTrainStations");
-            DropForeignKey("dbo.PublicTransports", "Dormitory_Id", "dbo.Dormitories");
-            DropForeignKey("dbo.PublicTransports", "Type_Id", "dbo.TransportTypes");
-            DropForeignKey("dbo.PublicTransports", "Price_Id", "dbo.PublicTransportPrices");
+            DropForeignKey("dbo.PublicTransportDayofWeeks", "DayofWeek_Id", "dbo.DayofWeeks");
+            DropForeignKey("dbo.PublicTransportDayofWeeks", "PublicTransport_Trip", "dbo.PublicTransports");
             DropForeignKey("dbo.DubkiBusSchedules", "Type_Id", "dbo.TransportTypes");
             DropForeignKey("dbo.DubkiBusScheduleDayofWeeks", "DayofWeek_Id", "dbo.DayofWeeks");
-            DropForeignKey("dbo.DubkiBusScheduleDayofWeeks", "DubkiBusSchedule_Id", "dbo.DubkiBusSchedules");
+            DropForeignKey("dbo.DubkiBusScheduleDayofWeeks", "DubkiBusSchedule_Trip", "dbo.DubkiBusSchedules");
             DropIndex("dbo.HSEBuildingSubwayStations", new[] { "SubwayStation_Id" });
             DropIndex("dbo.HSEBuildingSubwayStations", new[] { "HSEBuilding_Id" });
             DropIndex("dbo.SubwayStationDormitories", new[] { "Dormitory_Id" });
             DropIndex("dbo.SubwayStationDormitories", new[] { "SubwayStation_Id" });
+            DropIndex("dbo.DormitoryPublicTransports", new[] { "PublicTransport_Trip" });
+            DropIndex("dbo.DormitoryPublicTransports", new[] { "Dormitory_Id" });
+            DropIndex("dbo.PublicTransportDayofWeeks", new[] { "DayofWeek_Id" });
+            DropIndex("dbo.PublicTransportDayofWeeks", new[] { "PublicTransport_Trip" });
             DropIndex("dbo.DubkiBusScheduleDayofWeeks", new[] { "DayofWeek_Id" });
-            DropIndex("dbo.DubkiBusScheduleDayofWeeks", new[] { "DubkiBusSchedule_Id" });
+            DropIndex("dbo.DubkiBusScheduleDayofWeeks", new[] { "DubkiBusSchedule_Trip" });
             DropIndex("dbo.SubwayElapsedTimes", new[] { "StationTo_Id" });
             DropIndex("dbo.SubwayElapsedTimes", new[] { "StationFrom_Id" });
             DropIndex("dbo.LocalTrainStops", new[] { "LocalTrainSchedule_DepartureTime" });
@@ -272,25 +298,25 @@ namespace MSDatabaseService.Migrations
             DropIndex("dbo.LocalTrainPrices", new[] { "StationTo_Code" });
             DropIndex("dbo.LocalTrainPrices", new[] { "StationFrom_Code" });
             DropIndex("dbo.SubwayStations", new[] { "Type_Id" });
-            DropIndex("dbo.PublicTransports", new[] { "Dormitory_Id1" });
-            DropIndex("dbo.PublicTransports", new[] { "Dormitory_Id" });
+            DropIndex("dbo.Dormitories", new[] { "LocalTrainStation_Code" });
             DropIndex("dbo.PublicTransports", new[] { "Type_Id" });
             DropIndex("dbo.PublicTransports", new[] { "Price_Id" });
-            DropIndex("dbo.Dormitories", new[] { "LocalTrainStation_Code" });
             DropIndex("dbo.DubkiBusSchedules", new[] { "Type_Id" });
             DropTable("dbo.HSEBuildingSubwayStations");
             DropTable("dbo.SubwayStationDormitories");
+            DropTable("dbo.DormitoryPublicTransports");
+            DropTable("dbo.PublicTransportDayofWeeks");
             DropTable("dbo.DubkiBusScheduleDayofWeeks");
             DropTable("dbo.SubwayElapsedTimes");
             DropTable("dbo.LocalTrainStops");
             DropTable("dbo.LocalTrainSchedules");
             DropTable("dbo.LocalTrainPrices");
+            DropTable("dbo.PublicTransportPrices");
             DropTable("dbo.HSEBuildings");
             DropTable("dbo.SubwayStations");
             DropTable("dbo.LocalTrainStations");
-            DropTable("dbo.PublicTransportPrices");
-            DropTable("dbo.PublicTransports");
             DropTable("dbo.Dormitories");
+            DropTable("dbo.PublicTransports");
             DropTable("dbo.TransportTypes");
             DropTable("dbo.DubkiBusSchedules");
             DropTable("dbo.DayofWeeks");

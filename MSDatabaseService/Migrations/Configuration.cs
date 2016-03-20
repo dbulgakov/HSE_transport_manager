@@ -1,8 +1,7 @@
-using HSE_transport_manager.Entities;
-using MSDatabaseService.Entities;
-
 namespace MSDatabaseService.Migrations
 {
+    using HSE_transport_manager.Entities;
+    using MSDatabaseService.Entities;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -219,24 +218,24 @@ namespace MSDatabaseService.Migrations
             context.SaveChanges();
 
             //Dormitories
-            //var dormData = LoadFromCSV.LoadDormitoryData("MSDatabaseService.Data.Dormitories.csv");
-            //foreach (var dorm in dormData)
-            //    context.Dormitories.AddOrUpdate(
-            //        d => d.Address,
-            //        new Dormitory
-            //        {
-            //            Name = dorm.Name,
-            //            Region = dorm.Region,
-            //            City = dorm.City,
-            //            Address = dorm.Address,
-            //            Latitude = dorm.Latitude,
-            //            Longitude = dorm.Longitude,
-            //            SubwayStation = context.SubwayStations.Where(s => dorm.SubwayStation.Contains(s.Name)).ToList(),
-            //            CheckDubkiBus = dorm.CheckDubkiBus,
-            //            LocalTrainStation = context.LocalTrainStations.Single(s => s.Name == dorm.LocalTrainStation),
-            //            PublicTransport = context.PublicTransportSchedule.Where(t => dorm.PublicTransport.Contains(t.Number.ToString())).ToList()
-            //        });
-            //context.SaveChanges();
+            var dormData = LoadFromCSV.LoadDormitoryData("MSDatabaseService.Data.Dormitories.csv");
+            foreach (var dorm in dormData)
+                context.Dormitories.AddOrUpdate(
+                    d => d.Address,
+                    new Dormitory
+                    {
+                        Name = dorm.Name,
+                        Region = dorm.Region,
+                        City = dorm.City,
+                        Address = dorm.Address,
+                        Latitude = dorm.Latitude,
+                        Longitude = dorm.Longitude,
+                        SubwayStation = context.SubwayStations.Where(s => dorm.SubwayStation.Contains(s.Name)).ToList(),
+                        CheckDubkiBus = dorm.CheckDubkiBus,
+                        LocalTrainStation = context.LocalTrainStations.SingleOrDefault(s => s.Name == dorm.LocalTrainStation),
+                        PublicTransport = context.PublicTransportSchedule.Where(t => dorm.PublicTransport.Contains(t.Number.ToString())).ToList()
+                    });
+            context.SaveChanges();
 
             //HSEBuildings
             var hseBuildings = LoadFromCSV.LoadHSEBuildingData("MSDatabaseService.Data.HSEBuildings.csv");
@@ -253,6 +252,7 @@ namespace MSDatabaseService.Migrations
                     });
             Console.WriteLine();
             context.SaveChanges();
+        
         }
     }
 }
