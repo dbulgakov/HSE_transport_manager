@@ -6,6 +6,6 @@ namespace HSE_transport_manager.Common.Interfaces
 {
     public interface ITransportMonitoringService : ITransportService
     {
-        Task<DateTime> EstimateTripTimeAsync(Coordinate startingPoint, Coordinate endingPoint);
+        Task<int> EstimateTripTimeAsync(Coordinate startingPoint, Coordinate endingPoint);
     }
 }
