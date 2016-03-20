@@ -57,24 +57,7 @@ namespace YandexScheduleService
             });
         }
 
-        public async Task<SingleTrainSchedule> GetScheduleAsync(string transportId)
-        {
-            return await Task.Run(() =>
-            {
-                var requestString = _requestBuilder.ThreadInfoRequest(transportId);
-                HttpClient client = new HttpClient();
-
-                var responseString = client.GetAsync(requestString).Result.Content.ReadAsStringAsync().Result;
-                var threadInfoResponse = JsonConvert.DeserializeObject<TrainThreadInfoResponse>(responseString);
-
-                var trainStopList = ConvertStopList(threadInfoResponse);
-
-                return CreateTrainSchedule(transportId, threadInfoResponse.StartTime, trainStopList);
-            });
-        }
-
-
-        public async Task<SingleTrainSchedule> GetScheduleAsync(string transportId, string baseStationId)
+        public async Task<SingleTrainSchedule> GetScheduleAsync(string transportId, string baseStationId = null)
         {
             return await Task.Run(() =>
             {
@@ -87,6 +70,7 @@ namespace YandexScheduleService
                 return CreateTrainSchedule(transportId, threadInfoResponse.StartTime, trainStopList);
             });
         }
+
 
         private async Task<SingleTrainSchedule> GetScheduleAsync(string transportId, string baseStationId, string trainType, DateTime departureTime)
         {
