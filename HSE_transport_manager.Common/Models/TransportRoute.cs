@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MSDatabaseService.Models
 {
-    public class Transport
+    public class TransportRoute
     {
         public string FromPoint { get; set; }
         public string ToPoint { get; set; }

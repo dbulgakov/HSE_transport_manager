@@ -8,6 +8,6 @@ namespace MSDatabaseService.Models
 {
     public class Route
     {
-        public List<Transport> Transport { get; set; }
+        public List<TransportRoute> Transport { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace MSDatabaseService
         private Context context = new Context();
         private static CultureInfo culture = new CultureInfo("ru-RU");
         private DateTimeFormatInfo dtfi = culture.DateTimeFormat;
-        private Transport tr;
+        private TransportRoute tr;
 
 
         public void RefreshTrainSchedule(DailyTrainSchedule trainSchedule)
@@ -65,7 +65,7 @@ namespace MSDatabaseService
 
             var routesResult = new List<QueryResult>();
             var routeList = new List<Route>();
-            List<Transport> transportList = new List<Transport>();
+            List<TransportRoute> transportList = new List<TransportRoute>();
             bool check=false;
             int time = 0;
 
@@ -78,7 +78,7 @@ namespace MSDatabaseService
                 if (context.Dormitories.Where(r => r.Name == toPoint).Select(s=> s.CheckDubkiBus).Single()==true)
                 {
                     check=true;
-                    transportList.Add(new Transport
+                    transportList.Add(new TransportRoute
                         {
                             DepartureTime = queryDate.AddMinutes(20),
                             ElapsedTime = queryDate.AddMinutes(25),
@@ -98,7 +98,7 @@ namespace MSDatabaseService
                                                })
                                                .Single();
 
-                    transportList.Add(new Transport
+                    transportList.Add(new TransportRoute
                         {
                             DepartureTime = queryDate.AddMinutes(30),
                             ElapsedTime = queryDate.AddMinutes(60),
@@ -118,7 +118,7 @@ namespace MSDatabaseService
                                                .Where(r => r.d.Name == fromPoint && r.s.DepartureTime.Subtract(queryDate).Minutes >= 20)
                                                .Join(context.DayofWeek, h => h.s.Trip, f => f.Id, (h, f) => new { h, f })
                                                .Where(r => r.h.s.DayOfWeek.Any(d => d.Name == dtfi.GetShortestDayName(queryDate.DayOfWeek).ToUpper()))
-                                               .Select(r => new Transport
+                                               .Select(r => new TransportRoute
                                                                 {
                                                                     FromPoint = r.h.s.From,
                                                                     ToPoint = r.h.s.To,
@@ -130,7 +130,7 @@ namespace MSDatabaseService
                     //Tram
                     if (query.TransportType == "Tram" && toPoint == "Кирпичная 33")
                     {
-                        transportList.Add(new Transport
+                        transportList.Add(new TransportRoute
                         {
                             DepartureTime = queryDate.AddMinutes(20),
                             ElapsedTime = queryDate.AddMinutes(30),
@@ -139,7 +139,7 @@ namespace MSDatabaseService
                             TransportType = "OnFoot"
                         });
 
-                        transportList.Add(new Transport
+                        transportList.Add(new TransportRoute
                         {
                             DepartureTime = query.DepartureTime,
                             ElapsedTime = query.DepartureTime.AddMinutes(15),
@@ -150,7 +150,7 @@ namespace MSDatabaseService
                             Number=query.Number
                         });
 
-                        transportList.Add(new Transport
+                        transportList.Add(new TransportRoute
                             {
                                 DepartureTime = query.DepartureTime.AddMinutes(15),
                                 ElapsedTime = query.DepartureTime.AddMinutes(30),
@@ -168,7 +168,7 @@ namespace MSDatabaseService
                     //Bus
                     else if (query.TransportType == "Bus")
                     {
-                        transportList.Add(new Transport
+                        transportList.Add(new TransportRoute
                         {
                             DepartureTime = queryDate.AddMinutes(20),
                             ElapsedTime = query.ElapsedTime.AddMinutes(30),
@@ -177,7 +177,7 @@ namespace MSDatabaseService
                             TransportType = "OnFoot"
                         });
 
-                        transportList.Add(new Transport
+                        transportList.Add(new TransportRoute
                                           {
                                             DepartureTime=query.DepartureTime,
                                             ElapsedTime=query.ElapsedTime,
@@ -193,7 +193,7 @@ namespace MSDatabaseService
                         tr = GetRouteSubStToSubSt(query.ToPoint,query.TransportType, stationHSE, query.ElapsedTime);
                         transportList.Add(tr);
 
-                        transportList.Add(new Transport
+                        transportList.Add(new TransportRoute
                         {
                             DepartureTime = tr.ElapsedTime,
                             ElapsedTime = tr.ElapsedTime.AddMinutes(10),
@@ -224,7 +224,7 @@ namespace MSDatabaseService
                             
                             foreach (var st in stationDorm)
                             {
-                                transportList.Add(new Transport
+                                transportList.Add(new TransportRoute
                                 {
                                     DepartureTime = queryDate.AddMinutes(20),
                                     ElapsedTime = queryDate.AddMinutes(30),
@@ -236,7 +236,7 @@ namespace MSDatabaseService
                                 tr = GetRouteSubStToSubSt(st.Station, st.TransportType, stationHSE, queryDate);
                                 transportList.Add(tr);
 
-                                transportList.Add(new Transport
+                                transportList.Add(new TransportRoute
                                 {
                                     DepartureTime = tr.ElapsedTime,
                                     ElapsedTime = tr.ElapsedTime.AddMinutes(10),
@@ -267,7 +267,7 @@ namespace MSDatabaseService
 
                             foreach(var item in queryTR.Stops)
                             {
-                                transportList.Add(new Transport
+                                transportList.Add(new TransportRoute
                                 {
                                     DepartureTime = queryDate.AddMinutes(20+time),
                                     ElapsedTime = queryDate.AddMinutes(30+time),
@@ -281,7 +281,7 @@ namespace MSDatabaseService
 
                                 tr=GetRouteSubStToSubSt(item.Station.Name, queryTR.Type, stationHSE, queryDate.AddMinutes(30+time));
 
-                                transportList.Add(new Transport
+                                transportList.Add(new TransportRoute
                                 {
                                     DepartureTime = tr.ElapsedTime,
                                     ElapsedTime = tr.ElapsedTime.AddMinutes(10),
@@ -310,9 +310,9 @@ namespace MSDatabaseService
             return routesResult;
         }
 
-        Transport GetRouteSubStToSubSt(string stationFrom, string transType, string stationTo, DateTime queryDate)
+        TransportRoute GetRouteSubStToSubSt(string stationFrom, string transType, string stationTo, DateTime queryDate)
         {
-            return new Transport
+            return new TransportRoute
                          {
                             DepartureTime = queryDate.AddMinutes(20),
                             FromPoint = stationFrom,
