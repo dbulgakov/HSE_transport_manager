@@ -90,6 +90,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="PluginManager.cs" />
     <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
@@ -179,6 +180,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\uber.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HSE_transport_manager.Common\HSE_transport_manager.Common.csproj">
+      <Project>{f3c4ec9c-2d9e-419b-96d2-dab5ce3500ae}</Project>
+      <Name>HSE_transport_manager.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
