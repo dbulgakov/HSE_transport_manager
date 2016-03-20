@@ -60,7 +60,6 @@
     <Compile Include="Entities\LocalTrainStop.cs" />
     <Compile Include="Entities\PublicTransport.cs" />
     <Compile Include="Entities\PublicTransportPrice.cs" />
-    <Compile Include="Entities\SubwayElapsedTime.cs" />
     <Compile Include="Entities\SubwayStation.cs" />
     <Compile Include="Entities\TransportType.cs" />
     <Compile Include="IDatabaseService.cs" />
@@ -68,6 +67,10 @@
     <Compile Include="Migrations\201603201829270_Initial.cs" />
     <Compile Include="Migrations\201603201829270_Initial.Designer.cs">
       <DependentUpon>201603201829270_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603201928120_DeleteTable.cs" />
+    <Compile Include="Migrations\201603201928120_DeleteTable.Designer.cs">
+      <DependentUpon>201603201928120_DeleteTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DormitoryData.cs" />
@@ -85,6 +88,9 @@
     <EmbeddedResource Include="Data\HSEBuildings.csv" />
     <EmbeddedResource Include="Migrations\201603201829270_Initial.resx">
       <DependentUpon>201603201829270_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603201928120_DeleteTable.resx">
+      <DependentUpon>201603201928120_DeleteTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

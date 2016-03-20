@@ -7,7 +7,6 @@ namespace MSDatabaseService
     class Context: DbContext  
     {
         public DbSet<SubwayStation> SubwayStations { get; set; }
-        public DbSet<SubwayElapsedTime> SubwayRouteElapsedTime { get; set; }
         public DbSet<LocalTrainSchedule> LocalTrainsSchedule { get; set; }
         public DbSet<LocalTrainStation> LocalTrainStations { get; set; }
         public DbSet<LocalTrainStop> LocalTrainStops { get; set; }

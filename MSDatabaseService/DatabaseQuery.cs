@@ -18,11 +18,6 @@ namespace MSDatabaseService
         private Transport tr;
 
 
-        public void UploadElapsedTimeSubway()
-        {
-
-        }
-
         public void RefreshTrainSchedule(DailyTrainSchedule trainSchedule)
         {
             if (context.LocalTrainsSchedule != null)
@@ -320,8 +315,6 @@ namespace MSDatabaseService
             return new Transport
                          {
                             DepartureTime = queryDate.AddMinutes(20),
-                            ElapsedTime = queryDate.AddMinutes(20+context.SubwayRouteElapsedTime.Where(t => t.StationFrom == context.SubwayStations.Single(s => s.Name == stationFrom) && t.StationTo == context.SubwayStations.Single(s => s.Name == stationTo))
-                                                                              .Select(t => t.ElapsedTime).Single()),
                             FromPoint = stationFrom,
                             ToPoint = stationTo,
                             Price = 50,
