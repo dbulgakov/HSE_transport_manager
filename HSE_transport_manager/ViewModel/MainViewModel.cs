@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System.Windows.Input;
+using HSE_transport_manager.Common.Interfaces;
 
 namespace HSE_transport_manager.ViewModel
 {
@@ -24,9 +25,11 @@ namespace HSE_transport_manager.ViewModel
         /// 
         private ViewModelBase _currentViewModel;
 
-        readonly static StatusViewModel _statusViewModel = new StatusViewModel();
-        readonly static SettingsViewModel _settingsViewModel = new SettingsViewModel();
-        readonly static AboutViewModel _aboutViewModel = new AboutViewModel();
+        private IDialogProvider _dialogProvider;
+
+        static readonly StatusViewModel StatusViewModel = new StatusViewModel();
+        static readonly SettingsViewModel SettingsViewModel = new SettingsViewModel();
+        static readonly AboutViewModel AboutViewModel = new AboutViewModel();
 
         public ViewModelBase CurrentViewModel
         {
@@ -48,34 +51,27 @@ namespace HSE_transport_manager.ViewModel
         public ICommand AboutCommand { get; private set; }
 
 
-        public MainViewModel()
+        public MainViewModel(IDialogProvider dialogProvider)
         {
-            ////if (IsInDesignMode) 
-            ////{ 
-            //// // Code runs in Blend —> create design time data. 
-            ////} 
-            ////else 
-            ////{ 
-            //// // Code runs "for real" 
-            ////} 
-            CurrentViewModel = MainViewModel._statusViewModel;
-            StatusCommand = new RelayCommand(() => ExecuteStatusCommand());
-            SettingsCommand = new RelayCommand(() => ExecuteSettingsCommand());
-            AboutCommand = new RelayCommand(() => ExecuteAboutCommand());
+            _dialogProvider = dialogProvider;
+            CurrentViewModel = StatusViewModel;
+            StatusCommand = new RelayCommand(ExecuteStatusCommand);
+            SettingsCommand = new RelayCommand(ExecuteSettingsCommand);
+            AboutCommand = new RelayCommand(ExecuteAboutCommand);
         }
 
         private void ExecuteStatusCommand()
         {
-            CurrentViewModel = MainViewModel._statusViewModel;
+            CurrentViewModel = StatusViewModel;
         }
 
         private void ExecuteSettingsCommand()
         {
-            CurrentViewModel = MainViewModel._settingsViewModel;
+            CurrentViewModel = SettingsViewModel;
         }
         private void ExecuteAboutCommand()
         {
-            CurrentViewModel = MainViewModel._aboutViewModel;
+            CurrentViewModel = AboutViewModel;
         }
 
     }

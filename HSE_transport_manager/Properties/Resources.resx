@@ -114,4 +114,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="StatusViewModel__botStatus_Bot_is_inactive_message" xml:space="preserve">
+    <value>Bot is inactive</value>
+  </data>
+  <data name="StatusViewModel_Start_Bot_is_active_message" xml:space="preserve">
+    <value>Bot is active</value>
+  </data>
+  <data name="StatusViewModel_Stop_Bot_is_offline_message" xml:space="preserve">
+    <value>Bot is offline</value>
+  </data>
+  <data name="StatusViewModel_BotWork_Unknown_input_message" xml:space="preserve">
+    <value>Неизвестная комманда.</value>
+  </data>
+  <data name="StatusViewModel_Start_Error_contacting_bot_message" xml:space="preserve">
+    <value>Error contacting bot!</value>
+  </data>
+  <data name="StatusViewModel_BotWork__check_message" xml:space="preserve">
+    <value>/get_route</value>
+  </data>
+  <data name="SettingsViewModel_Reset_Error_saving_file_message" xml:space="preserve">
+    <value>Error saving file!</value>
+  </data>
+  <data name="StatusViewModel_BotWork_Bot_is_stopped_message" xml:space="preserve">
+    <value>Bot is stopped</value>
+  </data>
 </root>

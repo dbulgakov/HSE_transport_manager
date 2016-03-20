@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using HSE_transport_manager.Common.Interfaces;
 using HSE_transport_manager.Common.Models.TrainSchedulesData;
@@ -43,7 +40,8 @@ namespace YandexScheduleService
 
                 foreach (var train in threadListResponse.TrainThreadList)
                 {
-                    scheduledTrains.Add(GetScheduleAsync(train.TrainInfo.TrainUid, startingStationCode, train.TrainInfo.TrainExpressType, (DateTime)train.DepartureTime).Result);
+                    if (train.DepartureTime != null)
+                        scheduledTrains.Add(GetScheduleAsync(train.TrainInfo.TrainUid, startingStationCode, train.TrainInfo.TrainExpressType, (DateTime)train.DepartureTime).Result);
                 }
 
                 return CreateDailyTrainSchedule(startingStationCode, endingStationCode, scheduledTrains);
