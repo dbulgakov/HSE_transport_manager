@@ -1,6 +1,7 @@
 ﻿using MSDatabaseService.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -121,7 +122,7 @@ namespace MSDatabaseService
                             new DubkiBusData
                             {
                                 Trip = i,
-                                DepartureTime = DateTime.Parse(items[0]),
+                                DepartureTime = DateTime.Parse(items[0], CultureInfo.CreateSpecificCulture("fr-FR")),
                                 DayOfWeek = items[2].Split(',').ToList(),
                                 From = items[1],
                                 To = items[3],
@@ -133,7 +134,7 @@ namespace MSDatabaseService
                             new DubkiBusData
                             {
                                 Trip=i,
-                                DepartureTime = DateTime.Parse(items[4]),
+                                DepartureTime = DateTime.Parse(items[4], CultureInfo.CreateSpecificCulture("fr-FR")),
                                 DayOfWeek = items[2].Split(',').ToList(),
                                 From = items[5],
                                 To = items[6],
@@ -162,7 +163,7 @@ namespace MSDatabaseService
                             new PublicTransportData
                             {
                                 Number = int.Parse(items[0]),
-                                DepartureTime = DateTime.Parse(items[1]),
+                                DepartureTime = DateTime.Parse(items[1], CultureInfo.CreateSpecificCulture("fr-FR")),
                                 DayOfWeek = items[2].Split(',').ToList(),
                                 From= items[3],
                                 To=items[4],

@@ -83,13 +83,13 @@
     <EmbeddedResource Include="Data\Dormitories.csv" />
     <EmbeddedResource Include="Data\Dubki.csv" />
     <EmbeddedResource Include="Data\HSEBuildings.csv" />
-    <EmbeddedResource Include="Data\SubwayStations.csv" />
     <EmbeddedResource Include="Migrations\201603192251037_Initial.resx">
       <DependentUpon>201603192251037_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EmbeddedResource Include="Data\SubwayStations.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
