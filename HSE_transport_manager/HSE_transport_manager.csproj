@@ -97,7 +97,6 @@
     <Compile Include="IDataRepository.cs" />
     <Compile Include="PluginManager.cs" />
     <Compile Include="ViewModel\AboutViewModel.cs" />
-    <Compile Include="ViewModel\IDialogProvider.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\StatusViewModel.cs" />
