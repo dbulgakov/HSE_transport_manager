@@ -114,4 +114,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="StatusViewModel__botStatus_Bot_is_inactive_message" xml:space="preserve">
+    <value>Bot is inactive</value>
+  </data>
+  <data name="StatusViewModel_Start_Bot_is_active_message" xml:space="preserve">
+    <value>Bot is active</value>
+  </data>
 </root>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HSE_transport_manager.Properties;
 
 namespace HSE_transport_manager.ViewModel
 {
@@ -102,7 +103,7 @@ namespace HSE_transport_manager.ViewModel
         }
 
 
-        private string _botStatus = "Bot is inactive";
+        private string _botStatus = Resources.StatusViewModel__botStatus_Bot_is_inactive_message;
 
         public string BotStatus
         {
@@ -138,7 +139,7 @@ namespace HSE_transport_manager.ViewModel
         void Start()
         {
             //TG Service 
-            BotStatus = "Bot is active";
+            BotStatus = Resources.StatusViewModel_Start_Bot_is_active_message;
         }
 
         void ViewLogFile()
