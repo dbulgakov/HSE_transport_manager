@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using HSE_transport_manager.Common.Interfaces;
+using MSDatabaseService;
 
 namespace HSE_transport_manager
 {
@@ -60,6 +61,26 @@ namespace HSE_transport_manager
                 {
                     var type = pluginAssembly.GetTypes().First(t => typeof(ITransportSchedulerService).IsAssignableFrom(t));
                     var service = Activator.CreateInstance(type) as ITransportSchedulerService;
+                    return service;
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
+            return null;
+        }
+
+        public IDatabaseService LoadDbService()
+        {
+            var files = Directory.GetFiles(PluginFolder, "*.dll");
+            foreach (var file in files)
+            {
+                Assembly pluginAssembly = Assembly.LoadFrom(file);
+                try
+                {
+                    var type = pluginAssembly.GetTypes().First(t => typeof(IDatabaseService).IsAssignableFrom(t));
+                    var service = Activator.CreateInstance(type) as IDatabaseService;
                     return service;
                 }
                 catch
