@@ -2,7 +2,7 @@
 
 namespace HSE_transport_manager.Common.Interfaces
 {
-    interface IDataRepository
+    public interface IDataRepository
     {
          KeyData KeyData { get; set; }
     }

@@ -14,6 +14,7 @@
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using HSE_transport_manager.Common.Interfaces;
 using Microsoft.Practices.ServiceLocation;
 
 namespace HSE_transport_manager.ViewModel
@@ -43,7 +44,7 @@ namespace HSE_transport_manager.ViewModel
             //// // Create run time view services and models 
             //// SimpleIoc.Default.Register<IDataService, DataService>(); 
             ////} 
-
+            SimpleIoc.Default.Register<IDialogProvider, WpfMessageProvider>();
             SimpleIoc.Default.Register<MainViewModel>(); 
         }
 
