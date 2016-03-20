@@ -28,6 +28,39 @@ namespace MSDatabaseService.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+
+            context.DayofWeek.AddOrUpdate(
+                d => d.Name,
+                new DayofWeek
+                {
+                    Name = "ом"
+                },
+                new DayofWeek
+                {
+                    Name = "бр"
+                },
+                new DayofWeek
+                {
+                    Name = "яп"
+                },
+                new DayofWeek
+                {
+                    Name = "вр"
+                },
+                new DayofWeek
+                {
+                    Name = "ор"
+                },
+                new DayofWeek
+                {
+                    Name = "яа"
+                },
+                new DayofWeek
+                {
+                    Name = "бя"
+                });
+            context.SaveChanges();
             //TransportType
             context.TransportTypes.AddOrUpdate(
                 t => t.Name,
@@ -89,13 +122,13 @@ namespace MSDatabaseService.Migrations
                 p => p.Price,
                 new PublicTransportPrice
                 {
-                    Price=50,
-                    ModifiedDate=DateTime.Now
+                    Price = 50,
+                    ModifiedDate = DateTime.Now
                 },
                 new PublicTransportPrice
                 {
-                    Price=74,
-                    ModifiedDate=DateTime.Now
+                    Price = 74,
+                    ModifiedDate = DateTime.Now
                 });
             context.SaveChanges();
 
@@ -107,50 +140,17 @@ namespace MSDatabaseService.Migrations
                     v => v.Trip,
                     new PublicTransport
                     {
-                        Trip=vehicle.Trip,
+                        Trip = vehicle.Trip,
                         Number = vehicle.Number,
-                        DayOfWeek=context.DayofWeek.Where(d=> vehicle.DayOfWeek.Contains(d.Name)).ToList(),
-                        DepartureTime=vehicle.DepartureTime,
-                        From=vehicle.From,
-                        To=vehicle.To,
-                        Type=context.TransportTypes.Single(t=> t.Name.Equals(vehicle.Type)),
-                        Price=context.PublicTransportPrices.Single(p=> p.Price==50&&vehicle.Type=="Tram" || p.Price==74&&vehicle.Type=="Bus")
+                        DayOfWeek = context.DayofWeek.Where(d=> vehicle.DayOfWeek.Contains(d.Name)).ToList(),
+                        DepartureTime = vehicle.DepartureTime,
+                        From = vehicle.From,
+                        To = vehicle.To,
+                        Type = context.TransportTypes.Single(t => t.Name.Equals(vehicle.Type)),
+                        Price = context.PublicTransportPrices.Single(p => p.Price == 50 && vehicle.Type == "Tram" || p.Price == 74 && vehicle.Type == "Bus")
                     });
             context.SaveChanges();
 
-            
-
-            context.DayofWeek.AddOrUpdate(
-                d => d.Name,
-                new DayofWeek
-                {
-                    Name = "ом"
-                },
-                new DayofWeek
-                {
-                    Name = "бр"
-                },
-                new DayofWeek
-                {
-                    Name = "яп"
-                },
-                new DayofWeek
-                {
-                    Name = "вр"
-                },
-                new DayofWeek
-                {
-                    Name = "ор"
-                },
-                new DayofWeek
-                {
-                    Name = "яа"
-                },
-                new DayofWeek
-                {
-                    Name = "бя"
-                });
-            context.SaveChanges();
 
 
             //DubkiBusSchedule
@@ -213,7 +213,7 @@ namespace MSDatabaseService.Migrations
                         Name = station.Name,
                         Latitude = station.Latitude,
                         Longitude = station.Longitude,
-                        Type=context.TransportTypes.Single(t=> t.Name.Equals(station.Type))
+                        Type = context.TransportTypes.Single(t => t.Name.Equals(station.Type))
                     });
             context.SaveChanges();
 
@@ -250,7 +250,6 @@ namespace MSDatabaseService.Migrations
                         Longitude = hse.Longitude,
                         SubwayStation = context.SubwayStations.Where(s => hse.SubwayStation.Contains(s.Name)).ToList()
                     });
-            Console.WriteLine();
             context.SaveChanges();
         
         }

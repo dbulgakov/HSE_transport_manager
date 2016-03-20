@@ -15,6 +15,6 @@ namespace HSE_transport_manager.Entities
         [Required]
         public SubwayStation StationTo { get; set; }
         [Required]
-        public DateTime ElapsedTime { get; set; }
+        public int ElapsedTime { get; set; }
     }
 }

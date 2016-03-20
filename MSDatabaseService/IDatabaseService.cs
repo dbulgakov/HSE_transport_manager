@@ -12,6 +12,6 @@ namespace MSDatabaseService
     {
         void RefreshTrainSchedule(DailyTrainSchedule trainSchedule);
         void RemoveTrainSchedule();
-        List<QueryResult> GetRoute();
+        List<QueryResult> GetRoute(string fromPoint, string toPoint, DateTime queryDate);
     }
 }

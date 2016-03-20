@@ -25,7 +25,7 @@ namespace MSDatabaseService
         public DbSet<DayofWeek> DayofWeek { get; set; }
         public DbSet<TransportType> TransportTypes { get; set; }
         public Context()
-            : base("HSE_transport_manager2")
+            : base("HSE_transport_manager")
         {
 
         }
