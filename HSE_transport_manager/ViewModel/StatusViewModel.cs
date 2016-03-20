@@ -151,6 +151,7 @@ namespace HSE_transport_manager.ViewModel
         {
             try
             {
+                _ctoken = new CancellationTokenSource();
                 var keyData = ReadXml();
                 var bot = new Api(keyData.BotServiceKey);
                 var me = await bot.GetMe();
@@ -203,7 +204,6 @@ namespace HSE_transport_manager.ViewModel
 
                 catch
                 {
-                    _dialogProvider.ShowMessage(Resources.StatusViewModel_BotWork_Bot_is_stopped_message);
                 }
             }, _ctoken.Token);
             

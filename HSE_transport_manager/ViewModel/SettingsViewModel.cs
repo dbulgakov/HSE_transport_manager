@@ -214,7 +214,7 @@ namespace HSE_transport_manager.ViewModel
 
         private void SaveXml(KeyData keyData)
         {
-            using (var fs = new FileStream(FileName, FileMode.OpenOrCreate))
+            using (var fs = new FileStream(FileName, FileMode.Create))
             {
                 var formatter = new XmlSerializer(typeof(KeyData));
                 formatter.Serialize(fs, keyData);
