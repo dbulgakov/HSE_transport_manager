@@ -88,6 +88,15 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bot is stopped.
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Bot_is_stopped_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Bot_is_stopped_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Неизвестная комманда..
         /// </summary>
         internal static string StatusViewModel_BotWork_Unknown_input_message {

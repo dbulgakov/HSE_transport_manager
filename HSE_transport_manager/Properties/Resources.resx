@@ -135,4 +135,7 @@
   <data name="SettingsViewModel_Reset_Error_saving_file_message" xml:space="preserve">
     <value>Error saving file!</value>
   </data>
+  <data name="StatusViewModel_BotWork_Bot_is_stopped_message" xml:space="preserve">
+    <value>Bot is stopped</value>
+  </data>
 </root>

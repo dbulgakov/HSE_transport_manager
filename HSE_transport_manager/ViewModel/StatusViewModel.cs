@@ -203,7 +203,7 @@ namespace HSE_transport_manager.ViewModel
 
                 catch
                 {
-                    // ignored
+                    _dialogProvider.ShowMessage(Resources.StatusViewModel_BotWork_Bot_is_stopped_message);
                 }
             }, _ctoken.Token);
             
