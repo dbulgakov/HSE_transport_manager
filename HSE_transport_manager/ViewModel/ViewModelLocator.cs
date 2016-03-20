@@ -14,6 +14,7 @@
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using HSE_transport_manager.Common.Interfaces;
 using Microsoft.Practices.ServiceLocation;
 
 namespace HSE_transport_manager.ViewModel
@@ -28,10 +29,10 @@ namespace HSE_transport_manager.ViewModel
         /// Initializes a new instance of the ViewModelLocator class. 
         /// </summary> 
         /// 
-        private static MainViewModel _main;
+        
         public ViewModelLocator()
         {
-            //ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default); 
+            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default); 
 
             ////if (ViewModelBase.IsInDesignModeStatic) 
             ////{ 
@@ -43,16 +44,15 @@ namespace HSE_transport_manager.ViewModel
             //// // Create run time view services and models 
             //// SimpleIoc.Default.Register<IDataService, DataService>(); 
             ////} 
-
-            //SimpleIoc.Default.Register<MainViewModel>(); 
-            _main = new MainViewModel();
+            SimpleIoc.Default.Register<IDialogProvider, WpfMessageProvider>();
+            SimpleIoc.Default.Register<MainViewModel>(); 
         }
 
         public MainViewModel Main
         {
             get
             {
-                return _main;
+                return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
 

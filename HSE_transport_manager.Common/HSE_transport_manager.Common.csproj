@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interfaces\IDataRepository.cs" />
+    <Compile Include="Interfaces\IDialogProvider.cs" />
     <Compile Include="Interfaces\ITaxiService.cs" />
     <Compile Include="Interfaces\ITransportMonitoringService.cs" />
     <Compile Include="Interfaces\ITransportSchedulerService.cs" />

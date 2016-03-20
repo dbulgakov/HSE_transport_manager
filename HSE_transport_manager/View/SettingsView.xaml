@@ -26,8 +26,7 @@
             <ColumnDefinition Width="0.2*"/>
             <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Grid.Column="1" Content="Local Trains Schedule:" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
-        <Label Grid.Row="0" Grid.Column="2" Content="Enable Auto-Refreshment" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+        <Label Grid.Row="1" Grid.Column="1" Content="Local Trains Schedule:" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
         <Label Grid.Row="3" Grid.Column="1" Content="Uber API Key*:" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
         <Label Grid.Row="4" Grid.Column="1" Content="Yandex Schedule API Key*:" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
         <Label Grid.Row="5" Grid.Column="1" Content="Google Destination API Key*:" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
@@ -45,7 +44,6 @@
             <Button Grid.Column="0" Content="Update" Style="{StaticResource AccentedSquareButtonStyle}" FontSize="16" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderThickness="0" Margin="0,5,5,5"/>
             <Button Grid.Column="2" Content="Remove" Controls:ControlsHelper.ContentCharacterCasing="Normal" FontSize="16" BorderThickness="0" Margin="5,5,0,5"/>
         </Grid>
-        <CheckBox Grid.Row="0" Grid.Column="2" Command="{Binding EnableRefreshmentCommand}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0"/>
         <Grid Grid.Row="7" Grid.Column="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>

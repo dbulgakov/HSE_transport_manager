@@ -1,8 +1,12 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System.IO;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Xml.Serialization;
+using HSE_transport_manager.Common.Interfaces;
+using HSE_transport_manager.Common.Models;
 using HSE_transport_manager.Properties;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -13,6 +17,14 @@ namespace HSE_transport_manager.ViewModel
     {
         private ICommand _startCommand;
         private CancellationTokenSource _ctoken;
+        private readonly IDialogProvider _dialogProvider;
+        private const string FileName = "settings.xml";
+
+        public StatusViewModel()
+        {
+            _dialogProvider = new WpfMessageProvider();
+        }
+
 
         public ICommand StartCommand
         {
@@ -137,16 +149,27 @@ namespace HSE_transport_manager.ViewModel
 
         async void Start()
         {
-            var bot = new Api("150491452:AAGaPUhZraEcZ84yxIxNTw5CdAC_oCHa7s4");
-            _ctoken = new CancellationTokenSource();
-            var me = await bot.GetMe();
-            BotStatus = Resources.StatusViewModel_Start_Bot_is_active_message;
-            BotWork(bot);
+            try
+            {
+                _ctoken = new CancellationTokenSource();
+                var keyData = ReadXml();
+                var bot = new Api(keyData.BotServiceKey);
+                var me = await bot.GetMe();
+                BotStatus = Resources.StatusViewModel_Start_Bot_is_active_message;
+                BotWork(bot);
+            }
+            catch
+            {
+                _dialogProvider.ShowMessage(Resources.StatusViewModel_Start_Error_contacting_bot_message);
+            }
         }
 
         void Stop()
         {
-            _ctoken.Cancel();
+            if (_ctoken != null)
+            {
+                _ctoken.Cancel();
+            }
             BotStatus = Resources.StatusViewModel__botStatus_Bot_is_inactive_message;
         }
 
@@ -165,7 +188,7 @@ namespace HSE_transport_manager.ViewModel
                         {
                             if (update.Message.Type == MessageType.TextMessage)
                             {
-                                if (update.Message.Text.Equals(@"/get_route"))
+                                if (update.Message.Text.Equals(Resources.StatusViewModel_BotWork__check_message))
                                 {
                                     bot.SendTextMessage(update.Message.Chat.Id, "Даша, пили базу.");
                                 }
@@ -181,10 +204,20 @@ namespace HSE_transport_manager.ViewModel
 
                 catch
                 {
-                    // ignored
                 }
             }, _ctoken.Token);
             
+        }
+
+        private KeyData ReadXml()
+        {
+            KeyData keyData;
+            using (var fs = new FileStream(FileName, FileMode.OpenOrCreate))
+            {
+                var formatter = new XmlSerializer(typeof(KeyData));
+                keyData = (KeyData)formatter.Deserialize(fs);
+            }
+            return keyData;
         }
     }
 }
