@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="HSE_transport_manager.View.StatusView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Image Grid.Column="0" Grid.Row="1" Source="/HSE_transport_manager;component/Resources/bot.png"/>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="2.2*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="0.2*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="1" Grid.Column="1" Content="Uber API status:" HorizontalContentAlignment="Left" FontSize="14" VerticalContentAlignment="Center"/>
+            <Label Grid.Row="2" Grid.Column="1" Content="Yandex Schedule status:" HorizontalContentAlignment="Left" FontSize="14" VerticalContentAlignment="Center"/>
+            <Label Grid.Row="3" Grid.Column="1" Content="Google Destination status:" HorizontalContentAlignment="Left" FontSize="14" VerticalContentAlignment="Center"/>
+            <Label Grid.Row="4" Grid.Column="1" Content="TG Bot API status:" HorizontalContentAlignment="Left" FontSize="14" VerticalContentAlignment="Center"/>
+            <Label Grid.Row="5" Grid.Column="1" Content="Unhandled errors occurred:" HorizontalContentAlignment="Left" FontSize="14" VerticalContentAlignment="Center"/>
+            <Label Grid.Row="1" Grid.Column="2" Content="{Binding UberStatus}" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center" BorderThickness="0"/>
+            <Label Grid.Row="2" Grid.Column="2" Content="{Binding YandexStatus}" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center" BorderThickness="0"/>
+            <Label Grid.Row="3" Grid.Column="2" Content="{Binding GoogleStatus}" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center" BorderThickness="0"/>
+            <Label Grid.Row="4" Grid.Column="2" Content="{Binding TGStatus}" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center" BorderThickness="0"/>
+            <Label Grid.Row="5" Grid.Column="2" Content="{Binding Errors}" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center" BorderThickness="0"/>
+            <Label Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding BotStatus}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Foreground="#FF47A1D7"/>
+            <Button Grid.Row="7" Grid.Column="1" Command="{Binding StartCommand}" Content="Start Bot" Style="{StaticResource AccentedSquareButtonStyle}" FontSize="14" Controls:ControlsHelper.ContentCharacterCasing="Normal" Width="{Binding ActualWidth, ElementName=logButton}" HorizontalAlignment="Left" BorderThickness="0"/>
+            <Button Grid.Row="7" Grid.Column="2" Command="{Binding LogCommand}" Content="View log file" Controls:ControlsHelper.ContentCharacterCasing="Normal" FontSize="14" Name="logButton" BorderThickness="0"/>
+        </Grid>
+    </Grid>
+</UserControl>

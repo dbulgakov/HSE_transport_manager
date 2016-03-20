@@ -1,0 +1,7 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ImageSource x:Key="bot">HSE_transport_manager/Resources/bot.png</ImageSource>
+    <ImageSource x:Key="yandex">HSE_transport_manager/Resources/yandex.png</ImageSource>
+    <ImageSource x:Key="uber">HSE_transport_manager/Resources/uber.png</ImageSource>
+</ResourceDictionary>

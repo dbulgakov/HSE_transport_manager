@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace MSDatabaseService.Models
 {
-    class PublicTransportData
+    public class PublicTransportData
     {
+        public int Trip { get; set; }
+        public int Number { get; set; }
+        public DateTime DepartureTime { get; set; }
+        public List<string> DayOfWeek { get; set; }
+        public string From { get; set; }
+        public string To { get; set; }
+        public string Type { get; set; }
     }
 }

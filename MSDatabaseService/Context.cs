@@ -23,8 +23,9 @@ namespace MSDatabaseService
         public DbSet<PublicTransport> PublicTransportSchedule { get; set; }
         public DbSet<PublicTransportPrice> PublicTransportPrices { get; set; }
         public DbSet<DayofWeek> DayofWeek { get; set; }
+        public DbSet<TransportType> TransportTypes { get; set; }
         public Context()
-            : base("HSE_transport_manager")
+            : base("HSE_transport_manager2")
         {
 
         }

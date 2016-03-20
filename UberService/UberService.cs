@@ -12,7 +12,7 @@ using UberService.DTO.Response;
 
 namespace UberService
 {
-    class UberService : ITransportService, ITaxiService
+    class UberService : ITaxiService
     {
         private const string ApiUrl = "https://api.uber.com";
         private const string ApiVer = "v1";
@@ -30,7 +30,7 @@ namespace UberService
 
         public async Task<TaxiTripData> GetRouteAsync(Coordinate startingPoint, Coordinate endingPoint)
         {
-            return await Task<TaxiTripData>.Factory.StartNew(() =>
+            return await Task.Run(() =>
             {
                 var requestString = _requestBuilder.PriceRequest(startingPoint, endingPoint);
                 HttpClient client = new HttpClient();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using MSDatabaseService.Entities;
 
 namespace HSE_transport_manager.Entities
 {
@@ -18,5 +19,7 @@ namespace HSE_transport_manager.Entities
         [Required]
         public LocalTrainStation ArrivalStation { get; set; }
         public List<LocalTrainStop> Stops { get; set; }
+        [Required]
+        public TransportType Type { get; set; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,8 +25,7 @@ namespace HSE_transport_manager.Entities
         public double Longitude { get; set; }
         [Required]
         public bool CheckDubkiBus { get; set; }
-        public List<PublicTransport> To { get; set; }
-        public List<PublicTransport> From { get; set; }
+        public List<PublicTransport> PublicTransport{ get; set; }
         
     }
 }

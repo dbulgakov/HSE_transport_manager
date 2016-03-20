@@ -11,8 +11,7 @@ namespace HSE_transport_manager.Entities
 {
     class DubkiBusSchedule
     {
-        public int Id { get; set; }
-        [Required]
+        [Key]
         public int Trip { get; set; }
         [Required]
         public DateTime DepartureTime { get; set; }
@@ -22,5 +21,7 @@ namespace HSE_transport_manager.Entities
         public List<DayofWeek> DayOfWeek { get; set; }
         [Required]
         public string To { get; set; }
+        [Required]
+        public TransportType Type { get; set; }
     }
 }

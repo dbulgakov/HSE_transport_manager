@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace GoogleGeoMatrixService
 {
-    class GoogleGeoMatrixService : ITransportService, ITransportMonitoringService
+    class GoogleGeoMatrixService : ITransportMonitoringService
     {
 
         private const string ApiUrl = "https://maps.googleapis.com/maps/api";
@@ -29,10 +29,10 @@ namespace GoogleGeoMatrixService
 
         public async Task<DateTime> EstimateTripTimeAsync(Coordinate startingPoint, Coordinate endingPoint)
         {
-            return await Task<DateTime>.Factory.StartNew(() =>
+            return await Task.Run(() =>
             {
                 var requestString = _requestBuilder.TimeEstimateRequest(startingPoint, endingPoint);
-                HttpClient client = new HttpClient();
+                var client = new HttpClient();
                 var responseString = client.GetAsync(requestString).Result.Content.ReadAsStringAsync().Result;
                 var deserializedResponse = JsonConvert.DeserializeObject<EstimateTimeResponse>(responseString);
 

@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="HSE_transport_manager.View.SettingsView"
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HSE_transport_manager.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="0.4*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="0.2*"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="1" Content="Local Trains Schedule:" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+        <Label Grid.Row="0" Grid.Column="2" Content="Enable Auto-Refreshment" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+        <Label Grid.Row="3" Grid.Column="1" Content="Uber API Key*:" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+        <Label Grid.Row="4" Grid.Column="1" Content="Yandex Schedule API Key*:" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+        <Label Grid.Row="5" Grid.Column="1" Content="Google Destination API Key*:" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+        <Label Grid.Row="6" Grid.Column="1" Content="TG Bot API Key*:" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+        <TextBox Grid.Row="3" Text="{Binding UberKey}" Grid.Column="2" Controls:TextBoxHelper.Watermark="Enter API Key" Margin="0,3,0,3" FontSize="16" />
+        <TextBox Grid.Row="4" Text="{Binding YandexKey}" Grid.Column="2" Controls:TextBoxHelper.Watermark="Enter API Key" Margin="0,3,0,3" FontSize="16" />
+        <TextBox Grid.Row="5" Text="{Binding GoogleKey}" Grid.Column="2" Controls:TextBoxHelper.Watermark="Enter API Key" Margin="0,3,0,3" FontSize="16" />
+        <TextBox Grid.Row="6" Text="{Binding TGKey}" Grid.Column="2" Controls:TextBoxHelper.Watermark="Enter API Key" Margin="0,3,0,3" FontSize="16" />
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Update" Style="{StaticResource AccentedSquareButtonStyle}" FontSize="16" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderThickness="0" Margin="0,5,5,5"/>
+            <Button Grid.Column="2" Content="Remove" Controls:ControlsHelper.ContentCharacterCasing="Normal" FontSize="16" BorderThickness="0" Margin="5,5,0,5"/>
+        </Grid>
+        <CheckBox Grid.Row="0" Grid.Column="2" Command="{Binding EnableRefreshmentCommand}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0"/>
+        <Grid Grid.Row="7" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Save" Command="{Binding SaveCommand}" Style="{StaticResource AccentedSquareButtonStyle}" FontSize="16" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderThickness="0" Margin="0,5,5,5"/>
+            <Button Grid.Column="2" Content="Reset" Command="{Binding ResetCommand}" Controls:ControlsHelper.ContentCharacterCasing="Normal" FontSize="16" BorderThickness="0" Margin="5,5,0,5"/>
+        </Grid>
+    </Grid>
+</UserControl>

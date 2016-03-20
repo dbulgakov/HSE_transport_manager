@@ -1,6 +1,7 @@
 ﻿using MSDatabaseService.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -35,9 +36,8 @@ namespace MSDatabaseService
                                 Address = items[5],
                                 SubwayStation = items[6].Split(',').ToList(),
                                 LocalTrainStation = items[7],
-                                ChechDubkiBus = bool.Parse(items[8]),
-                                From = items[9].Split(',').ToList(),
-                                To = items[10].Split(',').ToList()
+                                CheckDubkiBus = bool.Parse(items[8]),
+                                PublicTransport = items[9].Split(',').ToList()
                             });
                     }
                 }
@@ -91,7 +91,8 @@ namespace MSDatabaseService
                             {
                                 Name = items[0],
                                 Latitude = double.Parse(items[1]),
-                                Longitude = double.Parse(items[2])
+                                Longitude = double.Parse(items[2]),
+                                Type=items[3]
                             });
                     }
                 }
@@ -120,10 +121,11 @@ namespace MSDatabaseService
                             new DubkiBusData
                             {
                                 Trip = i,
-                                DepartureTime = DateTime.Parse(items[0]),
+                                DepartureTime = DateTime.Parse(items[0], CultureInfo.CreateSpecificCulture("fr-FR")),
                                 DayOfWeek = items[2].Split(',').ToList(),
                                 From = items[1],
-                                To = items[3]
+                                To = items[3],
+                                Type=items[7]
                             });
                         }
                         i++;
@@ -131,14 +133,47 @@ namespace MSDatabaseService
                             new DubkiBusData
                             {
                                 Trip=i,
-                                DepartureTime = DateTime.Parse(items[4]),
+                                DepartureTime = DateTime.Parse(items[4], CultureInfo.CreateSpecificCulture("fr-FR")),
                                 DayOfWeek = items[2].Split(',').ToList(),
                                 From = items[5],
-                                To = items[6]
+                                To = items[6],
+                                Type=items[7]
                             });
                     }
                 }
                 return dubki;
+            }
+        }
+
+        public static List<PublicTransportData> LoadPublicTransportData(string filename)
+        {
+            int i = 0;
+            var assembly = Assembly.GetExecutingAssembly();
+            using (var stream = assembly.GetManifestResourceStream(filename))
+            {
+                var publicTransport = new List<PublicTransportData>();
+                using (var sr = new StreamReader(stream, Encoding.Default))
+                {
+                    sr.ReadLine();
+                    while (!sr.EndOfStream)
+                    {
+                        var line = sr.ReadLine();
+                        var items = line.Split(';');
+                        i++;
+                        publicTransport.Add(
+                            new PublicTransportData
+                            {
+                                Trip=i,
+                                Number = int.Parse(items[0]),
+                                DepartureTime = DateTime.Parse(items[1], CultureInfo.CreateSpecificCulture("fr-FR")),
+                                DayOfWeek = items[2].Split(',').ToList(),
+                                From= items[3],
+                                To=items[4],
+                                Type = items[5]
+                            });
+                    }
+                }
+                return publicTransport;
             }
         }
     }
