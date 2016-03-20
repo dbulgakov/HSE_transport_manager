@@ -8,6 +8,7 @@ namespace MSDatabaseService.Models
 {
     public class PublicTransportData
     {
+        public int Trip { get; set; }
         public int Number { get; set; }
         public DateTime DepartureTime { get; set; }
         public List<string> DayOfWeek { get; set; }

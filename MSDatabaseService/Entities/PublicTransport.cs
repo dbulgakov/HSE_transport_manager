@@ -11,6 +11,8 @@ namespace HSE_transport_manager.Entities
     class PublicTransport
     {
         [Key]
+        public int Trip { get; set; }
+        [Required]
         public DateTime DepartureTime { get; set; }
         [Required]
         public int Number { get; set; }

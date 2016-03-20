@@ -148,6 +148,7 @@ namespace MSDatabaseService
 
         public static List<PublicTransportData> LoadPublicTransportData(string filename)
         {
+            int i = 0;
             var assembly = Assembly.GetExecutingAssembly();
             using (var stream = assembly.GetManifestResourceStream(filename))
             {
@@ -159,9 +160,11 @@ namespace MSDatabaseService
                     {
                         var line = sr.ReadLine();
                         var items = line.Split(';');
+                        i++;
                         publicTransport.Add(
                             new PublicTransportData
                             {
+                                Trip=i,
                                 Number = int.Parse(items[0]),
                                 DepartureTime = DateTime.Parse(items[1], CultureInfo.CreateSpecificCulture("fr-FR")),
                                 DayOfWeek = items[2].Split(',').ToList(),
