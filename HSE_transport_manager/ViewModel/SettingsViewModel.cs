@@ -79,23 +79,6 @@ namespace HSE_transport_manager.ViewModel
             }
         }
 
-        private ICommand _enableRefreshmentCommand;
-
-        public ICommand EnableRefreshmentCommand
-        {
-            get
-            {
-                if (_enableRefreshmentCommand == null)
-                {
-                    _enableRefreshmentCommand = new RelayCommand(
-                    EnableRefreshment);
-                }
-                return _enableRefreshmentCommand;
-            }
-        }
-
-
-
         private string _uberKey;
 
         public string UberKey
@@ -169,6 +152,7 @@ namespace HSE_transport_manager.ViewModel
             UberKey = null;
             YandexKey = null;
             GoogleKey = null;
+            TGKey = null;
         }
 
         void Update()
@@ -180,11 +164,6 @@ namespace HSE_transport_manager.ViewModel
         {
 
         }
-
-        void EnableRefreshment()
-        {
-            //Timer 
-            Update();
-        }
+        
     }
 }
