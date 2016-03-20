@@ -36,7 +36,7 @@ namespace MSDatabaseService
                                 Address = items[5],
                                 SubwayStation = items[6].Split(',').ToList(),
                                 LocalTrainStation = items[7],
-                                ChechDubkiBus = bool.Parse(items[8]),
+                                CheckDubkiBus = bool.Parse(items[8]),
                                 From = items[9].Split(',').ToList(),
                                 To = items[10].Split(',').ToList()
                             });

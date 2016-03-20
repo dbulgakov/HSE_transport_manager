@@ -85,11 +85,40 @@ namespace MSDatabaseService.Migrations
             context.SaveChanges();
 
 
-            //PublicTransport
-            //Soon
-
             //PublicTransportPrices
-            //Soon
+            context.PublicTransportPrices.AddOrUpdate(
+                p => p.Price,
+                new PublicTransportPrice
+                {
+                    Price=50,
+                    ModifiedDate=DateTime.Now
+                },
+                new PublicTransportPrice
+                {
+                    Price=74,
+                    ModifiedDate=DateTime.Now
+                });
+            context.SaveChanges();
+
+
+            //PublicTransport
+            var transportData = LoadFromCSV.LoadPublicTransportData("MSDatabaseService.Data.PublicTransport.csv");
+            foreach (var vehicle in transportData)
+                context.PublicTransportSchedule.AddOrUpdate(
+                    v => new {v.DayOfWeek, v.DepartureTime, v.Number, v.From},
+                    new PublicTransport
+                    {
+                        Number = vehicle.Number,
+                        DayOfWeek=context.DayofWeek.Where(d=> vehicle.DayOfWeek.Contains(d.Name)).ToList(),
+                        DepartureTime=vehicle.DepartureTime,
+                        From=vehicle.From,
+                        To=vehicle.To,
+                        Type=context.TransportTypes.Single(t=> t.Name.Equals(vehicle.Type)),
+                        Price=context.PublicTransportPrices.Single(p=> p.Price==50&&vehicle.Type=="Tram" || p.Price==74&&vehicle.Type=="Bus")
+                    });
+            context.SaveChanges();
+
+            
 
             context.DayofWeek.AddOrUpdate(
                 d => d.Name,
@@ -124,8 +153,6 @@ namespace MSDatabaseService.Migrations
             context.SaveChanges();
 
 
-            if (System.Diagnostics.Debugger.IsAttached == false)
-                System.Diagnostics.Debugger.Launch();
             //DubkiBusSchedule
             var dubkiData = LoadFromCSV.LoadDubkiBusData("MSDatabaseService.Data.Dubki.csv");
             foreach (var bus in dubkiData)
@@ -204,7 +231,7 @@ namespace MSDatabaseService.Migrations
             //            Latitude = dorm.Latitude,
             //            Longitude = dorm.Longitude,
             //            SubwayStation = context.SubwayStations.Where(s => dorm.SubwayStation.Contains(s.Name)).ToList(),
-            //            CheckDubkiBus = dorm.ChechDubkiBus,
+            //            CheckDubkiBus = dorm.CheckDubkiBus,
             //            LocalTrainStation = context.LocalTrainStations.Single(s => s.Name == dorm.LocalTrainStation),
             //            From = context.PublicTransportSchedule.Where(t => dorm.From.Contains(t.Number.ToString())).ToList(),
             //            To = context.PublicTransportSchedule.Where(t => dorm.To.Contains(t.Number.ToString())).ToList()
