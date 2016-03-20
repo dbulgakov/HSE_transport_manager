@@ -42,7 +42,7 @@ namespace YandexScheduleService
 
                 foreach (var train in threadListResponse.TrainThreadList)
                 {
-                    scheduledTrains.Add(GetScheduleAsync(train.TrainInfo.TrainUid, startingStationCode, train.TrainInfo.TrainExpressType).Result);
+                    scheduledTrains.Add(GetScheduleAsync(train.TrainInfo.TrainUid, startingStationCode, train.TrainInfo.TrainExpressType, (DateTime)train.DepartureTime).Result);
                 }
 
 
@@ -88,7 +88,7 @@ namespace YandexScheduleService
             });
         }
 
-        public async Task<SingleTrainSchedule> GetScheduleAsync(string transportId, string baseStationId, string trainType)
+        private async Task<SingleTrainSchedule> GetScheduleAsync(string transportId, string baseStationId, string trainType, DateTime departureTime)
         {
             return await Task.Run(() =>
             {
@@ -98,7 +98,7 @@ namespace YandexScheduleService
                 var threadInfoResponse = JsonConvert.DeserializeObject<TrainThreadInfoResponse>(responseString);
 
                 var trainStopList = ConvertStopList(threadInfoResponse, baseStationId);
-                return CreateTrainSchedule(transportId, threadInfoResponse.StartTime, trainStopList, trainType);
+                return CreateTrainSchedule(transportId, departureTime, trainStopList, trainType);
             });
         }
 
