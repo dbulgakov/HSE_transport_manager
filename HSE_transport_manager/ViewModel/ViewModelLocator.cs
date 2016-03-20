@@ -24,27 +24,27 @@ namespace HSE_transport_manager.ViewModel
     /// </summary>
     public class ViewModelLocator
     {
-        /// <summary>
-        /// Initializes a new instance of the ViewModelLocator class.
-        /// </summary>
+        /// <summary> 
+        /// Initializes a new instance of the ViewModelLocator class. 
+        /// </summary> 
         /// 
         private static MainViewModel _main;
         public ViewModelLocator()
         {
-            //ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+            //ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default); 
 
-            ////if (ViewModelBase.IsInDesignModeStatic)
-            ////{
-            ////    // Create design time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DesignDataService>();
-            ////}
-            ////else
-            ////{
-            ////    // Create run time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DataService>();
-            ////}
+            ////if (ViewModelBase.IsInDesignModeStatic) 
+            ////{ 
+            //// // Create design time view services and models 
+            //// SimpleIoc.Default.Register<IDataService, DesignDataService>(); 
+            ////} 
+            ////else 
+            ////{ 
+            //// // Create run time view services and models 
+            //// SimpleIoc.Default.Register<IDataService, DataService>(); 
+            ////} 
 
-            //SimpleIoc.Default.Register<MainViewModel>();
+            //SimpleIoc.Default.Register<MainViewModel>(); 
             _main = new MainViewModel();
         }
 
@@ -58,7 +58,7 @@ namespace HSE_transport_manager.ViewModel
 
         public static void Cleanup()
         {
-            // TODO Clear the ViewModels
+            // TODO Clear the ViewModels 
         }
     }
 }

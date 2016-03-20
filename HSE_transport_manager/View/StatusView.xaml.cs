@@ -15,9 +15,9 @@ using System.Windows.Shapes;
 
 namespace HSE_transport_manager.View
 {
-    /// <summary>
-    /// Interaction logic for StatusView.xaml
-    /// </summary>
+    /// <summary> 
+    /// Interaction logic for StatusView.xaml 
+    /// </summary> 
     public partial class StatusView : UserControl
     {
         public StatusView()

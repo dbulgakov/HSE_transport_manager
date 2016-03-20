@@ -18,6 +18,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition/>
                 <RowDefinition Height="1*"/>
@@ -30,13 +32,17 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="1" Grid.Column="1" Content="Uber API status:" HorizontalContentAlignment="Left" FontSize="14" VerticalContentAlignment="Center"/>
             <Label Grid.Row="2" Grid.Column="1" Content="Yandex Schedule status:" HorizontalContentAlignment="Left" FontSize="14" VerticalContentAlignment="Center"/>
-            <Label Grid.Row="3" Grid.Column="1" Content="Unhandled errors occurred:" HorizontalContentAlignment="Left" FontSize="14" VerticalContentAlignment="Center"/>
-            <Label Grid.Row="1" Grid.Column="2" Content="OK" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center" BorderThickness="0"/>
-            <Label Grid.Row="2" Grid.Column="2" Content="OK" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center" BorderThickness="0"/>
-            <Label Grid.Row="3" Grid.Column="2" Content="0" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center" BorderThickness="0"/>
-            <Label Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Content="Bot is active" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Foreground="#FF47A1D7"/>
-            <Button Grid.Row="5" Grid.Column="1" Content="Start Bot"  Style="{StaticResource AccentedSquareButtonStyle}" FontSize="14" Controls:ControlsHelper.ContentCharacterCasing="Normal" Width="{Binding ActualWidth, ElementName=logButton}" HorizontalAlignment="Left" BorderThickness="0"/>
-            <Button Grid.Row="5" Grid.Column="2" Content="View log file"  Controls:ControlsHelper.ContentCharacterCasing="Normal" FontSize="14" Name="logButton" BorderThickness="0"/>
+            <Label Grid.Row="3" Grid.Column="1" Content="Google Destination status:" HorizontalContentAlignment="Left" FontSize="14" VerticalContentAlignment="Center"/>
+            <Label Grid.Row="4" Grid.Column="1" Content="TG Bot API status:" HorizontalContentAlignment="Left" FontSize="14" VerticalContentAlignment="Center"/>
+            <Label Grid.Row="5" Grid.Column="1" Content="Unhandled errors occurred:" HorizontalContentAlignment="Left" FontSize="14" VerticalContentAlignment="Center"/>
+            <Label Grid.Row="1" Grid.Column="2" Content="{Binding UberStatus}" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center" BorderThickness="0"/>
+            <Label Grid.Row="2" Grid.Column="2" Content="{Binding YandexStatus}" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center" BorderThickness="0"/>
+            <Label Grid.Row="3" Grid.Column="2" Content="{Binding GoogleStatus}" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center" BorderThickness="0"/>
+            <Label Grid.Row="4" Grid.Column="2" Content="{Binding TGStatus}" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center" BorderThickness="0"/>
+            <Label Grid.Row="5" Grid.Column="2" Content="{Binding Errors}" HorizontalContentAlignment="Center" FontSize="14" VerticalContentAlignment="Center" BorderThickness="0"/>
+            <Label Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Content="{Binding BotStatus}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Foreground="#FF47A1D7"/>
+            <Button Grid.Row="7" Grid.Column="1" Command="{Binding StartCommand}" Content="Start Bot" Style="{StaticResource AccentedSquareButtonStyle}" FontSize="14" Controls:ControlsHelper.ContentCharacterCasing="Normal" Width="{Binding ActualWidth, ElementName=logButton}" HorizontalAlignment="Left" BorderThickness="0"/>
+            <Button Grid.Row="7" Grid.Column="2" Command="{Binding LogCommand}" Content="View log file" Controls:ControlsHelper.ContentCharacterCasing="Normal" FontSize="14" Name="logButton" BorderThickness="0"/>
         </Grid>
     </Grid>
 </UserControl>
