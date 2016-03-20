@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using System.Windows.Input;
+using HSE_transport_manager.Common.Interfaces;
 
 namespace HSE_transport_manager.ViewModel
 {
@@ -23,6 +24,8 @@ namespace HSE_transport_manager.ViewModel
         /// </summary> 
         /// 
         private ViewModelBase _currentViewModel;
+
+        private IDialogProvider _dialogProvider;
 
         static readonly StatusViewModel StatusViewModel = new StatusViewModel();
         static readonly SettingsViewModel SettingsViewModel = new SettingsViewModel();
@@ -48,16 +51,9 @@ namespace HSE_transport_manager.ViewModel
         public ICommand AboutCommand { get; private set; }
 
 
-        public MainViewModel()
+        public MainViewModel(IDialogProvider dialogProvider)
         {
-            ////if (IsInDesignMode) 
-            ////{ 
-            //// // Code runs in Blend —> create design time data. 
-            ////} 
-            ////else 
-            ////{ 
-            //// // Code runs "for real" 
-            ////} 
+            _dialogProvider = dialogProvider;
             CurrentViewModel = StatusViewModel;
             StatusCommand = new RelayCommand(ExecuteStatusCommand);
             SettingsCommand = new RelayCommand(ExecuteSettingsCommand);
