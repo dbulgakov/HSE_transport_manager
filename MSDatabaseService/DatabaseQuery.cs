@@ -17,6 +17,12 @@ namespace MSDatabaseService
         private DateTimeFormatInfo dtfi = culture.DateTimeFormat;
         private Transport tr;
 
+
+        public void UploadElapsedTimeSubway()
+        {
+
+        }
+
         public void RefreshTrainSchedule(DailyTrainSchedule trainSchedule)
         {
             if (context.LocalTrainsSchedule != null)
