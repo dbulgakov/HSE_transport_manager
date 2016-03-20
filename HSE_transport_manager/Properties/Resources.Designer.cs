@@ -61,6 +61,15 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error saving file!.
+        /// </summary>
+        internal static string SettingsViewModel_Reset_Error_saving_file_message {
+            get {
+                return ResourceManager.GetString("SettingsViewModel_Reset_Error_saving_file_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bot is inactive.
         /// </summary>
         internal static string StatusViewModel__botStatus_Bot_is_inactive_message {

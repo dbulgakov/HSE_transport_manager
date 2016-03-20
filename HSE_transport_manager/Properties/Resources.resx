@@ -132,4 +132,7 @@
   <data name="StatusViewModel_BotWork__check_message" xml:space="preserve">
     <value>/get_route</value>
   </data>
+  <data name="SettingsViewModel_Reset_Error_saving_file_message" xml:space="preserve">
+    <value>Error saving file!</value>
+  </data>
 </root>

@@ -1,11 +1,11 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Input;
+using System.Xml.Serialization;
+using HSE_transport_manager.Common.Interfaces;
+using HSE_transport_manager.Common.Models;
+using HSE_transport_manager.Properties;
 
 namespace HSE_transport_manager.ViewModel
 {
@@ -13,6 +13,31 @@ namespace HSE_transport_manager.ViewModel
     {
 
         private ICommand _saveCommand;
+        private const string FileName = "settings.xml";
+        private IDialogProvider _dialogProvider;
+
+        public SettingsViewModel()
+        {
+            var keyData = new KeyData();
+            if (File.Exists(FileName))
+            {
+                try
+                {
+                    keyData = ReadXml();
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
+
+            TGKey = keyData.BotServiceKey;
+            YandexKey = keyData.ScheduleServiceKey;
+            GoogleKey = keyData.MonitoringServiceKey;
+            UberKey = keyData.TaxiServiceKey;
+            _dialogProvider = new WpfMessageProvider();
+        }
+
 
         public ICommand SaveCommand
         {
@@ -143,8 +168,21 @@ namespace HSE_transport_manager.ViewModel
 
         void Save()
         {
-            //File and Statuses 
-
+            var keyData = new KeyData
+            {
+                BotServiceKey = TGKey,
+                MonitoringServiceKey = GoogleKey,
+                ScheduleServiceKey = YandexKey,
+                TaxiServiceKey = UberKey
+            };
+            try
+            {
+                SaveXml(keyData);
+            }
+            catch
+            {
+                _dialogProvider.ShowMessage(Resources.SettingsViewModel_Reset_Error_saving_file_message);
+            }
         }
 
         void Reset()
@@ -153,6 +191,14 @@ namespace HSE_transport_manager.ViewModel
             YandexKey = null;
             GoogleKey = null;
             TGKey = null;
+            try
+            {
+                SaveXml(new KeyData());
+            }
+            catch
+            {
+                _dialogProvider.ShowMessage(Resources.SettingsViewModel_Reset_Error_saving_file_message);
+            }
         }
 
         void Update()
@@ -164,6 +210,26 @@ namespace HSE_transport_manager.ViewModel
         {
 
         }
-        
+
+
+        private void SaveXml(KeyData keyData)
+        {
+            using (var fs = new FileStream(FileName, FileMode.OpenOrCreate))
+            {
+                var formatter = new XmlSerializer(typeof(KeyData));
+                formatter.Serialize(fs, keyData);
+            }
+        }
+
+        private KeyData ReadXml()
+        {
+            KeyData keyData;
+            using (var fs = new FileStream(FileName, FileMode.OpenOrCreate))
+            {
+                    var formatter = new XmlSerializer(typeof(KeyData));
+                    keyData = (KeyData)formatter.Deserialize(fs);
+            }
+            return keyData;
+        }
     }
 }
