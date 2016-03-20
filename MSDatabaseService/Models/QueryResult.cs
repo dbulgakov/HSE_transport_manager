@@ -10,6 +10,6 @@ namespace MSDatabaseService.Models
     {
         public string DeparturePoint { get; set; }
         public string ArrivalPoint { get; set; }
-        public List<Transport> Transport { get; set; }
+        public List<Route> Routes { get; set; }
     }
 }
