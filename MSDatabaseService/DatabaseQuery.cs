@@ -309,7 +309,7 @@ namespace MSDatabaseService
             return routesResult;
         }
 
-        TransportRoute GetRouteSubStToSubSt(string stationFrom, string transType, string stationTo, DateTime queryDate)
+        public TransportRoute GetRouteSubStToSubSt(string stationFrom, string transType, string stationTo, DateTime queryDate)
         {
             return new TransportRoute
                          {

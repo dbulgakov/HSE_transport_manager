@@ -149,6 +149,9 @@ namespace HSE_transport_manager.ViewModel
 
         async void Start()
         {
+            var r = new PluginManager();
+            var g = r.LoadDbService();
+            int ads = 5;
             try
             {
                 _ctoken = new CancellationTokenSource();
@@ -175,6 +178,7 @@ namespace HSE_transport_manager.ViewModel
 
         async void BotWork(Api bot)
         {
+
             await Task.Run(() =>
             {
                 try
