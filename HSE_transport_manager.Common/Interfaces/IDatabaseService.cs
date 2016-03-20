@@ -3,7 +3,7 @@ using MSDatabaseService.Models;
 using System;
 using System.Collections.Generic;
 
-namespace MSDatabaseService
+namespace HSE_transport_manager.Common.Interfaces
 {
     public interface IDatabaseService
     {
