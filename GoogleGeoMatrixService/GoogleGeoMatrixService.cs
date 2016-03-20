@@ -27,7 +27,7 @@ namespace GoogleGeoMatrixService
             _requestBuilder = new RequestBuilder(ApiUrl, _authKey);
         }
 
-        public async Task<DateTime> EstimateTripTimeAsync(Coordinate startingPoint, Coordinate endingPoint)
+        public async Task<int> EstimateTripTimeAsync(Coordinate startingPoint, Coordinate endingPoint)
         {
             return await Task.Run(() =>
             {
@@ -37,7 +37,7 @@ namespace GoogleGeoMatrixService
                 var deserializedResponse = JsonConvert.DeserializeObject<EstimateTimeResponse>(responseString);
 
                 return
-                    new DateTime().AddSeconds(deserializedResponse.RowList[0].ElementsList[0].TripDuration.DurationTime);
+                    new DateTime().AddSeconds(deserializedResponse.RowList[0].ElementsList[0].TripDuration.DurationTime).Minute;
             });
         }
     }

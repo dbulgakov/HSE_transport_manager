@@ -1,17 +1,18 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HSE_transport_manager.Properties;
+using Telegram.Bot;
+using Telegram.Bot.Types;
 
 namespace HSE_transport_manager.ViewModel
 {
     public class StatusViewModel : ViewModelBase
     {
         private ICommand _startCommand;
+        private CancellationTokenSource _ctoken;
 
         public ICommand StartCommand
         {
@@ -26,18 +27,18 @@ namespace HSE_transport_manager.ViewModel
             }
         }
 
-        private ICommand _logCommand;
+        private ICommand _stopCommand;
 
-        public ICommand LogCommand
+        public ICommand StopCommand
         {
             get
             {
-                if (_logCommand == null)
+                if (_stopCommand == null)
                 {
-                    _logCommand = new RelayCommand(
-                    ViewLogFile);
+                    _stopCommand = new RelayCommand(
+                    Stop);
                 }
-                return _logCommand;
+                return _stopCommand;
             }
         }
 
@@ -102,7 +103,7 @@ namespace HSE_transport_manager.ViewModel
         }
 
 
-        private string _botStatus = "Bot is inactive";
+        private string _botStatus = Resources.StatusViewModel__botStatus_Bot_is_inactive_message;
 
         public string BotStatus
         {
@@ -134,17 +135,56 @@ namespace HSE_transport_manager.ViewModel
         }
 
 
-
-        void Start()
+        async void Start()
         {
-            //TG Service 
-            BotStatus = "Bot is active";
+            var bot = new Api("150491452:AAGaPUhZraEcZ84yxIxNTw5CdAC_oCHa7s4");
+            _ctoken = new CancellationTokenSource();
+            var me = await bot.GetMe();
+            BotStatus = Resources.StatusViewModel_Start_Bot_is_active_message;
+            BotWork(bot);
         }
 
-        void ViewLogFile()
+        void Stop()
         {
-
+            _ctoken.Cancel();
+            BotStatus = Resources.StatusViewModel__botStatus_Bot_is_inactive_message;
         }
 
+        async void BotWork(Api bot)
+        {
+            await Task.Run(() =>
+            {
+                try
+                {
+                    var offset = 0;
+                    while (true)
+                    {
+                        var updates = bot.GetUpdates(offset).Result;
+                        _ctoken.Token.ThrowIfCancellationRequested();
+                        foreach (var update in updates)
+                        {
+                            if (update.Message.Type == MessageType.TextMessage)
+                            {
+                                if (update.Message.Text.Equals(@"/get_route"))
+                                {
+                                    bot.SendTextMessage(update.Message.Chat.Id, "Даша, пили базу.");
+                                }
+                                else
+                                {
+                                    bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Unknown_input_message);
+                                }
+                            }
+                            offset = update.Id + 1;
+                        }
+                    }
+                }
+
+                catch
+                {
+                    // ignored
+                }
+            }, _ctoken.Token);
+            
+        }
     }
 }
