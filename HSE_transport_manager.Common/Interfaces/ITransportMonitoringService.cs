@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using HSE_transport_manager.Common.Models;
 
 namespace HSE_transport_manager.Common.Interfaces

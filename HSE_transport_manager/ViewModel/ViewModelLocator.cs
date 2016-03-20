@@ -12,7 +12,6 @@
   See http://www.galasoft.ch/mvvm
 */
 
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using HSE_transport_manager.Common.Interfaces;
 using Microsoft.Practices.ServiceLocation;

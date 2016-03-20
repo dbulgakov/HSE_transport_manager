@@ -69,5 +69,25 @@ namespace HSE_transport_manager
             }
             return null;
         }
+
+        public IDatabaseService LoadDbService()
+        {
+            var files = Directory.GetFiles(PluginFolder, "*.dll");
+            foreach (var file in files)
+            {
+                Assembly pluginAssembly = Assembly.LoadFrom(file);
+                try
+                {
+                    var type = pluginAssembly.GetTypes().First(t => typeof(IDatabaseService).IsAssignableFrom(t));
+                    var service = Activator.CreateInstance(type) as IDatabaseService;
+                    return service;
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
+            return null;
+        }
     }
 }

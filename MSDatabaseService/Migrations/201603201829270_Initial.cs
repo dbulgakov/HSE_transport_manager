@@ -175,7 +175,7 @@ namespace MSDatabaseService.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        ElapsedTime = c.DateTime(nullable: false),
+                        ElapsedTime = c.Int(nullable: false),
                         StationFrom_Id = c.Int(nullable: false),
                         StationTo_Id = c.Int(nullable: false),
                     })

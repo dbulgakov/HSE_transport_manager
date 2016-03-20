@@ -39,7 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IDataRepository.cs" />
+    <Compile Include="Interfaces\IDatabaseService.cs" />
     <Compile Include="Interfaces\IDialogProvider.cs" />
     <Compile Include="Interfaces\ITaxiService.cs" />
     <Compile Include="Interfaces\ITransportMonitoringService.cs" />
@@ -47,10 +47,13 @@
     <Compile Include="Interfaces\ITransportService.cs" />
     <Compile Include="Models\Coordinate.cs" />
     <Compile Include="Models\KeyData.cs" />
+    <Compile Include="Models\QueryResult.cs" />
+    <Compile Include="Models\Route.cs" />
     <Compile Include="Models\TaxiData\TaxiTripData.cs" />
     <Compile Include="Models\TrainSchedulesData\DailyTrainSchedule.cs" />
     <Compile Include="Models\TrainSchedulesData\SingleTrainSchedule.cs" />
     <Compile Include="Models\TrainSchedulesData\TrainStop.cs" />
+    <Compile Include="Models\TransportRoute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
