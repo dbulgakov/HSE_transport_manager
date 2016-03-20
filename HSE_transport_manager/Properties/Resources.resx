@@ -120,4 +120,7 @@
   <data name="StatusViewModel_Start_Bot_is_active_message" xml:space="preserve">
     <value>Bot is active</value>
   </data>
+  <data name="StatusViewModel_Stop_Bot_is_offline_message" xml:space="preserve">
+    <value>Bot is offline</value>
+  </data>
 </root>

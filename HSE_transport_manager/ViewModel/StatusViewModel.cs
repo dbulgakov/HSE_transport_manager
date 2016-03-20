@@ -36,7 +36,7 @@ namespace HSE_transport_manager.ViewModel
                 if (_stopCommand == null)
                 {
                     _stopCommand = new RelayCommand(
-                    ViewLogFile);
+                    Stop);
                 }
                 return _stopCommand;
             }
@@ -142,10 +142,9 @@ namespace HSE_transport_manager.ViewModel
             BotStatus = Resources.StatusViewModel_Start_Bot_is_active_message;
         }
 
-        void ViewLogFile()
+        void Stop()
         {
-
+            BotStatus = Resources.StatusViewModel__botStatus_Bot_is_inactive_message;
         }
-
     }
 }

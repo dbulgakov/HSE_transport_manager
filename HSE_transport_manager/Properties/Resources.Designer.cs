@@ -77,5 +77,14 @@ namespace HSE_transport_manager.Properties {
                 return ResourceManager.GetString("StatusViewModel_Start_Bot_is_active_message", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bot is offline.
+        /// </summary>
+        internal static string StatusViewModel_Stop_Bot_is_offline_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_Stop_Bot_is_offline_message", resourceCulture);
+            }
+        }
     }
 }
