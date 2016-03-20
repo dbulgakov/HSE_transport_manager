@@ -73,6 +73,10 @@
     <Compile Include="Migrations\201603200059093_Add_field.Designer.cs">
       <DependentUpon>201603200059093_Add_field.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603200111297_NewMigration.cs" />
+    <Compile Include="Migrations\201603200111297_NewMigration.Designer.cs">
+      <DependentUpon>201603200111297_NewMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DormitoryData.cs" />
     <Compile Include="Models\DubkiBusData.cs" />
@@ -91,6 +95,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603200059093_Add_field.resx">
       <DependentUpon>201603200059093_Add_field.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603200111297_NewMigration.resx">
+      <DependentUpon>201603200111297_NewMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
