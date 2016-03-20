@@ -151,19 +151,7 @@ namespace YandexScheduleService
 
 
         private SingleTrainSchedule CreateTrainSchedule(string transportId, DateTime departureTime,
-            List<HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop> stops)
-        {
-            var trainSchedule = new SingleTrainSchedule
-            {
-                TrainUid = transportId,
-                DepartureTime = departureTime,
-                Stops = stops
-            };
-            return trainSchedule;
-        }
-
-        private SingleTrainSchedule CreateTrainSchedule(string transportId, DateTime departureTime,
-            List<HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop> stops, string trainType)
+            List<HSE_transport_manager.Common.Models.TrainSchedulesData.TrainStop> stops, string trainType = null)
         {
             var trainSchedule = new SingleTrainSchedule
             {
