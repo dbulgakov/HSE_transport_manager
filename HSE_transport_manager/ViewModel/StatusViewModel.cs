@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HSE_transport_manager.Common.Interfaces;
 using HSE_transport_manager.Properties;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -13,6 +14,13 @@ namespace HSE_transport_manager.ViewModel
     {
         private ICommand _startCommand;
         private CancellationTokenSource _ctoken;
+        private readonly IDialogProvider _dialogProvider;
+
+        public StatusViewModel()
+        {
+            _dialogProvider = new WpfMessageProvider();
+        }
+
 
         public ICommand StartCommand
         {
@@ -139,14 +147,24 @@ namespace HSE_transport_manager.ViewModel
         {
             var bot = new Api("150491452:AAGaPUhZraEcZ84yxIxNTw5CdAC_oCHa7s4");
             _ctoken = new CancellationTokenSource();
-            var me = await bot.GetMe();
-            BotStatus = Resources.StatusViewModel_Start_Bot_is_active_message;
+            try
+            {
+                var me = await bot.GetMe();
+                BotStatus = Resources.StatusViewModel_Start_Bot_is_active_message;
+            }
+            catch
+            {
+                _dialogProvider.ShowMessage(Resources.StatusViewModel_Start_Error_contacting_bot_message);
+            }
             BotWork(bot);
         }
 
         void Stop()
         {
-            _ctoken.Cancel();
+            if (_ctoken != null)
+            {
+                _ctoken.Cancel();
+            }
             BotStatus = Resources.StatusViewModel__botStatus_Bot_is_inactive_message;
         }
 
@@ -165,7 +183,7 @@ namespace HSE_transport_manager.ViewModel
                         {
                             if (update.Message.Type == MessageType.TextMessage)
                             {
-                                if (update.Message.Text.Equals(@"/get_route"))
+                                if (update.Message.Text.Equals(Resources.StatusViewModel_BotWork__check_message))
                                 {
                                     bot.SendTextMessage(update.Message.Chat.Id, "Даша, пили базу.");
                                 }

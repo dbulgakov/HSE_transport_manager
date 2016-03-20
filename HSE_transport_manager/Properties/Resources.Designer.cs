@@ -70,6 +70,15 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /get_route.
+        /// </summary>
+        internal static string StatusViewModel_BotWork__check_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork__check_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Неизвестная комманда..
         /// </summary>
         internal static string StatusViewModel_BotWork_Unknown_input_message {
@@ -84,6 +93,15 @@ namespace HSE_transport_manager.Properties {
         internal static string StatusViewModel_Start_Bot_is_active_message {
             get {
                 return ResourceManager.GetString("StatusViewModel_Start_Bot_is_active_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error contacting bot!.
+        /// </summary>
+        internal static string StatusViewModel_Start_Error_contacting_bot_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_Start_Error_contacting_bot_message", resourceCulture);
             }
         }
         

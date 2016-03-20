@@ -126,4 +126,10 @@
   <data name="StatusViewModel_BotWork_Unknown_input_message" xml:space="preserve">
     <value>Неизвестная комманда.</value>
   </data>
+  <data name="StatusViewModel_Start_Error_contacting_bot_message" xml:space="preserve">
+    <value>Error contacting bot!</value>
+  </data>
+  <data name="StatusViewModel_BotWork__check_message" xml:space="preserve">
+    <value>/get_route</value>
+  </data>
 </root>
