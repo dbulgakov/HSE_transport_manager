@@ -37,8 +37,7 @@ namespace MSDatabaseService
                                 SubwayStation = items[6].Split(',').ToList(),
                                 LocalTrainStation = items[7],
                                 CheckDubkiBus = bool.Parse(items[8]),
-                                From = items[9].Split(',').ToList(),
-                                To = items[10].Split(',').ToList()
+                                PublicTransport = items[9].Split(',').ToList()
                             });
                     }
                 }

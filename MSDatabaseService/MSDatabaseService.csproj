@@ -84,7 +84,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Data\Dormitories.csv" />
     <EmbeddedResource Include="Data\Dubki.csv" />
     <EmbeddedResource Include="Data\HSEBuildings.csv" />
     <EmbeddedResource Include="Migrations\201603192251037_Initial.resx">
@@ -98,6 +97,7 @@
     <None Include="App.config" />
     <EmbeddedResource Include="Data\SubwayStations.csv" />
     <EmbeddedResource Include="Data\PublicTransport.csv" />
+    <EmbeddedResource Include="Data\Dormitories.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

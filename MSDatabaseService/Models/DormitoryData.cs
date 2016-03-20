@@ -17,7 +17,6 @@ namespace MSDatabaseService.Models
         public List<string> SubwayStation { get; set; }
         public string LocalTrainStation { get; set; }
         public bool CheckDubkiBus { get; set; }
-        public List<string> From { get; set; }
-        public List<string> To { get; set; }
+        public List<string> PublicTransport { get; set; }
     }
 }

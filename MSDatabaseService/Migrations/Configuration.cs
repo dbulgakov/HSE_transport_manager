@@ -234,8 +234,7 @@ namespace MSDatabaseService.Migrations
             //            SubwayStation = context.SubwayStations.Where(s => dorm.SubwayStation.Contains(s.Name)).ToList(),
             //            CheckDubkiBus = dorm.CheckDubkiBus,
             //            LocalTrainStation = context.LocalTrainStations.Single(s => s.Name == dorm.LocalTrainStation),
-            //            From = context.PublicTransportSchedule.Where(t => dorm.From.Contains(t.Number.ToString())).ToList(),
-            //            To = context.PublicTransportSchedule.Where(t => dorm.To.Contains(t.Number.ToString())).ToList()
+            //            PublicTransport = context.PublicTransportSchedule.Where(t => dorm.PublicTransport.Contains(t.Number.ToString())).ToList()
             //        });
             //context.SaveChanges();
 
