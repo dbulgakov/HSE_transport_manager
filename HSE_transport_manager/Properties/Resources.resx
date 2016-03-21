@@ -138,4 +138,29 @@
   <data name="StatusViewModel_BotWork_Bot_is_stopped_message" xml:space="preserve">
     <value>Bot is stopped</value>
   </data>
+  <data name="StatusViewModel_BotWork_Unsupported_message" xml:space="preserve">
+    <value>Неподдерживаемый тип сообщения!
+Введите /start для получения списка возможных комманд.</value>
+  </data>
+  <data name="StatusViewModel_BotWork_Introduce_message" xml:space="preserve">
+    <value>Привет!</value>
+  </data>
+  <data name="StatusViewModel_BotWork_Intro_message" xml:space="preserve">
+    <value>Я - телеграм бот для поиска всех возможных путей в университет для студентов НИУ ВШЭ!
+Умею следующие команды:
+  /places - Список поддерживаемых мест
+  /get_route - Поиск самого быстрого пути в университет
+  /get_all_routes - все возможные пути в университет
+  /taxi_route - Расчет времени и стоимость дороги в университет на такси
+  /get_suburban - Расписание электричек между станциями
+  /get_bus - Расписание до/из Дубков</value>
+  </data>
+  <data name="StatusViewModel_BotWork_Unknown_message" xml:space="preserve">
+    <value>Неизвестная команда!
+Введите /start для получения списка возможных комманд.</value>
+  </data>
+  <data name="StatusViewModel_BotWork_Get_route_intro" xml:space="preserve">
+    <value>Для поиска кратчайшего пути введите названия начального места и конечной точки в формате:
+Начальное место - Конечное место</value>
+  </data>
 </root>

@@ -11,6 +11,7 @@ using HSE_transport_manager.Properties;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using System;
+using System.Collections.Generic;
 
 namespace HSE_transport_manager.ViewModel
 {
@@ -152,19 +153,19 @@ namespace HSE_transport_manager.ViewModel
         async void Start()
         {
             var dbService = plaginManager.LoadDbService();
+            var taxiService = plaginManager.LoadTaxiService();
             DateTime timeNow = DateTime.Now;
-            var k =dbService.GetRoute("Общежитие 6", "Трехсвятительский 3", timeNow);
-            var c = dbService.GetCoordinates("Общежитие 6", "Трехсвятительский 3");
-            var h = dbService.GetFastestRoute("Общежитие 6", "Трехсвятительский 3", timeNow);
+            //var k =dbService.GetRoute("Общежитие 6", "Трехсвятительский 3", timeNow);
+            //var c = dbService.GetCoordinates("Общежитие 6", "Трехсвятительский 3");
+            //var h = dbService.GetFastestRoute("Общежитие 6", "Трехсвятительский 3", timeNow);
             int ghvh = 6;
             try
             {
                 _ctoken = new CancellationTokenSource();
                 var keyData = ReadXml();
                 var bot = new Api(keyData.BotServiceKey);
-                var me = await bot.GetMe();
                 BotStatus = Resources.StatusViewModel_Start_Bot_is_active_message;
-                BotWork(bot);
+                BotWork(bot, dbService, taxiService);
             }
             catch
             {
@@ -181,9 +182,9 @@ namespace HSE_transport_manager.ViewModel
             BotStatus = Resources.StatusViewModel__botStatus_Bot_is_inactive_message;
         }
 
-        async void BotWork(Api bot)
+        async void BotWork(Api bot, IDatabaseService dbService, ITaxiService taxiService)
         {
-
+            var dict = new Dictionary<long,string>();
             await Task.Run(() =>
             {
                 try
@@ -197,14 +198,86 @@ namespace HSE_transport_manager.ViewModel
                         {
                             if (update.Message.Type == MessageType.TextMessage)
                             {
-                                if (update.Message.Text.Equals(Resources.StatusViewModel_BotWork__check_message))
+                                if (dict.ContainsKey(update.Message.Chat.Id))
                                 {
-                                    bot.SendTextMessage(update.Message.Chat.Id, "Даша, пили базу.");
+                                    switch (dict[update.Message.Chat.Id])
+                                    {
+                                        case "/get_route":
+                                        {
+                                            bot.SendTextMessage(update.Message.Chat.Id, "Работает!");
+                                            dict.Remove(update.Message.Chat.Id);
+                                            try
+                                            {
+                                                var response = update.Message.Text.Split('-');
+                                                bot.SendTextMessage(update.Message.Chat.Id, string.Format("{0} : {1}", response[0].Trim(), response[1]).Trim());
+                                                var route = dbService.GetFastestRoute(response[0].Trim(), response[1].Trim(), update.Message.Date);
+                                                bot.SendTextMessage(update.Message.Chat.Id, route.Routes.Capacity.ToString());
+                                            }
+                                            catch(Exception e)
+                                            {
+                                                bot.SendTextMessage(update.Message.Chat.Id, e.Message);
+                                            }
+                                            break;
+                                        }
+                                        case "/taxi_route":
+                                        {
+                                            var response = update.Message.Text.Split('-');
+                                            bot.SendTextMessage(update.Message.Chat.Id, string.Format("{0} : {1}", response[0].Trim(), response[1]).Trim());
+                                            try
+                                            {
+                                                var c_list = dbService.GetCoordinates(response[0].Trim(),
+                                                    response[1].Trim());
+                                                bot.SendTextMessage(update.Message.Chat.Id, string.Format("{0} : {1}", c_list[0].Latitude, c_list[0].Longitude));
+                                                //var response2 = taxiService.GetRouteAsync(c_list[0], c_list[1]).Result;
+                                                //bot.SendTextMessage(update.Message.Chat.Id, string.Format("{0} : {1}", response[0].Trim(), response[1]).Trim());
+                                                //bot.SendTextMessage(update.Message.Chat.Id,
+                                                //    string.Format(
+                                                //        "Поездка на такси:\nВремя в пути: {0}\nСтоимость поездки: {1}",
+                                                //        response2.Duration.Minute, response2.Price));
+                                            }
+                                            catch(Exception e)
+                                            {
+                                                bot.SendTextMessage(update.Message.Chat.Id, e.Message);
+                                            }
+                                            break;
+                                        }
+
+                                    }
+
                                 }
                                 else
                                 {
-                                    bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Unknown_input_message);
+                                    switch (update.Message.Text)
+                                    {
+                                        case "/start":
+                                        {
+                                            bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Introduce_message).Wait();
+                                            bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Intro_message);
+                                            break;
+                                        }
+                                        case "/get_route":
+                                        {
+                                            bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Get_route_intro);
+                                            dict.Add(update.Message.Chat.Id, "/get_route");
+                                            break;
+                                        }
+                                        case "/taxi_route":
+                                        {
+                                            bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Get_route_intro);
+                                            dict.Add(update.Message.Chat.Id, "/taxi_route");
+                                            break;
+                                        }
+                                        default:
+                                        {
+                                            bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Unknown_message);
+                                            break;
+                                        }
+                                    }
                                 }
+                            }
+                            else
+                            {
+                                bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Unsupported_message);
                             }
                             offset = update.Id + 1;
                         }

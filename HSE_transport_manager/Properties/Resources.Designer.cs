@@ -97,11 +97,66 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Для поиска кратчайшего пути введите названия начального места и конечной точки в формате:
+        ///Начальное место - Конечное место.
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Get_route_intro {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Get_route_intro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Я - телеграм бот для поиска всех возможных путей в университет для студентов НИУ ВШЭ!
+        ///Умею следующие команды:
+        ///  /places - Список поддерживаемых мест
+        ///  /get_route - Поиск самого быстрого пути в университет
+        ///  /get_all_routes - все возможные пути в университет
+        ///  /taxi_route - Расчет времени и стоимость дороги в университет на такси
+        ///  /get_suburban - Расписание электричек между станциями
+        ///  /get_bus - Расписание до/из Дубков.
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Intro_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Intro_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Привет!.
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Introduce_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Introduce_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Неизвестная комманда..
         /// </summary>
         internal static string StatusViewModel_BotWork_Unknown_input_message {
             get {
                 return ResourceManager.GetString("StatusViewModel_BotWork_Unknown_input_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неизвестная команда!
+        ///Введите /start для получения списка возможных комманд..
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Unknown_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Unknown_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неподдерживаемый тип сообщения!
+        ///Введите /start для получения списка возможных комманд..
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Unsupported_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Unsupported_message", resourceCulture);
             }
         }
         
