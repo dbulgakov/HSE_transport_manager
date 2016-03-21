@@ -152,8 +152,9 @@ namespace HSE_transport_manager.ViewModel
         {
             var r = new PluginManager();
             var g = r.LoadDbService();
-            DateTime t= DateTime.Now;
-            var k = g.GetRoute("Общежитие 6", "Трехсвятительский 3", t);
+            DateTime timeNow= DateTime.Now;
+            var coordinates = g.GetCoordinates("Общежитие 6", "Трехсвятительский 3");
+            var allRoutes = g.GetRoute("Общежитие 6", "Трехсвятительский 3", timeNow);
             int ads = 5;
             try
             {
