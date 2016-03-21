@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HSE_transport_manager.View"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -41,9 +41,10 @@
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Update" Style="{StaticResource AccentedSquareButtonStyle}" FontSize="16" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderThickness="0" Margin="0,5,5,5"/>
-            <Button Grid.Column="2" Content="Remove" Controls:ControlsHelper.ContentCharacterCasing="Normal" FontSize="16" BorderThickness="0" Margin="5,5,0,5"/>
-        </Grid>
+            <Button  Content="Update" Style="{StaticResource AccentedSquareButtonStyle}" FontSize="16" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderThickness="0" Margin="0,5,5,5"/>
+            <Label Content="Last update: "  Grid.Column="1" HorizontalAlignment="Center" Height="26" Margin="16,12,87,0" VerticalAlignment="Top" Width="73" Grid.ColumnSpan="2"/>
+            <Label Content="{Binding UpdateDate}" FontSize="16" Grid.Column="2" HorizontalAlignment="Center" Height="26" Margin="35,12,6,0" VerticalAlignment="Top" Width="76"/>
+          </Grid>
         <Grid Grid.Row="7" Grid.Column="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>

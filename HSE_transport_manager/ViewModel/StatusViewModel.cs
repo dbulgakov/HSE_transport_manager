@@ -10,15 +10,18 @@ using HSE_transport_manager.Common.Models;
 using HSE_transport_manager.Properties;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using System;
 
 namespace HSE_transport_manager.ViewModel
 {
     public class StatusViewModel : ViewModelBase
     {
+        
         private ICommand _startCommand;
         private CancellationTokenSource _ctoken;
         private readonly IDialogProvider _dialogProvider;
         private const string FileName = "settings.xml";
+        
 
         public StatusViewModel()
         {
@@ -53,7 +56,8 @@ namespace HSE_transport_manager.ViewModel
                 return _stopCommand;
             }
         }
-
+        
+        
         private string _uberStatus;
 
         public string UberStatus
@@ -68,6 +72,7 @@ namespace HSE_transport_manager.ViewModel
                 }
             }
         }
+        
 
         private string _yandexStatus;
 
@@ -98,6 +103,7 @@ namespace HSE_transport_manager.ViewModel
                 }
             }
         }
+
 
         private string _tgStatus;
 

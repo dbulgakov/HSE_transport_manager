@@ -6,12 +6,15 @@ using System.Xml.Serialization;
 using HSE_transport_manager.Common.Interfaces;
 using HSE_transport_manager.Common.Models;
 using HSE_transport_manager.Properties;
+using GalaSoft.MvvmLight.Messaging;
+using System;
 
 namespace HSE_transport_manager.ViewModel
 {
     public class SettingsViewModel : ViewModelBase
     {
-
+        private StatusViewModel s = new StatusViewModel();
+        
         private ICommand _saveCommand;
         private const string FileName = "settings.xml";
         private IDialogProvider _dialogProvider;
@@ -89,18 +92,18 @@ namespace HSE_transport_manager.ViewModel
             }
         }
 
-        private ICommand _removeCommand;
+        private string _updateDate;
 
-        public ICommand RemoveCommand
+        public string UpdateDate
         {
-            get
+            get { return _updateDate; }
+            set
             {
-                if (_removeCommand == null)
+                if (value != _updateDate)
                 {
-                    _removeCommand = new RelayCommand(
-                    Remove);
+                    _updateDate = value;
+                    RaisePropertyChanged("UpdateDate");
                 }
-                return _removeCommand;
             }
         }
 
@@ -178,6 +181,7 @@ namespace HSE_transport_manager.ViewModel
             try
             {
                 SaveXml(keyData);
+                s.UberStatus = "OK";
             }
             catch
             {
@@ -194,6 +198,7 @@ namespace HSE_transport_manager.ViewModel
             try
             {
                 SaveXml(new KeyData());
+
             }
             catch
             {
@@ -205,12 +210,7 @@ namespace HSE_transport_manager.ViewModel
         {
 
         }
-
-        void Remove()
-        {
-
-        }
-
+        
 
         private void SaveXml(KeyData keyData)
         {
