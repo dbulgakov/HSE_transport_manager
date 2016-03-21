@@ -132,6 +132,18 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Поездка на такси:
+        ///{0} - {1}
+        ///Время в пути: {2} минут(ы) 
+        ///Стоимость поездки: {3} руб..
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Uber_response_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Uber_response_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Неизвестная комманда..
         /// </summary>
         internal static string StatusViewModel_BotWork_Unknown_input_message {
