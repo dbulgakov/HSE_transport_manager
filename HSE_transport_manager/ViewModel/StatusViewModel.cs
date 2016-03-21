@@ -155,9 +155,10 @@ namespace HSE_transport_manager.ViewModel
             var dbService = plaginManager.LoadDbService();
             var taxiService = plaginManager.LoadTaxiService();
             DateTime timeNow = DateTime.Now;
-            //var k =dbService.GetRoute("Общежитие 6", "Трехсвятительский 3", timeNow);
-            //var c = dbService.GetCoordinates("Общежитие 6", "Трехсвятительский 3");
-            //var h = dbService.GetFastestRoute("Общежитие 6", "Трехсвятительский 3", timeNow);
+            var k =dbService.GetRoute("Общежитие 1", "Трехсвятительский 3", timeNow);
+            var c = dbService.GetCoordinates("Общежитие 6");
+            var p = dbService.GetDubkiSchedule("Дубки");
+            var h = dbService.GetFastestRoute("Общежитие 6", "Трехсвятительский 3", timeNow);
             int ghvh = 6;
             try
             {
@@ -238,7 +239,7 @@ namespace HSE_transport_manager.ViewModel
                                                         fromString,toString,response2.Duration.Minute, response2.Price));
                                             }
                                             catch(Exception e)
-                                            {
+                                {
                                                 bot.SendTextMessage(update.Message.Chat.Id, e.Message);
                                             }
                                             break;
@@ -276,7 +277,7 @@ namespace HSE_transport_manager.ViewModel
                                         }
                                     }
                                 }
-                            }
+                                }
                             else
                             {
                                 bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Unsupported_message);

@@ -145,7 +145,7 @@ namespace MSDatabaseService
 
 
 
-                    if (!dubkiQuery.To.Equals("Одинцово"))
+                    if (!dubkiQuery.To.Equals("Одинцово") && (queryDate.Hour < 1 || queryDate.Hour >= 5 && queryDate.Minute >= 30))
                     {
                         dubkiTo = dubkiQuery.To;
                         foreach (var subwayStation in subwayStationHSE)
@@ -265,7 +265,7 @@ namespace MSDatabaseService
 
                     }
                     //Bus - Works
-                    if (publicTransportQuery.TransportType == "Bus")
+                    if (publicTransportQuery.TransportType == "Bus" && (queryDate.Hour < 1 || queryDate.Hour >= 5 && queryDate.Minute >= 30))
                     {
 
                         foreach (var subwayStation in subwayStationHSE)
@@ -361,7 +361,7 @@ namespace MSDatabaseService
                                                           {
                                                               StationName = r.LocalTrainStation.Name,
                                                               Code = r.LocalTrainStation.Code
-                                                          }).Single()!=null && context.LocalTrainsSchedule.Select(l=> l.DepartureTime).OrderByDescending(l=> l.Hour).First()<queryDate.AddMinutes(20))
+                                                          }).Single() != null && (queryDate.Hour < 1 || queryDate.Hour >= 5 && queryDate.Minute >= 30))
 
                 {
                     var localStation = context.Dormitories.Where(r => r.Name.Equals(fromPoint))
@@ -430,7 +430,7 @@ namespace MSDatabaseService
                             stationFix = stationStop.StationName;
                             if (stationStop.StationName.Equals("Белорусский вокзал")) stationFix = "Белорусская";
                             if (stationStop.StationName.Equals("Кунцево")) stationFix = "Кунцевская";
-
+                            
                             transportRoute = GetRouteSubStToSubSt(stationFix, stationHSE, queryDate.AddMinutes(minutes + 10));
 
                             transportList.Add(new TransportRoute
