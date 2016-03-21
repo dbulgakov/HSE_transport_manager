@@ -154,7 +154,7 @@ namespace HSE_transport_manager.ViewModel
             //For debug
             var dbService = plaginManager.LoadDbService();
             DateTime timeNow = DateTime.Now;
-            var k =dbService.GetRoute("Общежитие 1", "Трехсвятительский 3", timeNow);
+            var k =dbService.GetRoute("Общежитие Дубки 1", "Трехсвятительский 3", timeNow);
             var c = dbService.GetCoordinates("Общежитие 6");
             var p = dbService.GetDubkiSchedule("Дубки");
             var h = dbService.GetFastestRoute("Общежитие 6", "Трехсвятительский 3", timeNow);
