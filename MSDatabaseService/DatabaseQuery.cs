@@ -22,6 +22,7 @@ namespace MSDatabaseService
         private List<Route> routeList;
         private List<TransportRoute> transportList;
         private bool check;
+        private List<Coordinate> coordinate;
 
         private int minutes;
         private int hours;
@@ -71,7 +72,25 @@ namespace MSDatabaseService
                 context.LocalTrainStops.Remove(stop);
         }
 
+        public List<Coordinate> GetCoordinates(string fromPoint, string toPoint)
+        {
+            coordinate = new List<Coordinate>();
+            var c = context.Dormitories.Where(d => d.Name.Equals(fromPoint)).Select(d => new Coordinate
+                {
+                    Latitude = d.Latitude,
+                    Longitude = d.Longitude
+                }).Single();
+            coordinate.Add(c);
 
+            c = context.HSEBuildings.Where(b => b.Name.Equals(toPoint)).Select(b => new Coordinate
+            {
+                Latitude = b.Latitude,
+                Longitude = b.Longitude
+            }).Single();
+            coordinate.Add(c);
+
+            return coordinate;
+        }
 
         public List<QueryResult> GetRoute(string fromPoint, string toPoint, DateTime queryDate)
         {
