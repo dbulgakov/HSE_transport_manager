@@ -68,8 +68,6 @@ namespace MSDatabaseService
             } 
         }
 
-
-
         public void RemoveTrainSchedule()
         {  
             foreach (var stop in context.LocalTrainStops)
@@ -79,6 +77,8 @@ namespace MSDatabaseService
                 context.LocalTrainsSchedule.Remove(train);
             context.SaveChanges();
         }
+
+
 
         public List<Coordinate> GetCoordinates(string fromPoint, string toPoint)
         {
@@ -99,6 +99,8 @@ namespace MSDatabaseService
 
             return coordinate;
         }
+
+
 
         public QueryResult GetRoute(string fromPoint, string toPoint, DateTime queryDate)
         {
@@ -151,15 +153,29 @@ namespace MSDatabaseService
 
                 }
 
-                //PublicTransport 
-                if (context.PublicTransportSchedule.Where(t => t.Dormitory.Any(d => d.Name == fromPoint) == true).Select(t => t.DepartureTime).Count() != 0)
-                {
-                    minutes = 20;
-                    if (queryDate.Minute + 20 > 60)
+                minutes = 20;
+                
+                if (queryDate.Minute + 20 > 60)
                     {
                         hours++;
                         minutes = queryDate.Minute - 40;
                     }
+
+                //PublicTransport 
+                if (context.PublicTransportSchedule.Where(t => t.Dormitory.Any(d => d.Name == fromPoint) == true).Select(t => t.DepartureTime).Count() != 0 && context.PublicTransportSchedule.Where(p => p.Dormitory.Any(d => d.Name == fromPoint) == true && p.DayOfWeek.Any(d => d.Name == dayAbbreviation) == true && (p.DepartureTime.Hour > queryDate.Hour + hours || p.DepartureTime.Hour == queryDate.Hour + hours && p.DepartureTime.Minute >= queryDate.Minute + minutes))
+                                             .Select(t => new
+                                                          {
+                                                              From = t.From,
+                                                              To = t.To,
+                                                              Number = t.Number,
+                                                              DepartureTime = t.DepartureTime,
+                                                              TransportType = context.TransportTypes.Where(y => y.Id == t.Type.Id).Select(y => y.Name).FirstOrDefault(),
+                                                              Price = t.Price.Price
+                                                          })
+                                             .First()!=null)
+
+                {
+                    
                     var publicTransportQuery = context.PublicTransportSchedule.Where(p => p.Dormitory.Any(d => d.Name == fromPoint) == true && p.DayOfWeek.Any(d => d.Name == dayAbbreviation) == true && (p.DepartureTime.Hour > queryDate.Hour + hours || p.DepartureTime.Hour == queryDate.Hour + hours && p.DepartureTime.Minute >= queryDate.Minute + minutes))
                                              .Select(t => new
                                                           {
@@ -299,7 +315,7 @@ namespace MSDatabaseService
                         }
                     }
 
-                    // LocalTrain -  FILL AND CHECK!!!!!!
+                    // LocalTrain - Works
                     var localStation = context.Dormitories.Where(r => r.Name == fromPoint)
                                                               .Select(r => new
                                                               {
@@ -414,5 +430,36 @@ namespace MSDatabaseService
                          };
         }
 
+
+        public QueryResult GetFastestRoute(string fromPoint, string toPoint, DateTime queryDate)
+        {
+            var queryRoutesResult = GetRoute(fromPoint, toPoint, queryDate);
+            TimeSpan elapsedTime= new TimeSpan();
+            int id=0;
+            for( int i= 0; i<queryRoutesResult.Routes.Count; i++)
+            {
+                
+                if (elapsedTime==null || elapsedTime > queryRoutesResult.Routes[i].Transport[queryRoutesResult.Routes[i].Transport.Count-1].ElapsedTime.Subtract(queryDate))
+                {
+                    elapsedTime=queryRoutesResult.Routes[i].Transport[queryRoutesResult.Routes[i].Transport.Count-1].ElapsedTime.Subtract(queryDate);
+                    id = i;
+                }
+            }
+            ;
+            List<TransportRoute> trRoute = new List<TransportRoute>();
+            foreach(var item in queryRoutesResult.Routes[id].Transport)
+                trRoute.Add(item);
+            List<Route> route = new List<Route>();
+            route.Add(new Route
+                {
+                    Transport = trRoute
+                });
+            return new QueryResult
+                {
+                    DeparturePoint=fromPoint,
+                    ArrivalPoint=toPoint,
+                    Routes= route
+                };
+        }
     }
 }

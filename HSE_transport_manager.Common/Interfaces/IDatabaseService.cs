@@ -11,5 +11,6 @@ namespace HSE_transport_manager.Common.Interfaces
         void RemoveTrainSchedule();
         List<Coordinate> GetCoordinates(string fromPoint, string toPoint);
         QueryResult GetRoute(string fromPoint, string toPoint, DateTime queryDate);
+        QueryResult GetFastestRoute(string fromPoint, string toPoint, DateTime queryDate);
     }
 }
