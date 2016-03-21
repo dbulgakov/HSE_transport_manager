@@ -164,6 +164,7 @@ namespace HSE_transport_manager.ViewModel
                 _ctoken = new CancellationTokenSource();
                 var keyData = ReadXml();
                 var bot = new Api(keyData.BotServiceKey);
+                taxiService.Initialize(keyData.TaxiServiceKey);
                 BotStatus = Resources.StatusViewModel_Start_Bot_is_active_message;
                 BotWork(bot, dbService, taxiService);
             }
@@ -185,7 +186,7 @@ namespace HSE_transport_manager.ViewModel
         async void BotWork(Api bot, IDatabaseService dbService, ITaxiService taxiService)
         {
             var dict = new Dictionary<long,string>();
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
                 try
                 {
@@ -222,18 +223,19 @@ namespace HSE_transport_manager.ViewModel
                                         case "/taxi_route":
                                         {
                                             var response = update.Message.Text.Split('-');
-                                            bot.SendTextMessage(update.Message.Chat.Id, string.Format("{0} : {1}", response[0].Trim(), response[1]).Trim());
+                                            dict.Remove(update.Message.Chat.Id);
                                             try
                                             {
-                                                var c1 = dbService.GetCoordinates(response[0].Trim());
-                                                var c2 = dbService.GetCoordinates(response[1].Trim());
-                                                bot.SendTextMessage(update.Message.Chat.Id, string.Format("{0} : {1}", c1, c2));
-                                                //var response2 = taxiService.GetRouteAsync(c_list[0], c_list[1]).Result;
-                                                //bot.SendTextMessage(update.Message.Chat.Id, string.Format("{0} : {1}", response[0].Trim(), response[1]).Trim());
-                                                //bot.SendTextMessage(update.Message.Chat.Id,
-                                                //    string.Format(
-                                                //        "Поездка на такси:\nВремя в пути: {0}\nСтоимость поездки: {1}",
-                                                //        response2.Duration.Minute, response2.Price));
+                                                await bot.SendChatAction(update.Message.Chat.Id, ChatAction.Typing);
+                                                var fromString = response[0].Trim();
+                                                var toString = response[1].Trim();
+                                                var c1 = dbService.GetCoordinates(fromString);
+                                                var c2 = dbService.GetCoordinates(toString);
+                                                var response2 = taxiService.GetRouteAsync(c1, c2).Result;
+                                                bot.SendTextMessage(update.Message.Chat.Id,
+                                                    string.Format(
+                                                        Resources.StatusViewModel_BotWork_Uber_response_message,
+                                                        fromString,toString,response2.Duration.Minute, response2.Price));
                                             }
                                             catch(Exception e)
                                             {
