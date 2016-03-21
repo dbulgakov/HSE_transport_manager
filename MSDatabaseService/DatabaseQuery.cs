@@ -385,19 +385,7 @@ namespace MSDatabaseService
                         minutes = queryDate.Minute - 40;
                     }
 
-                    if (context.LocalTrainsSchedule.Where(s => s.DepartureStation.Name.Equals(localStation.StationName) && (s.DepartureTime.Hour > queryDate.Hour + hours || s.DepartureTime.Hour == queryDate.Hour + hours && s.DepartureTime.Minute >= queryDate.Minute + minutes))
-                        .Select(r => new
-                        {
-                            DepartureTime = r.DepartureTime,
-                            Stops = r.Stops.Select(t => new
-                            {
-                                ArrivalTime = t.ArrivalTime,
-                                ElapsedTime = t.ElapsedTime,
-                                StationName = t.Station.Name,
-                                Code = t.Station.Code
-                            }).ToList(),
-                            Type = r.Type.Name
-                        }).First()!=null)
+                    if (context.LocalTrainsSchedule.Any(s => s.DepartureStation.Name.Equals(localStation.StationName) && (s.DepartureTime.Hour > queryDate.Hour + hours || s.DepartureTime.Hour == queryDate.Hour + hours && s.DepartureTime.Minute >= queryDate.Minute + minutes)))
 
                     {
                         var localStationsQuery = context.LocalTrainsSchedule.Where(s => s.DepartureStation.Name.Equals(localStation.StationName) && (s.DepartureTime.Hour > queryDate.Hour + hours || s.DepartureTime.Hour == queryDate.Hour + hours && s.DepartureTime.Minute >= queryDate.Minute + minutes))
