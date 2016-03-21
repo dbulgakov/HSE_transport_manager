@@ -20,6 +20,7 @@ namespace HSE_transport_manager.ViewModel
         private CancellationTokenSource _ctoken;
         private readonly IDialogProvider _dialogProvider;
         private const string FileName = "settings.xml";
+        private PluginManager plaginManager = new PluginManager();
 
         public StatusViewModel()
         {
@@ -150,20 +151,14 @@ namespace HSE_transport_manager.ViewModel
 
         async void Start()
         {
-            var r = new PluginManager();
-            var g = r.LoadDbService();
-            var ls = r.LoadScheduleService();
-            DateTime t= DateTime.Now;
-            //var k = g.GetRoute("Общежитие 6", "Трехсвятительский 3", t);
-
-
-            int ads = 5;
+            var dbService = plaginManager.LoadDbService();
+            DateTime timeNow = DateTime.Now;
+            var k =dbService.GetRoute("Общежитие 6", "Трехсвятительский 3", timeNow);
+            int ghvh = 6;
             try
             {
                 _ctoken = new CancellationTokenSource();
                 var keyData = ReadXml();
-                ls.Initialize(keyData.ScheduleServiceKey);
-                var asss = await ls.GetDailyScheduleAsync("s9600721", "s2000006");
                 var bot = new Api(keyData.BotServiceKey);
                 var me = await bot.GetMe();
                 BotStatus = Resources.StatusViewModel_Start_Bot_is_active_message;

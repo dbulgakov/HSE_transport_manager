@@ -6,6 +6,8 @@ using System.Xml.Serialization;
 using HSE_transport_manager.Common.Interfaces;
 using HSE_transport_manager.Common.Models;
 using HSE_transport_manager.Properties;
+using System.Threading.Tasks;
+using HSE_transport_manager.Common.Models.TrainSchedulesData;
 
 namespace HSE_transport_manager.ViewModel
 {
@@ -15,6 +17,7 @@ namespace HSE_transport_manager.ViewModel
         private ICommand _saveCommand;
         private const string FileName = "settings.xml";
         private IDialogProvider _dialogProvider;
+        private PluginManager plaginManager = new PluginManager();
 
         public SettingsViewModel()
         {
@@ -89,20 +92,6 @@ namespace HSE_transport_manager.ViewModel
             }
         }
 
-        private ICommand _removeCommand;
-
-        public ICommand RemoveCommand
-        {
-            get
-            {
-                if (_removeCommand == null)
-                {
-                    _removeCommand = new RelayCommand(
-                    Remove);
-                }
-                return _removeCommand;
-            }
-        }
 
         private string _uberKey;
 
@@ -201,14 +190,19 @@ namespace HSE_transport_manager.ViewModel
             }
         }
 
-        void Update()
+        async void Update()
         {
+            var dbService = plaginManager.LoadDbService();
+            var keyData = ReadXml();
+            var scheduleService = plaginManager.LoadScheduleService();
+            scheduleService.Initialize(keyData.ScheduleServiceKey);
+            var task = await scheduleService.GetDailyScheduleAsync("s9600721", "s2000006");
+            await Task.Run(() => dbService.RefreshTrainSchedule(task));
 
-        }
-
-        void Remove()
-        {
-            
+            // ПОТОМ ЭТО УБРАТЬ
+            _dialogProvider = new WpfMessageProvider();
+           _dialogProvider.ShowMessage("Complete");
+            //
         }
 
 
