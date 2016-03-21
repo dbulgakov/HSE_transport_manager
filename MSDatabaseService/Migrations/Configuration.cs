@@ -77,6 +77,10 @@ namespace MSDatabaseService.Migrations
                 new TransportType
                 {
                     Name = "Tram"
+                },
+                new TransportType
+                {
+                    Name="Subway"
                 });
             context.SaveChanges();
 

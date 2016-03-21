@@ -277,83 +277,83 @@ namespace MSDatabaseService
                     var localStation = context.Dormitories.Where(r => r.Name == fromPoint)
                                                               .Select(r => r.LocalTrainStation.Name).FirstOrDefault();
 
-                    if (localStation != null)
-                    {
-                        minutes = 20;
-                        if (check) 
-                        {
-                            fromPoint = "Автовокзал";
-                            minutes=55;
-                        }
- 
-                        if (queryDate.Minute + minutes > 60)
-                        {
-                            hours++;
-                            minutes = queryDate.Minute - 40;
-                        }
+                    //if (localStation != null)
+                    //{
+                    //    minutes = 20;
+                    //    if (check)
+                    //    {
+                    //        fromPoint = "Автовокзал";
+                    //        minutes = 55;
+                    //    }
 
-                        var localStationsQuery = context.LocalTrainsSchedule.Where(s => s.DepartureStation.Name == localStation && (s.DepartureTime.Hour > queryDate.Hour + hours || s.DepartureTime.Hour == queryDate.Hour + hours && s.DepartureTime.Minute >= queryDate.Minute + minutes)).Select(r => new
-                             {
-                                 DepartureTime = r.DepartureTime,
-                                 Stops = r.Stops,
-                                 Type = r.Type.Name
-                             }).First();
+                    //    if (queryDate.Minute + minutes > 60)
+                    //    {
+                    //        hours++;
+                    //        minutes = queryDate.Minute - 40;
+                    //    }
 
-                        foreach (var stationHSE in subwayStationHSE)
-                        {
-                            transportList = new List<TransportRoute>();
-                            foreach (var stationStop in localStationsQuery.Stops)
-                            {
-                                transportList = new List<TransportRoute>();
-                                transportList.Add(new TransportRoute
-                                {
-                                    DepartureTime = queryDate.AddMinutes(minutes),
-                                    ElapsedTime = queryDate.AddMinutes(minutes + 10),
-                                    FromPoint = fromPoint,
-                                    ToPoint = localStation,
-                                    TransportType = "OnFoot"
-                                });
+                    //    var localStationsQuery = context.LocalTrainsSchedule.Where(s => s.DepartureStation.Name == localStation && (s.DepartureTime.Hour > queryDate.Hour + hours || s.DepartureTime.Hour == queryDate.Hour + hours && s.DepartureTime.Minute >= queryDate.Minute + minutes)).Select(r => new
+                    //         {
+                    //             DepartureTime = r.DepartureTime,
+                    //             Stops = r.Stops,
+                    //             Type = r.Type.Name
+                    //         }).First();
 
-                                transportList.Add(new TransportRoute
-                                {
-                                    DepartureTime = queryDate.AddMinutes(minutes + 10),
-                                    ElapsedTime = stationStop.ElapsedTime,
-                                    FromPoint = localStation,
-                                    ToPoint = stationStop.Station.Name,
-                                    TransportType = localStationsQuery.Type,
-                                    Price=context.LocalTrainPrices.Where(p => p.StationFrom.Name==localStation && p.StationTo.Name==stationStop.Station.Name).Select(p=> p.Price).Single()
-                                });
+                    //    foreach (var stationHSE in subwayStationHSE)
+                    //    {
+                    //        transportList = new List<TransportRoute>();
+                    //        foreach (var stationStop in localStationsQuery.Stops)
+                    //        {
+                    //            transportList = new List<TransportRoute>();
+                    //            transportList.Add(new TransportRoute
+                    //            {
+                    //                DepartureTime = queryDate.AddMinutes(minutes),
+                    //                ElapsedTime = queryDate.AddMinutes(minutes + 10),
+                    //                FromPoint = fromPoint,
+                    //                ToPoint = localStation,
+                    //                TransportType = "OnFoot"
+                    //            });
 
-                                if (stationStop.Station.Name == "Белорусский вокзал") stationStop.Station.Name = "Белорусская";
-                                if (stationStop.Station.Name == "Кунцево") stationStop.Station.Name = "Кунцевская";
+                    //            transportList.Add(new TransportRoute
+                    //            {
+                    //                DepartureTime = queryDate.AddMinutes(minutes + 10),
+                    //                ElapsedTime = stationStop.ElapsedTime,
+                    //                FromPoint = localStation,
+                    //                ToPoint = stationStop.Station.Name,
+                    //                TransportType = localStationsQuery.Type,
+                    //                Price = context.LocalTrainPrices.Where(p => p.StationFrom.Name == localStation && p.StationTo.Name == stationStop.Station.Name).Select(p => p.Price).Single()
+                    //            });
 
-                                transportRoute = GetRouteSubStToSubSt(stationStop.Station.Name, stationHSE, queryDate.AddMinutes(minutes+10));
+                    //            if (stationStop.Station.Name == "Белорусский вокзал") stationStop.Station.Name = "Белорусская";
+                    //            if (stationStop.Station.Name == "Кунцево") stationStop.Station.Name = "Кунцевская";
 
-                                transportList.Add(new TransportRoute
-                                {
-                                    DepartureTime = queryDate.AddMinutes(minutes + 10),
-                                    ElapsedTime = transportRoute.ElapsedTime,
-                                    FromPoint = transportRoute.FromPoint,
-                                    ToPoint = transportRoute.ToPoint,
-                                    TransportType = transportRoute.TransportType
-                                });
+                    //            transportRoute = GetRouteSubStToSubSt(stationStop.Station.Name, stationHSE, queryDate.AddMinutes(minutes + 10));
 
-                                transportList.Add(new TransportRoute
-                                {
-                                    DepartureTime = transportRoute.ElapsedTime,
-                                    ElapsedTime = transportRoute.ElapsedTime.AddMinutes(10),
-                                    FromPoint = transportRoute.ToPoint,
-                                    ToPoint = toPoint,
-                                    TransportType = "OnFoot"
-                                });
+                    //            transportList.Add(new TransportRoute
+                    //            {
+                    //                DepartureTime = queryDate.AddMinutes(minutes + 10),
+                    //                ElapsedTime = transportRoute.ElapsedTime,
+                    //                FromPoint = transportRoute.FromPoint,
+                    //                ToPoint = transportRoute.ToPoint,
+                    //                TransportType = transportRoute.TransportType
+                    //            });
 
-                                routeList.Add(new Route
-                                {
-                                    Transport = transportList
-                                });
-                            }
-                        }
-                    }
+                    //            transportList.Add(new TransportRoute
+                    //            {
+                    //                DepartureTime = transportRoute.ElapsedTime,
+                    //                ElapsedTime = transportRoute.ElapsedTime.AddMinutes(10),
+                    //                FromPoint = transportRoute.ToPoint,
+                    //                ToPoint = toPoint,
+                    //                TransportType = "OnFoot"
+                    //            });
+
+                    //            routeList.Add(new Route
+                    //            {
+                    //                Transport = transportList
+                    //            });
+                    //        }
+                    //  }
+                   // }
                 
                 }
 
