@@ -169,4 +169,8 @@
 Время в пути: {2} минут(ы) 
 Стоимость поездки: {3} руб.</value>
   </data>
+  <data name="StatusViewModel_BotWork_Places_response_message" xml:space="preserve">
+    <value>Cписок поддерживаемых мест:
+ {0}</value>
+  </data>
 </root>

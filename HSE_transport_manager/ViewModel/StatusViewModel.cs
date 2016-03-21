@@ -12,6 +12,7 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace HSE_transport_manager.ViewModel
 {
@@ -155,11 +156,10 @@ namespace HSE_transport_manager.ViewModel
             var dbService = plaginManager.LoadDbService();
             var taxiService = plaginManager.LoadTaxiService();
             DateTime timeNow = DateTime.Now;
-            var k =dbService.GetRoute("Общежитие 1", "Трехсвятительский 3", timeNow);
-            var c = dbService.GetCoordinates("Общежитие 6");
-            var p = dbService.GetDubkiSchedule("Дубки");
-            var h = dbService.GetFastestRoute("Общежитие 6", "Трехсвятительский 3", timeNow);
-            int ghvh = 6;
+            //var k =dbService.GetRoute("Общежитие 1", "Трехсвятительский 3", timeNow);
+            //var c = dbService.GetCoordinates("Общежитие 6");
+            //var p = dbService.GetDubkiSchedule("Дубки");
+            //var h = dbService.GetFastestRoute("Общежитие 6", "Трехсвятительский 3", timeNow);
             try
             {
                 _ctoken = new CancellationTokenSource();
@@ -256,6 +256,18 @@ namespace HSE_transport_manager.ViewModel
                                         {
                                             bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Introduce_message).Wait();
                                             bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Intro_message);
+                                            break;
+                                        }
+                                        case "/places":
+                                        {
+                                            var stb = new StringBuilder();
+                                            var places = dbService.GetAllBuildings();
+                                            foreach (var place in places)
+                                            {
+                                                stb.Append(place);
+                                                stb.Append("\n ");
+                                            }
+                                            bot.SendTextMessage(update.Message.Chat.Id, string.Format(Resources.StatusViewModel_BotWork_Places_response_message, stb.ToString()));
                                             break;
                                         }
                                         case "/get_route":
