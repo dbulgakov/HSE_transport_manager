@@ -488,34 +488,38 @@ namespace MSDatabaseService
         public QueryResult GetFastestRoute(string fromPoint, string toPoint, DateTime queryDate)
         {
             var queryRoutesResult = GetRoute(fromPoint, toPoint, queryDate);
-            TimeSpan elapsedTime= new TimeSpan();
-            int id=0;
-            for( int i= 0; i<queryRoutesResult.Routes.Count; i++)
+            if (queryRoutesResult.Routes.Count != 0)
             {
-                
-                if (elapsedTime==null || elapsedTime > queryRoutesResult.Routes[i].Transport[queryRoutesResult.Routes[i].Transport.Count-1].ElapsedTime.Subtract(queryDate))
+                TimeSpan elapsedTime = new TimeSpan();
+                int id = 0;
+                for (int i = 0; i < queryRoutesResult.Routes.Count; i++)
                 {
-                    elapsedTime=queryRoutesResult.Routes[i].Transport[queryRoutesResult.Routes[i].Transport.Count-1].ElapsedTime.Subtract(queryDate);
-                    id = i;
+
+                    if (elapsedTime == null || elapsedTime > queryRoutesResult.Routes[i].Transport[queryRoutesResult.Routes[i].Transport.Count - 1].ElapsedTime.Subtract(queryDate))
+                    {
+                        elapsedTime = queryRoutesResult.Routes[i].Transport[queryRoutesResult.Routes[i].Transport.Count - 1].ElapsedTime.Subtract(queryDate);
+                        id = i;
+                    }
                 }
+                ;
+                List<TransportRoute> trRoute = new List<TransportRoute>();
+                foreach (var item in queryRoutesResult.Routes[id].Transport)
+                    trRoute.Add(item);
+                List<Route> route = new List<Route>();
+                route.Add(new Route
+                    {
+                        Transport = trRoute
+                    });
+
+
+                return new QueryResult
+                    {
+                        DeparturePoint = fromPoint,
+                        ArrivalPoint = toPoint,
+                        Routes = route
+                    };
             }
-            ;
-            List<TransportRoute> trRoute = new List<TransportRoute>();
-            foreach(var item in queryRoutesResult.Routes[id].Transport)
-                trRoute.Add(item);
-            List<Route> route = new List<Route>();
-            route.Add(new Route
-                {
-                    Transport = trRoute
-                });
-
-
-            return new QueryResult
-                {
-                    DeparturePoint=fromPoint,
-                    ArrivalPoint=toPoint,
-                    Routes= route
-                };
+            else throw new ArgumentNullException();
         }
 
 
