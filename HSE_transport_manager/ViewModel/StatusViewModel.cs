@@ -10,6 +10,7 @@ using HSE_transport_manager.Common.Models;
 using HSE_transport_manager.Properties;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using System;
 
 namespace HSE_transport_manager.ViewModel
 {
@@ -151,6 +152,8 @@ namespace HSE_transport_manager.ViewModel
         {
             var r = new PluginManager();
             var g = r.LoadDbService();
+            DateTime t= DateTime.Now;
+            var k = g.GetRoute("Общежитие 6", "Трехсвятительский 3", t);
             int ads = 5;
             try
             {
