@@ -225,9 +225,9 @@ namespace HSE_transport_manager.ViewModel
                                             bot.SendTextMessage(update.Message.Chat.Id, string.Format("{0} : {1}", response[0].Trim(), response[1]).Trim());
                                             try
                                             {
-                                                var c_list = dbService.GetCoordinates(response[0].Trim(),
-                                                    response[1].Trim());
-                                                bot.SendTextMessage(update.Message.Chat.Id, string.Format("{0} : {1}", c_list[0].Latitude, c_list[0].Longitude));
+                                                var c1 = dbService.GetCoordinates(response[0].Trim());
+                                                var c2 = dbService.GetCoordinates(response[1].Trim());
+                                                bot.SendTextMessage(update.Message.Chat.Id, string.Format("{0} : {1}", c1, c2));
                                                 //var response2 = taxiService.GetRouteAsync(c_list[0], c_list[1]).Result;
                                                 //bot.SendTextMessage(update.Message.Chat.Id, string.Format("{0} : {1}", response[0].Trim(), response[1]).Trim());
                                                 //bot.SendTextMessage(update.Message.Chat.Id,
