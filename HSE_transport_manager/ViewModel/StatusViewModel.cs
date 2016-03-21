@@ -152,13 +152,18 @@ namespace HSE_transport_manager.ViewModel
         {
             var r = new PluginManager();
             var g = r.LoadDbService();
+            var ls = r.LoadScheduleService();
             DateTime t= DateTime.Now;
-            var k = g.GetRoute("Общежитие 6", "Трехсвятительский 3", t);
+            //var k = g.GetRoute("Общежитие 6", "Трехсвятительский 3", t);
+
+
             int ads = 5;
             try
             {
                 _ctoken = new CancellationTokenSource();
                 var keyData = ReadXml();
+                ls.Initialize(keyData.ScheduleServiceKey);
+                var asss = await ls.GetDailyScheduleAsync("s9600721", "s2000006");
                 var bot = new Api(keyData.BotServiceKey);
                 var me = await bot.GetMe();
                 BotStatus = Resources.StatusViewModel_Start_Bot_is_active_message;
