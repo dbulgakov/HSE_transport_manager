@@ -132,6 +132,25 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cписок поддерживаемых мест:
+        /// {0}.
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Places_response_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Places_response_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Даша Бог БД.
+        /// </summary>
+        internal static string StatusViewModel_BotWork_That_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_That_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Поездка на такси:
         ///{0} - {1}
         ///Время в пути: {2} минут(ы) 
