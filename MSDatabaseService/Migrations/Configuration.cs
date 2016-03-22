@@ -80,7 +80,7 @@ namespace MSDatabaseService.Migrations
                 },
                 new TransportType
                 {
-                    Name = "Subway"
+                    Name="Subway"
                 });
             context.SaveChanges();
 

@@ -9,6 +9,12 @@ namespace HSE_transport_manager.Common.Interfaces
     {
         void RefreshTrainSchedule(DailyTrainSchedule trainSchedule);
         void RemoveTrainSchedule();
-        List<QueryResult> GetRoute(string fromPoint, string toPoint, DateTime queryDate);
+        Coordinate GetCoordinates(string point);
+        QueryResult GetRoute(string fromPoint, string toPoint, DateTime queryDate);
+        QueryResult GetFastestRoute(string fromPoint, string toPoint, DateTime queryDate);
+        List<DubkiSchedule> GetDubkiSchedule(string from);
+        string GetStationCode(string station);
+        List<string> GetAllBuildings();
+        List<TrainSchedule> GetTrainSchedule();
     }
 }

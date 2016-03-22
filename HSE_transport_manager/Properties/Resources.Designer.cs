@@ -61,6 +61,71 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Расписание автобусов из {0}:
+        ///{1}.
+        /// </summary>
+        internal static string ResponseBuilder_GetBusResponse_Bus_response_header_message {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_GetBusResponse_Bus_response_header_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. - {1}.  {2} -- {3}.
+        /// </summary>
+        internal static string ResponseBuilder_GetBusResponse_Bus_schedule_line_pattern {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_GetBusResponse_Bus_schedule_line_pattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка выполнения запроса! Проверьте входные данные..
+        /// </summary>
+        internal static string ResponseBuilder_Input_data_value_error {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_Input_data_value_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неверный ввод! Данные должны быть в формате Место - Место..
+        /// </summary>
+        internal static string ResponseBuilder_Input_separator_error_message {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_Input_separator_error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Внутренняя ошибка сервера..
+        /// </summary>
+        internal static string ResponseBuilder_Internal_error_message {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_Internal_error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка поиска маршрута на общественном транспорте! Повторите запрос позже..
+        /// </summary>
+        internal static string ResponseBuilder_No_public_transport_error_message {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_No_public_transport_error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Char similar to -.
+        /// </summary>
+        internal static char ResponseBuilder_TaxiResponse_Separator {
+            get {
+                object obj = ResourceManager.GetObject("ResponseBuilder_TaxiResponse_Separator", resourceCulture);
+                return ((char)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error saving file!.
         /// </summary>
         internal static string SettingsViewModel_Reset_Error_saving_file_message {
@@ -97,11 +162,109 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Введите станцию отправления. Поддерживаются следующие станции:
+        ///1. Одинцово
+        ///2. Дубки
+        ///3. Славянский Бульвар.
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Get_Bus_response_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Get_Bus_response_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Для поиска кратчайшего пути введите названия начального места и конечной точки в формате:
+        ///Начальное место - Конечное место.
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Get_route_intro {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Get_route_intro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Я - телеграм бот для поиска всех возможных путей в университет для студентов НИУ ВШЭ!
+        ///Умею следующие команды:
+        ///  /places - Список поддерживаемых мест
+        ///  /get_route - Поиск самого быстрого пути в университет
+        ///  /get_all_routes - все возможные пути в университет
+        ///  /taxi_route - Расчет времени и стоимость дороги в университет на такси
+        ///  /get_suburban - Расписание электричек между станциями
+        ///  /get_bus - Расписание до/из Дубков.
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Intro_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Intro_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Привет!.
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Introduce_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Introduce_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cписок поддерживаемых мест:
+        /// {0}.
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Places_response_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Places_response_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Даша Бог БД.
+        /// </summary>
+        internal static string StatusViewModel_BotWork_That_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_That_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Поездка на такси:
+        ///{0} - {1}
+        ///Время в пути: {2} минут(ы) 
+        ///Стоимость поездки: {3} руб..
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Uber_response_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Uber_response_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Неизвестная комманда..
         /// </summary>
         internal static string StatusViewModel_BotWork_Unknown_input_message {
             get {
                 return ResourceManager.GetString("StatusViewModel_BotWork_Unknown_input_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неизвестная команда!
+        ///Введите /start для получения списка возможных комманд..
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Unknown_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Unknown_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неподдерживаемый тип сообщения!
+        ///Введите /start для получения списка возможных комманд..
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Unsupported_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Unsupported_message", resourceCulture);
             }
         }
         
@@ -115,11 +278,29 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error contacting bot!.
+        ///   Looks up a localized string similar to Error while loading dll libraries!.
         /// </summary>
-        internal static string StatusViewModel_Start_Error_contacting_bot_message {
+        internal static string StatusViewModel_Start_DLL_load_error_message {
             get {
-                return ResourceManager.GetString("StatusViewModel_Start_Error_contacting_bot_message", resourceCulture);
+                return ResourceManager.GetString("StatusViewModel_Start_DLL_load_error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading services!.
+        /// </summary>
+        internal static string StatusViewModel_Start_Load_error_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_Start_Load_error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown error!.
+        /// </summary>
+        internal static string StatusViewModel_Start_Unknown_error_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_Start_Unknown_error_message", resourceCulture);
             }
         }
         

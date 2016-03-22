@@ -25,7 +25,7 @@ Team: Bulgakov D., Rogova D., Trofimenko A.
 <LineBreak/> 
 About: 
 <LineBreak/> 
-This app provides an opportunity to manage a route from one point (dormitory or hse building) to another one using TG bot. Moreover, it uses different means of transport (local train, tram, bus, taxi, subway) and finds the fastest way depending on student budget.
+This app provides an opportunity to manage a route from one point (dormitory) to another one (hse building) using TG bot. Moreover, it uses different means of transport (local train, tram, bus, taxi, subway) to create route, finds the fastest way and finally shows schedule for local trains and buses to/from Dubki.
             </TextBlock>
         </Label>
         <Image Grid.Row="1" Grid.Column="1" Source="/HSE_transport_manager;component/Resources/yandex.png" />

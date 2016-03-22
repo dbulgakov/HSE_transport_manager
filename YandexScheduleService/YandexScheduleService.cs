@@ -11,14 +11,14 @@ using TrainStop = HSE_transport_manager.Common.Models.TrainSchedulesData.TrainSt
 
 namespace YandexScheduleService
 {
-    class YandexScheduleService: ITransportSchedulerService
+    class YandexScheduleService : ITransportSchedulerService
     {
         private const string ApiUrl = "http://api.rasp.yandex.net";
         private const string ApiVer = "v1.0";
 
         private string _authKey;
 
-        private RequestBuilder _requestBuilder; 
+        private RequestBuilder _requestBuilder;
 
         public void Initialize(string authKey)
         {
@@ -28,7 +28,7 @@ namespace YandexScheduleService
 
         public async Task<DailyTrainSchedule> GetDailyScheduleAsync(string startingStationCode, string endingStationCode)
         {
-            return await Task.Run(() =>
+            return await Task.Run(async () =>
             {
                 var scheduledTrains = new List<SingleTrainSchedule>();
                 var requestString = _requestBuilder.ThreadsListRequest(startingStationCode, endingStationCode);
@@ -40,8 +40,10 @@ namespace YandexScheduleService
 
                 foreach (var train in threadListResponse.TrainThreadList)
                 {
-                    if (train.DepartureTime != null)
-                        scheduledTrains.Add(GetScheduleAsync(train.TrainInfo.TrainUid, startingStationCode, train.TrainInfo.TrainExpressType, (DateTime)train.DepartureTime).Result);
+                    var trainThread = await GetScheduleAsync(train.TrainInfo.TrainUid, startingStationCode,
+                        train.TrainInfo.TrainExpressType, (DateTime)train.DepartureTime);
+                    if (trainThread != null)
+                        scheduledTrains.Add(trainThread);
                 }
 
                 return CreateDailyTrainSchedule(startingStationCode, endingStationCode, scheduledTrains);
@@ -69,7 +71,10 @@ namespace YandexScheduleService
             {
                 var requestString = _requestBuilder.ThreadInfoRequest(transportId);
                 var client = new HttpClient();
-                var responseString = client.GetAsync(requestString).Result.Content.ReadAsStringAsync().Result;
+                var responce = client.GetAsync(requestString).Result;
+                if (!responce.IsSuccessStatusCode)
+                    return null;
+                var responseString = responce.Content.ReadAsStringAsync().Result;
                 var threadInfoResponse = JsonConvert.DeserializeObject<TrainThreadInfoResponse>(responseString);
 
                 var trainStopList = ConvertStopList(threadInfoResponse, baseStationId);
@@ -87,7 +92,7 @@ namespace YandexScheduleService
             var reachedBase = baseStationId == null;
             double elapsedTime = 0;
             foreach (var stop in trainThread.TrainStops)
-            {         
+            {
                 if (reachedBase)
                 {
                     stopList.Add(new TrainStop
@@ -115,7 +120,7 @@ namespace YandexScheduleService
                 TrainUid = transportId,
                 DepartureTime = departureTime,
                 Stops = stops,
-                TransportType = trainType == null ? Transport.Suburban : Transport.ExpressSuburban 
+                TransportType = trainType == null ? Transport.Suburban : Transport.ExpressSuburban
             };
             return trainSchedule;
         }
