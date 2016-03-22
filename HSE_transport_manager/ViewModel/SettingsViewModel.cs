@@ -61,21 +61,6 @@ namespace HSE_transport_manager.ViewModel
             return (UberKey != null && YandexKey != null && GoogleKey != null && TGKey != null);
         }
 
-        private ICommand _resetCommand;
-
-        public ICommand ResetCommand
-        {
-            get
-            {
-                if (_resetCommand == null)
-                {
-                    _resetCommand = new RelayCommand(
-                    Reset,
-                    CheckKeys);
-                }
-                return _resetCommand;
-            }
-        }
 
         private ICommand _updateCommand;
 

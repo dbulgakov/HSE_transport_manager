@@ -17,7 +17,7 @@ namespace HSE_transport_manager.ViewModel
 {
     public class StatusViewModel : ViewModelBase
     {
-        private ICommand _startCommand;
+        
         private CancellationTokenSource _ctoken;
         private readonly IDialogProvider _dialogProvider;
         private const string FileName = "settings.xml";
@@ -36,7 +36,7 @@ namespace HSE_transport_manager.ViewModel
             _dialogProvider = new WpfMessageProvider();
         }
 
-
+        private ICommand _startCommand;
         public ICommand StartCommand
         {
             get
@@ -163,7 +163,8 @@ namespace HSE_transport_manager.ViewModel
             _ctoken = new CancellationTokenSource();
             var plaginManager = new PluginManager();
             var dbService = plaginManager.LoadDbService();
-                var ki=dbService.GetTrainSchedule("Одинцово","Кунцево");
+                //var ki=dbService.GetTrainSchedule("Одинцово","Кунцево");
+                var hb = dbService.GetFastestRoute("Общежитие 6", "Кирпичная 33", DateTime.Now);
                 int ffg = 6;
             try
             {
