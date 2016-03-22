@@ -255,11 +255,7 @@ namespace HSE_transport_manager.ViewModel
             UpdateStatus="Last update: "+ DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
         }
 
-            // ПОТОМ ЭТО УБРАТЬ
-            _dialogProvider = new WpfMessageProvider();
-           _dialogProvider.ShowMessage("Complete");
-            //
-        }
+       
 
 
         private void SaveXml(KeyData keyData)
