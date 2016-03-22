@@ -17,7 +17,6 @@ namespace HSE_transport_manager.ViewModel
 {
     public class StatusViewModel : ViewModelBase
     {
-        
         private CancellationTokenSource _ctoken;
         private readonly IDialogProvider _dialogProvider;
         private const string FileName = "settings.xml";
@@ -96,7 +95,8 @@ namespace HSE_transport_manager.ViewModel
             }
         }
 
-        private string _uberStatus;
+
+        private string _uberStatus = Resources.UberStatus;
 
         public string UberStatus
         {
@@ -110,6 +110,7 @@ namespace HSE_transport_manager.ViewModel
                 }
             }
         }
+
 
         private string _yandexStatus;
 
@@ -140,6 +141,7 @@ namespace HSE_transport_manager.ViewModel
                 }
             }
         }
+
 
         private string _tgStatus;
 
@@ -200,7 +202,7 @@ namespace HSE_transport_manager.ViewModel
             //var hb = dbService.GetFastestRoute("Общежитие Дубки 1", "Кирпичная 33", DateTime.Now);
                 int ffg = 6;
             try
-            { 
+            {
                 var taxiService = plaginManager.LoadTaxiService();
                 var keyData = ReadXml();
                 var bot = new Api(keyData.BotServiceKey);
@@ -278,7 +280,7 @@ namespace HSE_transport_manager.ViewModel
                                         }
 
                                         case BusRequest:
-                                        {
+                                {
                                             rb.GetBusResponse(update, dbService);
                                             break;
                                         }

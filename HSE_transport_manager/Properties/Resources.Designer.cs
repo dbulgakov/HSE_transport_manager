@@ -315,5 +315,12 @@ namespace HSE_transport_manager.Properties {
             }
         }
 
+        internal static string UberStatus
+        {
+            get
+            {
+                return ResourceManager.GetString("UberStatus", resourceCulture);
+            }
+        }
     }
 }
