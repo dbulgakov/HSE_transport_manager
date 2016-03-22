@@ -37,7 +37,7 @@ namespace HSE_transport_manager
                     _bot.SendTextMessage(update.Message.Chat.Id,
                     string.Format(
                         Resources.StatusViewModel_BotWork_Uber_response_message,
-                        fromString, toString, response2.Duration.Minute, response2.Price));
+                        fromString, toString, response2.Duration.Hour * 60 + response2.Duration.Minute, response2.Price));
                 }
                 catch (IndexOutOfRangeException)
                 {
