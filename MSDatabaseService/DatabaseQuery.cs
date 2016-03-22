@@ -562,17 +562,21 @@ namespace MSDatabaseService
         }
 
 
-        public List<TrainSchedule> GetTrainSchedule()
+        public List<TrainSchedule> GetTrainSchedule(string from, string to)
         {
             if (context.LocalTrainsSchedule.Count() != 0)
-                return context.LocalTrainsSchedule.Where(s => s.DepartureStation.Name.Equals("Одинцово"))
-                       .Select(r => new TrainSchedule
+                if (context.LocalTrainStations.Any(s => s.Name.Equals(from)) && context.LocalTrainStations.Any(s => s.Name.Equals(to)))
+                    return context.LocalTrainsSchedule.Where(s => s.DepartureStation.Name.Equals(from))
+                       .Select(s => new TrainSchedule
                        {
-                           DepartureStation=r.DepartureStation.Name,
-                           DepartureTime = r.DepartureTime,
-                           Type = r.Type.Name
+                           DepartureStation = from,
+                           DepartureTime = s.DepartureTime,
+                           ArrivalStation = to,
+                           ArrivalTime = s.Stops.Where(a => a.Station.Name.Equals(to)).Select(a => a.ArrivalTime).FirstOrDefault(),
+                           Type = s.Type.Name,
+                           Price = s.Type.Name.Equals("Suburban") ? context.LocalTrainPrices.Where(p => p.StationFrom.Name.Equals(from) && p.StationTo.Name.Equals(to)).Select(p => p.Price).FirstOrDefault() : context.LocalTrainPrices.Where(p => p.StationFrom.Name.Equals(from) && p.StationTo.Name.Equals(to)).Select(p => p.Price).FirstOrDefault() * 2
                        }).ToList();
-
+                else throw new ArgumentException();
             else throw new NullReferenceException();  
         }
     }

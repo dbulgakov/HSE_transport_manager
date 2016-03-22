@@ -161,10 +161,13 @@ namespace HSE_transport_manager.ViewModel
         {
             _ctoken = new CancellationTokenSource();
             var plaginManager = new PluginManager();
+            var dbService = plaginManager.LoadDbService();
+                var ki=dbService.GetTrainSchedule("Одинцово","Кунцево");
+                int ffg = 6;
             try
             {
 
-                var dbService = plaginManager.LoadDbService();
+                
                 var taxiService = plaginManager.LoadTaxiService();
                 var keyData = ReadXml();
                 var bot = new Api(keyData.BotServiceKey);
