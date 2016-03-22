@@ -208,7 +208,7 @@ namespace HSE_transport_manager.ViewModel
                                     {
                                         case "/get_route":
                                         {
-                                            rb.FastestWayResponse(update, dbService);
+                                            rb.FastestWayResponse(update, dbService, taxiService);
                                             break;
                                         }
                                         case "/taxi_route":

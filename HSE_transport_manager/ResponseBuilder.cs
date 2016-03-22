@@ -54,7 +54,7 @@ namespace HSE_transport_manager
             });
         }
 
-        public void FastestWayResponse(Update update, IDatabaseService dbService)
+        public void FastestWayResponse(Update update, IDatabaseService dbService, ITaxiService taxiService)
         {
             Task.Run(async () =>
             {
@@ -62,6 +62,7 @@ namespace HSE_transport_manager
                 {
                     await _bot.SendChatAction(update.Message.Chat.Id, ChatAction.Typing);
                     var response = update.Message.Text.Split(Resources.ResponseBuilder_TaxiResponse_Separator);
+                    TaxiResponse(update, dbService, taxiService);
                     var route = dbService.GetFastestRoute(response[0].Trim(), response[1].Trim(), update.Message.Date);
                     _bot.SendTextMessage(update.Message.Chat.Id, route.Routes.Capacity.ToString());
                 }
