@@ -278,11 +278,29 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error contacting bot!.
+        ///   Looks up a localized string similar to Error while loading dll libraries!.
         /// </summary>
-        internal static string StatusViewModel_Start_Error_contacting_bot_message {
+        internal static string StatusViewModel_Start_DLL_load_error_message {
             get {
-                return ResourceManager.GetString("StatusViewModel_Start_Error_contacting_bot_message", resourceCulture);
+                return ResourceManager.GetString("StatusViewModel_Start_DLL_load_error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading services!.
+        /// </summary>
+        internal static string StatusViewModel_Start_Load_error_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_Start_Load_error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown error!.
+        /// </summary>
+        internal static string StatusViewModel_Start_Unknown_error_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_Start_Unknown_error_message", resourceCulture);
             }
         }
         

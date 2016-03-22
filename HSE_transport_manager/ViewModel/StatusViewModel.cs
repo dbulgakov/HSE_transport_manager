@@ -12,6 +12,7 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 
 namespace HSE_transport_manager.ViewModel
@@ -172,10 +173,19 @@ namespace HSE_transport_manager.ViewModel
                 BotStatus = Resources.StatusViewModel_Start_Bot_is_active_message;
                 BotWork(bot, dbService, taxiService);
             }
-            catch
+            catch (NullReferenceException)
             {
-                _dialogProvider.ShowMessage(Resources.StatusViewModel_Start_Error_contacting_bot_message);
+                _dialogProvider.ShowMessage(Resources.StatusViewModel_Start_DLL_load_error_message);
             }
+            catch (InvalidOperationException)
+            {
+                _dialogProvider.ShowMessage(Resources.StatusViewModel_Start_Load_error_message);
+            }
+            catch (Exception)
+            {
+                _dialogProvider.ShowMessage(Resources.StatusViewModel_Start_Unknown_error_message);
+            }
+
         }
 
         void Stop()
