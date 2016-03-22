@@ -8,6 +8,7 @@ using HSE_transport_manager.Common.Models;
 using HSE_transport_manager.Properties;
 using System.Threading.Tasks;
 using HSE_transport_manager.Common.Models.TrainSchedulesData;
+using System;
 
 namespace HSE_transport_manager.ViewModel
 {
@@ -18,6 +19,7 @@ namespace HSE_transport_manager.ViewModel
         private const string FileName = "settings.xml";
         private IDialogProvider _dialogProvider;
         private PluginManager plaginManager = new PluginManager();
+        private MainViewModel mainViewModel;
 
         public SettingsViewModel()
         {
@@ -26,6 +28,7 @@ namespace HSE_transport_manager.ViewModel
             {
                 try
                 {
+                    Enable = false;
                     keyData = ReadXml();
                 }
                 catch
@@ -39,6 +42,7 @@ namespace HSE_transport_manager.ViewModel
             GoogleKey = keyData.MonitoringServiceKey;
             UberKey = keyData.TaxiServiceKey;
             _dialogProvider = new WpfMessageProvider();
+            mainViewModel = new MainViewModel(_dialogProvider);
         }
 
 
@@ -56,8 +60,21 @@ namespace HSE_transport_manager.ViewModel
                 }
             }
         }
-        
 
+        private bool _enable = true;
+
+        public bool Enable
+        {
+            get { return _enable; }
+            set
+            {
+                if (value != _enable)
+                {
+                    _enable = value;
+                    RaisePropertyChanged("Enable");
+                }
+            }
+        }
 
         public ICommand SaveCommand
         {
@@ -91,6 +108,36 @@ namespace HSE_transport_manager.ViewModel
                     Update);
                 }
                 return _updateCommand;
+            }
+        }
+
+        private ICommand _resetCommand;
+
+        public ICommand ResetCommand
+        {
+            get
+            {
+                if (_resetCommand == null)
+                {
+                    _resetCommand = new RelayCommand(
+                    Reset);
+                }
+                return _resetCommand;
+            }
+        }
+
+        private string _updateStatus;
+
+        public string UpdateStatus
+        {
+            get { return _updateStatus; }
+            set
+            {
+                if (value != _updateStatus)
+                {
+                    _updateStatus = value;
+                    RaisePropertyChanged("UpdateStatus");
+                }
             }
         }
 
@@ -159,6 +206,7 @@ namespace HSE_transport_manager.ViewModel
 
         void Save()
         {
+            Enable = false;
             var keyData = new KeyData
             {
                 BotServiceKey = TGKey,
@@ -177,11 +225,12 @@ namespace HSE_transport_manager.ViewModel
         }
 
         void Reset()
-        {
+        {     
             UberKey = null;
             YandexKey = null;
             GoogleKey = null;
             TGKey = null;
+            Enable = true;
             try
             {
                 SaveXml(new KeyData());
@@ -201,7 +250,7 @@ namespace HSE_transport_manager.ViewModel
             scheduleService.Initialize(keyData.ScheduleServiceKey);
             var task = await scheduleService.GetDailyScheduleAsync("s9600721", "s2000006");
             await Task.Run(() => dbService.RefreshTrainSchedule(task));
-
+            UpdateStatus="Last update: "+ DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
             // ПОТОМ ЭТО УБРАТЬ
             _dialogProvider = new WpfMessageProvider();
            _dialogProvider.ShowMessage("Complete");

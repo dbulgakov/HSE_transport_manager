@@ -35,7 +35,11 @@
                 <Hyperlink Command="{Binding SettingsCommand}" TextDecorations="None" Foreground="#FFD5D5D5" FontSize="25">Settings</Hyperlink>
             </Label>          
         </Grid>
-        <StatusBar Grid.Row="2" Grid.ColumnSpan="2" Height="20" VerticalAlignment="Bottom"/>
+        <StatusBar Grid.Row="2" Grid.ColumnSpan="2" Height="20" VerticalAlignment="Bottom">
+            <StatusBarItem>
+                <TextBlock Text="{Binding StatusBarText}" />
+            </StatusBarItem>
+        </StatusBar>
         <ContentControl Grid.Row="1" Grid.ColumnSpan="2" Content="{Binding CurrentViewModel}" />
     </Grid>
 </Controls:MetroWindow>

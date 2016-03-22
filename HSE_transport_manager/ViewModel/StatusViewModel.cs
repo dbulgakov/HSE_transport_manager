@@ -50,6 +50,37 @@ namespace HSE_transport_manager.ViewModel
             }
         }
 
+
+        private bool _startEnable = true;
+
+        public bool StartEnable
+        {
+            get { return _startEnable; }
+            set
+            {
+                if (value != _startEnable)
+                {
+                    _startEnable = value;
+                    RaisePropertyChanged("StartEnable");
+                }
+            }
+        }
+
+        private bool _stopEnable = true;
+
+        public bool StopEnable
+        {
+            get { return _stopEnable; }
+            set
+            {
+                if (value != _stopEnable)
+                {
+                    _stopEnable = value;
+                    RaisePropertyChanged("StopEnable");
+                }
+            }
+        }
+
         private ICommand _stopCommand;
 
         public ICommand StopCommand
@@ -160,6 +191,8 @@ namespace HSE_transport_manager.ViewModel
 
         void Start()
         {
+            StartEnable = false;
+            StopEnable = true;
             _ctoken = new CancellationTokenSource();
             var plaginManager = new PluginManager();
             var dbService = plaginManager.LoadDbService();
@@ -198,6 +231,8 @@ namespace HSE_transport_manager.ViewModel
             {
                 _ctoken.Cancel();
             }
+            StopEnable = false;
+            StartEnable = true;
             BotStatus = Resources.StatusViewModel__botStatus_Bot_is_inactive_message;
         }
 
