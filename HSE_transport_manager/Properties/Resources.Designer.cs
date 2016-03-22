@@ -61,6 +61,71 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Расписание автобусов из {0}:
+        ///{1}.
+        /// </summary>
+        internal static string ResponseBuilder_GetBusResponse_Bus_response_header_message {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_GetBusResponse_Bus_response_header_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. - {1}.  {2} -- {3}.
+        /// </summary>
+        internal static string ResponseBuilder_GetBusResponse_Bus_schedule_line_pattern {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_GetBusResponse_Bus_schedule_line_pattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка выполнения запроса! Проверьте входные данные..
+        /// </summary>
+        internal static string ResponseBuilder_Input_data_value_error {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_Input_data_value_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неверный ввод! Данные должны быть в формате Место - Место..
+        /// </summary>
+        internal static string ResponseBuilder_Input_separator_error_message {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_Input_separator_error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Внутренняя ошибка сервера..
+        /// </summary>
+        internal static string ResponseBuilder_Internal_error_message {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_Internal_error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка поиска маршрута на общественном транспорте! Повторите запрос позже..
+        /// </summary>
+        internal static string ResponseBuilder_No_public_transport_error_message {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_No_public_transport_error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Char similar to -.
+        /// </summary>
+        internal static char ResponseBuilder_TaxiResponse_Separator {
+            get {
+                object obj = ResourceManager.GetObject("ResponseBuilder_TaxiResponse_Separator", resourceCulture);
+                return ((char)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error saving file!.
         /// </summary>
         internal static string SettingsViewModel_Reset_Error_saving_file_message {
@@ -93,6 +158,18 @@ namespace HSE_transport_manager.Properties {
         internal static string StatusViewModel_BotWork_Bot_is_stopped_message {
             get {
                 return ResourceManager.GetString("StatusViewModel_BotWork_Bot_is_stopped_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Введите станцию отправления. Поддерживаются следующие станции:
+        ///1. Одинцово
+        ///2. Дубки
+        ///3. Славянский Бульвар.
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Get_Bus_response_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Get_Bus_response_message", resourceCulture);
             }
         }
         

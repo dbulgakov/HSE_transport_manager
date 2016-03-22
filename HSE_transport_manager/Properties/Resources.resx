@@ -176,4 +176,32 @@
   <data name="StatusViewModel_BotWork_That_message" xml:space="preserve">
     <value>Даша Бог БД</value>
   </data>
+  <data name="ResponseBuilder_TaxiResponse_Separator" type="System.Char, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="ResponseBuilder_GetBusResponse_Bus_response_header_message" xml:space="preserve">
+    <value>Расписание автобусов из {0}:
+{1}</value>
+  </data>
+  <data name="ResponseBuilder_GetBusResponse_Bus_schedule_line_pattern" xml:space="preserve">
+    <value>{0}. - {1}.  {2} -- {3}</value>
+  </data>
+  <data name="StatusViewModel_BotWork_Get_Bus_response_message" xml:space="preserve">
+    <value>Введите станцию отправления. Поддерживаются следующие станции:
+1. Одинцово
+2. Дубки
+3. Славянский Бульвар</value>
+  </data>
+  <data name="ResponseBuilder_Input_separator_error_message" xml:space="preserve">
+    <value>Неверный ввод! Данные должны быть в формате Место - Место.</value>
+  </data>
+  <data name="ResponseBuilder_No_public_transport_error_message" xml:space="preserve">
+    <value>Ошибка поиска маршрута на общественном транспорте! Повторите запрос позже.</value>
+  </data>
+  <data name="ResponseBuilder_Input_data_value_error" xml:space="preserve">
+    <value>Ошибка выполнения запроса! Проверьте входные данные.</value>
+  </data>
+  <data name="ResponseBuilder_Internal_error_message" xml:space="preserve">
+    <value>Внутренняя ошибка сервера.</value>
+  </data>
 </root>
