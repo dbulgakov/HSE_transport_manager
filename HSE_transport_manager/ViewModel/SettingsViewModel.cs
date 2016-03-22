@@ -43,7 +43,13 @@ namespace HSE_transport_manager.ViewModel
             GoogleKey = settingsData.MonitoringServiceKey;
             UberKey = settingsData.TaxiServiceKey;
             if (settingsData.UpdateTime.Ticks > 0)
+            {
                 UpdateStatus = Resources.SettingsViewModel_Last_update_message + settingsData.UpdateTime.ToString("dd.MM.yyyy HH:mm:ss");
+                if (settingsData.UpdateTime.Date.Equals(DateTime.Now.Date))
+                {
+                    UpdateEnable = false;
+                }
+            }
             _dialogProvider = new WpfMessageProvider();
         }
 
@@ -267,23 +273,34 @@ namespace HSE_transport_manager.ViewModel
                 UpdateEnable = false;
                 var dbService = plaginManager.LoadDbService();
                 var settingsData = ReadXml();
+                if (settingsData.ScheduleServiceKey == null)
+                    throw new InvalidOperationException();
                 var scheduleService = plaginManager.LoadScheduleService();
                 scheduleService.Initialize(settingsData.ScheduleServiceKey);
                 StatusBarText = Resources.SettingsViewModel_Update_Get_Schedule_message;
                 var task = await scheduleService.GetDailyScheduleAsync("s9600721", "s2000006");
                 StatusBarText = Resources.SettingsViewModel_Update_DB_message;
                 await Task.Run(() => dbService.RefreshTrainSchedule(task));
+                var updateTime = DateTime.Now;
                 UpdateStatus = Resources.SettingsViewModel_Last_update_message +
-                               DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
+                               updateTime.ToString("dd.MM.yyyy HH:mm:ss");
+                settingsData.UpdateTime = updateTime;
                 SaveXml(settingsData);
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
-                _dialogProvider.ShowMessage(Resources.Start_No_keys_error_message);
+                _dialogProvider.ShowMessage(Resources.Start_No_connecting_services);
+                UpdateEnable = true;
+            }
+            catch (NullReferenceException)
+            {
+                _dialogProvider.ShowMessage(Resources.Error_while_connecting_database_message);
+                UpdateEnable = true;
             }
             catch
             {
                 _dialogProvider.ShowMessage(Resources.Start_Unknown_error_message);
+                UpdateEnable = true;
             }
         }
 

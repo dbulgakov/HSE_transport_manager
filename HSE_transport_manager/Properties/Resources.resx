@@ -215,8 +215,8 @@
   <data name="Start_Unknown_error_message" xml:space="preserve">
     <value>Unknown error!</value>
   </data>
-  <data name="Start_No_keys_error_message" xml:space="preserve">
-    <value>Перед запуском необходимо ввести ключи Api!</value>
+  <data name="Start_No_connecting_services" xml:space="preserve">
+    <value>Error connecting data services!</value>
   </data>
   <data name="SettingsViewModel_Update_Get_Schedule_message" xml:space="preserve">
     <value>Uploading local train schedule from Yandex Service...</value>
@@ -226,5 +226,8 @@
   </data>
   <data name="SettingsViewModel_Last_update_message" xml:space="preserve">
     <value>Last update: </value>
+  </data>
+  <data name="Error_while_connecting_database_message" xml:space="preserve">
+    <value>Error while connecting database!</value>
   </data>
 </root>

@@ -61,6 +61,15 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error while connecting database!.
+        /// </summary>
+        internal static string Error_while_connecting_database_message {
+            get {
+                return ResourceManager.GetString("Error_while_connecting_database_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Расписание автобусов из {0}:
         ///{1}.
         /// </summary>
@@ -163,11 +172,11 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Перед запуском необходимо ввести ключи Api!.
+        ///   Looks up a localized string similar to Error connecting data services!.
         /// </summary>
-        internal static string Start_No_keys_error_message {
+        internal static string Start_No_connecting_services {
             get {
-                return ResourceManager.GetString("Start_No_keys_error_message", resourceCulture);
+                return ResourceManager.GetString("Start_No_connecting_services", resourceCulture);
             }
         }
         
