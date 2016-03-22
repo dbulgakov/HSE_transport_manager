@@ -253,7 +253,7 @@ namespace HSE_transport_manager.ViewModel
                                         }
                                         case "/get_bus":
                                         {
-                                            bot.SendTextMessage(update.Message.Chat.Id, "Введите станцию отправления. Поддерживаются следующие станции:\n1. Одинцово\n2. Дубки\n3. Славянский Бульвар");
+                                            bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Get_Bus_response_message);
                                             dict.Add(update.Message.Chat.Id, "/get_bus");
                                             break;
                                         }

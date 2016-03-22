@@ -186,4 +186,10 @@
   <data name="ResponseBuilder_GetBusResponse_Bus_schedule_line_pattern" xml:space="preserve">
     <value>{0}. - {1}.  {2} -- {3}</value>
   </data>
+  <data name="StatusViewModel_BotWork_Get_Bus_response_message" xml:space="preserve">
+    <value>Введите станцию отправления. Поддерживаются следующие станции:
+1. Одинцово
+2. Дубки
+3. Славянский Бульвар</value>
+  </data>
 </root>
