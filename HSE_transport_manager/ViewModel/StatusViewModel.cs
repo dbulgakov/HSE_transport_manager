@@ -158,8 +158,9 @@ namespace HSE_transport_manager.ViewModel
             DateTime timeNow = DateTime.Now;
             //var k =dbService.GetRoute("Общежитие 1", "Трехсвятительский 3", timeNow);
             //var c = dbService.GetCoordinates("Общежитие 6");
-            //var p = dbService.GetDubkiSchedule("Дубки");
+            var p = dbService.GetDubkiSchedule("Дубки");
             //var h = dbService.GetFastestRoute("Общежитие 6", "Трехсвятительский 3", timeNow);
+            int gv=9;
             try
             {
                 _ctoken = new CancellationTokenSource();

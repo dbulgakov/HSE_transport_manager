@@ -21,7 +21,6 @@ namespace MSDatabaseService
         private List<Route> routeList;
         private List<TransportRoute> transportList;
         private bool check;
-        private List<Coordinate> coordinate;
         private string stationFix;
 
         private int minutes;
@@ -534,6 +533,7 @@ namespace MSDatabaseService
 
         public List<DubkiSchedule> GetDubkiSchedule(string from)
         {
+            dayAbbreviation = dtfi.GetShortestDayName(DateTime.Now.DayOfWeek).ToUpper();
             if (context.DubkiBusesSchedule.Any(d => d.From.Equals(from)))
                 return context.DubkiBusesSchedule.Where(d => d.From.Equals(from) && d.DayOfWeek.Any(w => w.Name == dayAbbreviation))
                     .Select(d => new DubkiSchedule
@@ -559,6 +559,21 @@ namespace MSDatabaseService
                 buildingsList.Add(item);
 
             return buildingsList;
+        }
+
+
+        public List<TrainSchedule> GetTrainSchedule()
+        {
+            if (context.LocalTrainsSchedule.Count() != 0)
+                return context.LocalTrainsSchedule.Where(s => s.DepartureStation.Name.Equals("Одинцово"))
+                       .Select(r => new TrainSchedule
+                       {
+                           DepartureStation=r.DepartureStation.Name,
+                           DepartureTime = r.DepartureTime,
+                           Type = r.Type.Name
+                       }).ToList();
+
+            else throw new NullReferenceException();  
         }
     }
 }

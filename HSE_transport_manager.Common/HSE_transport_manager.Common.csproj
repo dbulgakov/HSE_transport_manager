@@ -48,6 +48,7 @@
     <Compile Include="Models\Coordinate.cs" />
     <Compile Include="Models\DubkiSchedule.cs" />
     <Compile Include="Models\KeyData.cs" />
+    <Compile Include="Models\TrainSchedule.cs" />
     <Compile Include="Models\QueryResult.cs" />
     <Compile Include="Models\Route.cs" />
     <Compile Include="Models\TaxiData\TaxiTripData.cs" />
