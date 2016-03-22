@@ -21,7 +21,8 @@ namespace HSE_transport_manager.ViewModel
         private CancellationTokenSource _ctoken;
         private readonly IDialogProvider _dialogProvider;
         private const string FileName = "settings.xml";
-        
+        private PluginManager plaginManager = new PluginManager();
+
 
         public StatusViewModel()
         {
@@ -56,7 +57,7 @@ namespace HSE_transport_manager.ViewModel
                 return _stopCommand;
             }
         }
-        
+
         
         private string _uberStatus;
 
@@ -72,7 +73,7 @@ namespace HSE_transport_manager.ViewModel
                 }
             }
         }
-        
+
 
         private string _yandexStatus;
 
@@ -155,6 +156,12 @@ namespace HSE_transport_manager.ViewModel
 
         async void Start()
         {
+            var dbService = plaginManager.LoadDbService();
+            DateTime timeNow = DateTime.Now;
+            var k =dbService.GetRoute("Общежитие 6", "Трехсвятительский 3", timeNow);
+            var c = dbService.GetCoordinates("Общежитие 6", "Трехсвятительский 3");
+            var h = dbService.GetFastestRoute("Общежитие 6", "Трехсвятительский 3", timeNow);
+            int ghvh = 6;
             try
             {
                 _ctoken = new CancellationTokenSource();
@@ -181,6 +188,7 @@ namespace HSE_transport_manager.ViewModel
 
         async void BotWork(Api bot)
         {
+
             await Task.Run(() =>
             {
                 try

@@ -14,10 +14,11 @@ namespace HSE_transport_manager.ViewModel
     public class SettingsViewModel : ViewModelBase
     {
         private StatusViewModel s = new StatusViewModel();
-        
+
         private ICommand _saveCommand;
         private const string FileName = "settings.xml";
         private IDialogProvider _dialogProvider;
+        private PluginManager plaginManager = new PluginManager();
 
         public SettingsViewModel()
         {
@@ -92,20 +93,6 @@ namespace HSE_transport_manager.ViewModel
             }
         }
 
-        private string _updateDate;
-
-        public string UpdateDate
-        {
-            get { return _updateDate; }
-            set
-            {
-                if (value != _updateDate)
-                {
-                    _updateDate = value;
-                    RaisePropertyChanged("UpdateDate");
-                }
-            }
-        }
 
         private string _uberKey;
 
@@ -206,11 +193,22 @@ namespace HSE_transport_manager.ViewModel
             }
         }
 
-        void Update()
+        async void Update()
+        {
+            var dbService = plaginManager.LoadDbService();
+            var keyData = ReadXml();
+            var scheduleService = plaginManager.LoadScheduleService();
+            scheduleService.Initialize(keyData.ScheduleServiceKey);
+            var task = await scheduleService.GetDailyScheduleAsync("s9600721", "s2000006");
+            await Task.Run(() => dbService.RefreshTrainSchedule(task));
+
+        }
+
+        void Remove()
         {
 
         }
-        
+
 
         private void SaveXml(KeyData keyData)
         {

@@ -1,9 +1,7 @@
 namespace MSDatabaseService.Migrations
 {
-    using HSE_transport_manager.Entities;
     using MSDatabaseService.Entities;
     using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
@@ -82,7 +80,7 @@ namespace MSDatabaseService.Migrations
                 },
                 new TransportType
                 {
-                    Name = "Subway"
+                    Name="Subway"
                 });
             context.SaveChanges();
 

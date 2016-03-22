@@ -44,7 +44,7 @@
             <Button  Content="Update" Style="{StaticResource AccentedSquareButtonStyle}" FontSize="16" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderThickness="0" Margin="0,5,5,5"/>
             <Label Content="Last update: "  Grid.Column="1" HorizontalAlignment="Center" Height="26" Margin="16,12,87,0" VerticalAlignment="Top" Width="73" Grid.ColumnSpan="2"/>
             <Label Content="{Binding UpdateDate}" FontSize="16" Grid.Column="2" HorizontalAlignment="Center" Height="26" Margin="35,12,6,0" VerticalAlignment="Top" Width="76"/>
-          </Grid>
+        </Grid>
         <Grid Grid.Row="7" Grid.Column="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>

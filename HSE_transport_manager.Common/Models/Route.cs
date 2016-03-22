@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MSDatabaseService.Models
+namespace HSE_transport_manager.Common.Models
 {
     public class Route
     {
-        public List<Transport> Transport { get; set; }
+        public List<TransportRoute> Transport { get; set; }
     }
 }

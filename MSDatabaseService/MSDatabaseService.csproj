@@ -62,7 +62,6 @@
     <Compile Include="Entities\PublicTransportPrice.cs" />
     <Compile Include="Entities\SubwayStation.cs" />
     <Compile Include="Entities\TransportType.cs" />
-    <Compile Include="IDatabaseService.cs" />
     <Compile Include="LoadFromCSV.cs" />
     <Compile Include="Migrations\201603201829270_Initial.cs" />
     <Compile Include="Migrations\201603201829270_Initial.Designer.cs">
@@ -77,10 +76,7 @@
     <Compile Include="Models\DubkiBusData.cs" />
     <Compile Include="Models\HSEBuildingData.cs" />
     <Compile Include="Models\PublicTransportData.cs" />
-    <Compile Include="Models\QueryResult.cs" />
-    <Compile Include="Models\Route.cs" />
     <Compile Include="Models\SubwayStationData.cs" />
-    <Compile Include="Models\Transport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +103,10 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>mkdir "$(SolutionDir)HSE_transport_manager\$(OutDir)plugins"
+copy /Y "$(TargetPath)" "$(SolutionDir)HSE_transport_manager\$(OutDir)plugins"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
