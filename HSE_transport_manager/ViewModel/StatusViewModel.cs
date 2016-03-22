@@ -11,25 +11,32 @@ using HSE_transport_manager.Properties;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using System;
+using System.Collections.Generic;
 
 namespace HSE_transport_manager.ViewModel
 {
     public class StatusViewModel : ViewModelBase
     {
-        
         private ICommand _startCommand;
         private CancellationTokenSource _ctoken;
         private readonly IDialogProvider _dialogProvider;
         private const string FileName = "settings.xml";
-        private PluginManager plaginManager = new PluginManager();
 
+        private const string InitialRequest = "/start";
+        private const string PlacesRequest = "/places";
+        private const string FastestRouteRequest = "/get_route";
+        private const string AllRoutesRequest = "/get_all_routes";
+        private const string TaxiRequest = "/taxi_route";
+        private const string SuburbanRequest = "/get_suburban";
+        private const string BusRequest = "/get_bus";
+        private const string ShmowzowRequest = "/shmowzow";
 
         public StatusViewModel()
         {
             _dialogProvider = new WpfMessageProvider();
         }
 
-
+        private ICommand _startCommand;
         public ICommand StartCommand
         {
             get
@@ -40,6 +47,37 @@ namespace HSE_transport_manager.ViewModel
                     Start);
                 }
                 return _startCommand;
+            }
+        }
+
+
+        private bool _startEnable = true;
+
+        public bool StartEnable
+        {
+            get { return _startEnable; }
+            set
+            {
+                if (value != _startEnable)
+                {
+                    _startEnable = value;
+                    RaisePropertyChanged("StartEnable");
+                }
+            }
+        }
+
+        private bool _stopEnable = true;
+
+        public bool StopEnable
+        {
+            get { return _stopEnable; }
+            set
+            {
+                if (value != _stopEnable)
+                {
+                    _stopEnable = value;
+                    RaisePropertyChanged("StopEnable");
+                }
             }
         }
 
@@ -154,27 +192,38 @@ namespace HSE_transport_manager.ViewModel
         }
 
 
-        async void Start()
+        void Start()
         {
+            StartEnable = false;
+            StopEnable = true;
+            _ctoken = new CancellationTokenSource();
+            var plaginManager = new PluginManager();
             var dbService = plaginManager.LoadDbService();
-            DateTime timeNow = DateTime.Now;
-            var k =dbService.GetRoute("Общежитие 6", "Трехсвятительский 3", timeNow);
-            var c = dbService.GetCoordinates("Общежитие 6", "Трехсвятительский 3");
-            var h = dbService.GetFastestRoute("Общежитие 6", "Трехсвятительский 3", timeNow);
-            int ghvh = 6;
+                //var ki=dbService.GetTrainSchedule("Одинцово","Кунцево");
+            //var hb = dbService.GetFastestRoute("Общежитие Дубки 1", "Кирпичная 33", DateTime.Now);
+                int ffg = 6;
             try
             {
-                _ctoken = new CancellationTokenSource();
+                var taxiService = plaginManager.LoadTaxiService();
                 var keyData = ReadXml();
                 var bot = new Api(keyData.BotServiceKey);
-                var me = await bot.GetMe();
+                taxiService.Initialize(keyData.TaxiServiceKey);
                 BotStatus = Resources.StatusViewModel_Start_Bot_is_active_message;
-                BotWork(bot);
+                BotWork(bot, dbService, taxiService);
             }
-            catch
+            catch (NullReferenceException)
             {
-                _dialogProvider.ShowMessage(Resources.StatusViewModel_Start_Error_contacting_bot_message);
+                _dialogProvider.ShowMessage(Resources.StatusViewModel_Start_DLL_load_error_message);
             }
+            catch (InvalidOperationException)
+            {
+                _dialogProvider.ShowMessage(Resources.StatusViewModel_Start_Load_error_message);
+            }
+            catch (Exception)
+            {
+                _dialogProvider.ShowMessage(Resources.StatusViewModel_Start_Unknown_error_message);
+            }
+
         }
 
         void Stop()
@@ -183,33 +232,125 @@ namespace HSE_transport_manager.ViewModel
             {
                 _ctoken.Cancel();
             }
+            StopEnable = false;
+            StartEnable = true;
             BotStatus = Resources.StatusViewModel__botStatus_Bot_is_inactive_message;
         }
 
-        async void BotWork(Api bot)
+        async void BotWork(Api bot, IDatabaseService dbService, ITaxiService taxiService)
         {
-
-            await Task.Run(() =>
+            var dict = new Dictionary<long,string>();
+            var rb = new ResponseBuilder(bot);
+            await Task.Run(async () =>
             {
                 try
                 {
                     var offset = 0;
                     while (true)
                     {
-                        var updates = bot.GetUpdates(offset).Result;
+                        var updates = await bot.GetUpdates(offset);
                         _ctoken.Token.ThrowIfCancellationRequested();
                         foreach (var update in updates)
                         {
                             if (update.Message.Type == MessageType.TextMessage)
                             {
-                                if (update.Message.Text.Equals(Resources.StatusViewModel_BotWork__check_message))
+                                if (dict.ContainsKey(update.Message.Chat.Id))
                                 {
-                                    bot.SendTextMessage(update.Message.Chat.Id, "Даша, пили базу.");
+                                    switch (dict[update.Message.Chat.Id])
+                                    {
+                                        case FastestRouteRequest:
+                                        {
+                                            rb.FastestWayResponse(update, dbService, taxiService);
+                                            break;
+                                        }
+
+                                        case AllRoutesRequest:
+                                        {
+                                            break;
+                                        }
+                                        
+                                        case TaxiRequest:
+                                        {
+                                            rb.TaxiResponse(update, dbService, taxiService);
+                                            break;
+                                        }
+
+                                        case SuburbanRequest:
+                                        {
+                                            break;
+                                        }
+
+                                        case BusRequest:
+                                {
+                                            rb.GetBusResponse(update, dbService);
+                                            break;
+                                        }
+                                    }
+                                    dict.Remove(update.Message.Chat.Id);
                                 }
                                 else
                                 {
-                                    bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Unknown_input_message);
+                                    switch (update.Message.Text)
+                                    {
+                                        case InitialRequest:
+                                        {
+                                            bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Introduce_message).Wait();
+                                            bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Intro_message);
+                                            break;
+                                        }
+                                        case PlacesRequest:
+                                        {
+                                            rb.GetPlacesResponse(update, dbService);
+                                            break;
+                                        }
+                                        case FastestRouteRequest:
+                                        {
+                                            bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Get_route_intro);
+                                            dict.Add(update.Message.Chat.Id, FastestRouteRequest);
+                                            break;
+                                        }
+
+                                        case AllRoutesRequest:
+                                        {
+                                            bot.SendTextMessage(update.Message.Chat.Id, "Not implemented");
+                                            break;
+                                        }
+
+                                        case TaxiRequest:
+                                        {
+                                            bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Get_route_intro);
+                                            dict.Add(update.Message.Chat.Id, TaxiRequest);
+                                            break;
+                                        }
+
+                                        case SuburbanRequest:
+                                        {
+                                            bot.SendTextMessage(update.Message.Chat.Id, "Not implemented");
+                                            break;
+                                        }
+
+                                        case BusRequest:
+                                        {
+                                            bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Get_Bus_response_message);
+                                            dict.Add(update.Message.Chat.Id, BusRequest);
+                                            break;
+                                        }
+                                        case ShmowzowRequest:
+                                        {
+                                            bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_That_message);
+                                            break;
+                                        }
+                                        default:
+                                        {
+                                            bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Unknown_message);
+                                            break;
+                                        }
+                                    }
                                 }
+                                }
+                            else
+                            {
+                                bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Unsupported_message);
                             }
                             offset = update.Id + 1;
                         }

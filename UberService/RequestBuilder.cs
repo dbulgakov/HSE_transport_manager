@@ -1,4 +1,5 @@
-﻿using HSE_transport_manager.Common.Models;
+﻿using System.Globalization;
+using HSE_transport_manager.Common.Models;
 
 namespace UberService
 {
@@ -23,10 +24,10 @@ namespace UberService
         {
             var param = string.Format(
                 PriceRequestString,
-                startingPoint.Latitude.ToString("R"),   
-                startingPoint.Longitude.ToString("R"),
-                endingPoint.Latitude.ToString("R"),
-                endingPoint.Longitude.ToString("R"),
+                startingPoint.Latitude.ToString().Replace(',','.'),
+                startingPoint.Longitude.ToString().Replace(',', '.'),
+                endingPoint.Latitude.ToString().Replace(',', '.'),
+                endingPoint.Longitude.ToString().Replace(',', '.'),
                 _authKey);
             return string.Format("{0}/{1}/{2}", _apiUrl, _apiVer, param);
         }

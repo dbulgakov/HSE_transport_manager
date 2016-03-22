@@ -6,8 +6,9 @@ using System.Xml.Serialization;
 using HSE_transport_manager.Common.Interfaces;
 using HSE_transport_manager.Common.Models;
 using HSE_transport_manager.Properties;
-using GalaSoft.MvvmLight.Messaging;
+using System.Threading.Tasks;
 using System;
+
 
 namespace HSE_transport_manager.ViewModel
 {
@@ -20,6 +21,7 @@ namespace HSE_transport_manager.ViewModel
         private IDialogProvider _dialogProvider;
         private PluginManager plaginManager = new PluginManager();
 
+
         public SettingsViewModel()
         {
             var keyData = new KeyData();
@@ -27,6 +29,7 @@ namespace HSE_transport_manager.ViewModel
             {
                 try
                 {
+                    Enable = false;
                     keyData = ReadXml();
                 }
                 catch
@@ -42,6 +45,36 @@ namespace HSE_transport_manager.ViewModel
             _dialogProvider = new WpfMessageProvider();
         }
 
+
+        private bool _updateEnable = true;
+
+        public bool UpdateEnable
+        {
+            get { return _updateEnable; }
+            set
+            {
+                if (value != _updateEnable)
+                {
+                    _updateEnable = value;
+                    RaisePropertyChanged("UpdateEnable");
+                }
+            }
+        }
+
+        private bool _enable = true;
+
+        public bool Enable
+        {
+            get { return _enable; }
+            set
+            {
+                if (value != _enable)
+                {
+                    _enable = value;
+                    RaisePropertyChanged("Enable");
+                }
+            }
+        }
 
         public ICommand SaveCommand
         {
@@ -62,21 +95,6 @@ namespace HSE_transport_manager.ViewModel
             return (UberKey != null && YandexKey != null && GoogleKey != null && TGKey != null);
         }
 
-        private ICommand _resetCommand;
-
-        public ICommand ResetCommand
-        {
-            get
-            {
-                if (_resetCommand == null)
-                {
-                    _resetCommand = new RelayCommand(
-                    Reset,
-                    CheckKeys);
-                }
-                return _resetCommand;
-            }
-        }
 
         private ICommand _updateCommand;
 
@@ -90,6 +108,36 @@ namespace HSE_transport_manager.ViewModel
                     Update);
                 }
                 return _updateCommand;
+            }
+        }
+
+        private ICommand _resetCommand;
+
+        public ICommand ResetCommand
+        {
+            get
+            {
+                if (_resetCommand == null)
+                {
+                    _resetCommand = new RelayCommand(
+                    Reset);
+                }
+                return _resetCommand;
+            }
+        }
+
+        private string _updateStatus;
+
+        public string UpdateStatus
+        {
+            get { return _updateStatus; }
+            set
+            {
+                if (value != _updateStatus)
+                {
+                    _updateStatus = value;
+                    RaisePropertyChanged("UpdateStatus");
+                }
             }
         }
 
@@ -158,6 +206,7 @@ namespace HSE_transport_manager.ViewModel
 
         void Save()
         {
+            Enable = false;
             var keyData = new KeyData
             {
                 BotServiceKey = TGKey,
@@ -182,6 +231,7 @@ namespace HSE_transport_manager.ViewModel
             YandexKey = null;
             GoogleKey = null;
             TGKey = null;
+            Enable = true;
             try
             {
                 SaveXml(new KeyData());
@@ -195,18 +245,20 @@ namespace HSE_transport_manager.ViewModel
 
         async void Update()
         {
+            UpdateEnable = false;
             var dbService = plaginManager.LoadDbService();
             var keyData = ReadXml();
             var scheduleService = plaginManager.LoadScheduleService();
             scheduleService.Initialize(keyData.ScheduleServiceKey);
             var task = await scheduleService.GetDailyScheduleAsync("s9600721", "s2000006");
             await Task.Run(() => dbService.RefreshTrainSchedule(task));
-
+            UpdateStatus="Last update: "+ DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
         }
 
-        void Remove()
-        {
-
+            // ПОТОМ ЭТО УБРАТЬ
+            _dialogProvider = new WpfMessageProvider();
+           _dialogProvider.ShowMessage("Complete");
+            //
         }
 
 
