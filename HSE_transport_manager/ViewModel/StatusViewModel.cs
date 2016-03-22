@@ -95,8 +95,8 @@ namespace HSE_transport_manager.ViewModel
             }
         }
 
-        
-        private string _uberStatus;
+
+        private string _uberStatus = Resources.UberStatus;
 
         public string UberStatus
         {

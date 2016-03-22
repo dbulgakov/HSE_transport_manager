@@ -203,6 +203,21 @@ namespace HSE_transport_manager.ViewModel
             }
         }
 
+        private string _statusBarText;
+
+        public string StatusBarText
+        {
+            get { return _statusBarText; }
+            set
+            {
+                if (value != _statusBarText)
+                {
+                    _statusBarText = value;
+                    RaisePropertyChanged("StatusBarText");
+                }
+            }
+        }
+
 
         void Save()
         {
@@ -250,7 +265,9 @@ namespace HSE_transport_manager.ViewModel
             var keyData = ReadXml();
             var scheduleService = plaginManager.LoadScheduleService();
             scheduleService.Initialize(keyData.ScheduleServiceKey);
+            StatusBarText = "Uploading local train schedule from Yandex Service...";
             var task = await scheduleService.GetDailyScheduleAsync("s9600721", "s2000006");
+            StatusBarText = "Uploading data in Database...";
             await Task.Run(() => dbService.RefreshTrainSchedule(task));
             UpdateStatus="Last update: "+ DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
         }
