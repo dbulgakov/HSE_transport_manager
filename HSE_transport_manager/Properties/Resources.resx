@@ -173,4 +173,7 @@
     <value>Cписок поддерживаемых мест:
  {0}</value>
   </data>
+  <data name="StatusViewModel_BotWork_That_message" xml:space="preserve">
+    <value>Даша Бог БД</value>
+  </data>
 </root>

@@ -206,8 +206,6 @@ namespace HSE_transport_manager.ViewModel
                                     {
                                         case "/get_route":
                                         {
-                                            bot.SendTextMessage(update.Message.Chat.Id, "Работает!");
-                                            dict.Remove(update.Message.Chat.Id);
                                             try
                                             {
                                                 var response = update.Message.Text.Split('-');
@@ -222,11 +220,10 @@ namespace HSE_transport_manager.ViewModel
                                             break;
                                         }
                                         case "/taxi_route":
-                                        {
-                                            var response = update.Message.Text.Split('-');
-                                            dict.Remove(update.Message.Chat.Id);
+                                        {   
                                             try
                                             {
+                                                var response = update.Message.Text.Split('-');
                                                 await bot.SendChatAction(update.Message.Chat.Id, ChatAction.Typing);
                                                 var fromString = response[0].Trim();
                                                 var toString = response[1].Trim();
@@ -239,14 +236,32 @@ namespace HSE_transport_manager.ViewModel
                                                         fromString,toString,response2.Duration.Minute, response2.Price));
                                             }
                                             catch(Exception e)
-                                {
+                                            {
                                                 bot.SendTextMessage(update.Message.Chat.Id, e.Message);
                                             }
                                             break;
                                         }
-
+                                        case "/get_bus":
+                                        {
+                                            try
+                                            {
+                                                var busSchedule = dbService.GetDubkiSchedule(update.Message.Text);
+                                                var stb = new StringBuilder();
+                                                foreach (var bus in busSchedule)
+                                                {
+                                                    stb.Append(bus.DepartureTime.ToString("t"));
+                                                    stb.Append("\n");
+                                                }
+                                                bot.SendTextMessage(update.Message.Chat.Id, string.Format("Расписание автобусов из {0}:\n{1}", update.Message.Text, stb.ToString()));
+                                            }
+                                            catch (Exception e)
+                                            {
+                                                bot.SendTextMessage(update.Message.Chat.Id, e.Message);
+                                            }
+                                            break;
+                                        }
                                     }
-
+                                    dict.Remove(update.Message.Chat.Id);
                                 }
                                 else
                                 {
@@ -280,6 +295,17 @@ namespace HSE_transport_manager.ViewModel
                                         {
                                             bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Get_route_intro);
                                             dict.Add(update.Message.Chat.Id, "/taxi_route");
+                                            break;
+                                        }
+                                        case "/get_bus":
+                                        {
+                                            bot.SendTextMessage(update.Message.Chat.Id, "Введите станцию отправления. Поддерживаются следующие станции:\n1. Одинцово\n2. Дубки\n3. Славянский Бульвар");
+                                            dict.Add(update.Message.Chat.Id, "/get_bus");
+                                            break;
+                                        }
+                                        case "/shmowzow":
+                                        {
+                                            bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_That_message);
                                             break;
                                         }
                                         default:

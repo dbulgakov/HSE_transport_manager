@@ -142,6 +142,15 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Даша Бог БД.
+        /// </summary>
+        internal static string StatusViewModel_BotWork_That_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_That_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Поездка на такси:
         ///{0} - {1}
         ///Время в пути: {2} минут(ы) 
