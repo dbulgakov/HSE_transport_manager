@@ -144,7 +144,7 @@ namespace MSDatabaseService
 
 
 
-                    if (!dubkiQuery.To.Equals("Одинцово") && (queryDate.Hour < 1 || queryDate.Hour >= 5 && queryDate.Minute >= 30))
+                    if (!dubkiQuery.To.Equals("Одинцово") && (queryDate.Hour < 1 || queryDate.Hour == 5 && queryDate.Minute >= 30 || queryDate.Hour > 5))
                     {
                         dubkiTo = dubkiQuery.To;
                         foreach (var subwayStation in subwayStationHSE)
@@ -264,7 +264,7 @@ namespace MSDatabaseService
 
                     }
                     //Bus - Works
-                    if (publicTransportQuery.TransportType == "Bus" && (queryDate.Hour < 1 || queryDate.Hour >= 5 && queryDate.Minute >= 30))
+                    if (publicTransportQuery.TransportType == "Bus" && (queryDate.Hour < 1 || queryDate.Hour == 5 && queryDate.Minute >= 30 || queryDate.Hour > 5))
                     {
 
                         foreach (var subwayStation in subwayStationHSE)
@@ -283,7 +283,7 @@ namespace MSDatabaseService
                             transportList.Add(new TransportRoute
                             {
                                 DepartureTime = publicTransportQuery.DepartureTime,
-                                ElapsedTime = publicTransportQuery.DepartureTime.AddMinutes(40),
+                                ElapsedTime = publicTransportQuery.DepartureTime.AddMinutes(70),
                                 FromPoint = publicTransportQuery.From,
                                 ToPoint = publicTransportQuery.To,
                                 Price = publicTransportQuery.Price,
@@ -292,7 +292,7 @@ namespace MSDatabaseService
                             });
 
 
-                            transportRoute = GetRouteSubStToSubSt(publicTransportQuery.To, subwayStation, publicTransportQuery.DepartureTime.AddMinutes(40));
+                            transportRoute = GetRouteSubStToSubSt(publicTransportQuery.To, subwayStation, publicTransportQuery.DepartureTime.AddMinutes(70));
                             transportList.Add(transportRoute);
 
                             transportList.Add(new TransportRoute
@@ -313,7 +313,7 @@ namespace MSDatabaseService
                 }
                 //Subway - Works
 
-                if (context.SubwayStations.Any(s => s.Dormitory.Any(d => d.Name.Equals(fromPoint)) && (queryDate.Hour<1 || queryDate.Hour>=5 && queryDate.Minute>=30)))
+                if (context.SubwayStations.Any(s => s.Dormitory.Any(d => d.Name.Equals(fromPoint)) && (queryDate.Hour < 1 || queryDate.Hour == 5 && queryDate.Minute >= 30 || queryDate.Hour > 5)))
                 {
                     var subwayStationQuery = context.SubwayStations.Where(s => s.Dormitory.Any(d => d.Name.Equals(fromPoint)))
                                                          .Select(l => l.Name).ToList();
@@ -360,7 +360,7 @@ namespace MSDatabaseService
                                                           {
                                                               StationName = r.LocalTrainStation.Name,
                                                               Code = r.LocalTrainStation.Code
-                                                          }).Single() != null && (queryDate.Hour < 1 || queryDate.Hour >= 5 && queryDate.Minute >= 30))
+                                                          }).Single() != null && (queryDate.Hour < 1 || queryDate.Hour == 5 && queryDate.Minute >= 30 || queryDate.Hour > 5))
 
                 {
                     var localStation = context.Dormitories.Where(r => r.Name.Equals(fromPoint))
@@ -371,7 +371,7 @@ namespace MSDatabaseService
                                                           }).Single();
 
 
-                    minutes = 20;
+                    minutes = 30;
                     if (check) if (dubkiTo==("Одинцово"))
                     {
                         fromPoint = "Автовокзал";

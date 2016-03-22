@@ -196,8 +196,8 @@ namespace HSE_transport_manager.ViewModel
             _ctoken = new CancellationTokenSource();
             var plaginManager = new PluginManager();
             var dbService = plaginManager.LoadDbService();
-                var ki=dbService.GetTrainSchedule("Одинцово","Кунцево");
-                //var hb = dbService.GetFastestRoute("Общежитие 6", "Кирпичная 33", DateTime.Now);
+                //var ki=dbService.GetTrainSchedule("Одинцово","Кунцево");
+            var hb = dbService.GetFastestRoute("Общежитие Дубки 1", "Кирпичная 33", DateTime.Now);
                 int ffg = 6;
             try
             { 
