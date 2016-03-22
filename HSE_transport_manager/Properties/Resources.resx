@@ -179,4 +179,11 @@
   <data name="ResponseBuilder_TaxiResponse_Separator" type="System.Char, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xml:space="preserve">
     <value>-</value>
   </data>
+  <data name="ResponseBuilder_GetBusResponse_Bus_response_header_message" xml:space="preserve">
+    <value>Расписание автобусов из {0}:
+{1}</value>
+  </data>
+  <data name="ResponseBuilder_GetBusResponse_Bus_schedule_line_pattern" xml:space="preserve">
+    <value>{0}. - {1}.  {2} -- {3}</value>
+  </data>
 </root>

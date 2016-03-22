@@ -13,6 +13,8 @@ namespace HSE_transport_manager
     public class ResponseBuilder
     {
         private readonly Api _bot;
+        private const int DubkiOdi = 30;
+        private const int DubkiSlav = 60;
 
         public ResponseBuilder(Api bot)
         {
@@ -66,6 +68,7 @@ namespace HSE_transport_manager
 
         public void GetBusResponse(Update update, IDatabaseService dbService)
         {
+
             Task.Run(async () =>
             {
                 try
@@ -73,18 +76,35 @@ namespace HSE_transport_manager
                     await _bot.SendChatAction(update.Message.Chat.Id, ChatAction.Typing);
                     var busSchedule = dbService.GetDubkiSchedule(update.Message.Text);
                     var stb = new StringBuilder();
+                    var tripTime = update.Message.Text.Equals("Славянский Бульвар") ? DubkiSlav : DubkiOdi;
                     foreach (var bus in busSchedule)
                     {
-                        stb.Append(bus.DepartureTime.ToString("t"));
+                        stb.Append(string.Format(Resources.ResponseBuilder_GetBusResponse_Bus_schedule_line_pattern, bus.From.Substring(0, 3), bus.To.Substring(0, 3), bus.DepartureTime.ToString("t"), bus.DepartureTime.AddMinutes(tripTime).ToString("t")));
                         stb.Append("\n");
                     }
                     _bot.SendTextMessage(update.Message.Chat.Id,
-                        string.Format("Расписание автобусов из {0}:\n{1}", update.Message.Text, stb.ToString()));
+                        string.Format(Resources.ResponseBuilder_GetBusResponse_Bus_response_header_message, update.Message.Text, stb.ToString()));
                 }
                 catch (Exception e)
                 {
                     _bot.SendTextMessage(update.Message.Chat.Id, e.Message);
                 }
+            });
+        }
+
+        public void GetPlacesResponse(Update update, IDatabaseService dbService)
+        {
+            Task.Run(async () =>
+            {
+                await _bot.SendChatAction(update.Message.Chat.Id, ChatAction.Typing);
+                var stb = new StringBuilder();
+                var places = dbService.GetAllBuildings();
+                foreach (var place in places)
+                {
+                    stb.Append(place);
+                    stb.Append("\n ");
+                }
+                _bot.SendTextMessage(update.Message.Chat.Id, string.Format(Resources.StatusViewModel_BotWork_Places_response_message, stb.ToString()));                         
             });
         }
     }

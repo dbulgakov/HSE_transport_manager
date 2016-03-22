@@ -61,6 +61,25 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Расписание автобусов из {0}:
+        ///{1}.
+        /// </summary>
+        internal static string ResponseBuilder_GetBusResponse_Bus_response_header_message {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_GetBusResponse_Bus_response_header_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}. - {1}.  {2} -- {3}.
+        /// </summary>
+        internal static string ResponseBuilder_GetBusResponse_Bus_schedule_line_pattern {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_GetBusResponse_Bus_schedule_line_pattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Char similar to -.
         /// </summary>
         internal static char ResponseBuilder_TaxiResponse_Separator {

@@ -236,14 +236,7 @@ namespace HSE_transport_manager.ViewModel
                                         }
                                         case "/places":
                                         {
-                                            var stb = new StringBuilder();
-                                            var places = dbService.GetAllBuildings();
-                                            foreach (var place in places)
-                                            {
-                                                stb.Append(place);
-                                                stb.Append("\n ");
-                                            }
-                                            bot.SendTextMessage(update.Message.Chat.Id, string.Format(Resources.StatusViewModel_BotWork_Places_response_message, stb.ToString()));
+                                            rb.GetPlacesResponse(update, dbService);
                                             break;
                                         }
                                         case "/get_route":
