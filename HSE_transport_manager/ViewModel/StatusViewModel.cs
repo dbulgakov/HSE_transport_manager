@@ -12,8 +12,6 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
 
 namespace HSE_transport_manager.ViewModel
 {
@@ -27,7 +25,9 @@ namespace HSE_transport_manager.ViewModel
         private const string InitialRequest = "/start";
         private const string PlacesRequest = "/places";
         private const string FastestRouteRequest = "/get_route";
+        private const string AllRoutesRequest = "/get_all_routes";
         private const string TaxiRequest = "/taxi_route";
+        private const string SuburbanRequest = "/get_suburban";
         private const string BusRequest = "/get_bus";
         private const string ShmowzowRequest = "/shmowzow";
 
@@ -223,11 +223,23 @@ namespace HSE_transport_manager.ViewModel
                                             rb.FastestWayResponse(update, dbService, taxiService);
                                             break;
                                         }
+
+                                        case AllRoutesRequest:
+                                        {
+                                            break;
+                                        }
+                                        
                                         case TaxiRequest:
                                         {
                                             rb.TaxiResponse(update, dbService, taxiService);
                                             break;
                                         }
+
+                                        case SuburbanRequest:
+                                        {
+                                            break;
+                                        }
+
                                         case BusRequest:
                                         {
                                             rb.GetBusResponse(update, dbService);
@@ -257,12 +269,26 @@ namespace HSE_transport_manager.ViewModel
                                             dict.Add(update.Message.Chat.Id, FastestRouteRequest);
                                             break;
                                         }
+
+                                        case AllRoutesRequest:
+                                        {
+                                            bot.SendTextMessage(update.Message.Chat.Id, "Not implemented");
+                                            break;
+                                        }
+
                                         case TaxiRequest:
                                         {
                                             bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Get_route_intro);
                                             dict.Add(update.Message.Chat.Id, TaxiRequest);
                                             break;
                                         }
+
+                                        case SuburbanRequest:
+                                        {
+                                            bot.SendTextMessage(update.Message.Chat.Id, "Not implemented");
+                                            break;
+                                        }
+
                                         case BusRequest:
                                         {
                                             bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Get_Bus_response_message);
