@@ -42,6 +42,23 @@ namespace HSE_transport_manager.ViewModel
         }
 
 
+        private bool _updateEnable = true;
+
+        public bool UpdateEnable
+        {
+            get { return _updateEnable; }
+            set
+            {
+                if (value != _updateEnable)
+                {
+                    _updateEnable = value;
+                    RaisePropertyChanged("UpdateEnable");
+                }
+            }
+        }
+        
+
+
         public ICommand SaveCommand
         {
             get
@@ -177,6 +194,7 @@ namespace HSE_transport_manager.ViewModel
 
         async void Update()
         {
+            UpdateEnable = false;
             var dbService = plaginManager.LoadDbService();
             var keyData = ReadXml();
             var scheduleService = plaginManager.LoadScheduleService();
@@ -189,6 +207,7 @@ namespace HSE_transport_manager.ViewModel
            _dialogProvider.ShowMessage("Complete");
             //
         }
+
 
 
         private void SaveXml(KeyData keyData)

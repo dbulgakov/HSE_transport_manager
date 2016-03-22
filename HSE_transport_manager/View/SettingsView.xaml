@@ -35,7 +35,7 @@
         <TextBox Grid.Row="4" Text="{Binding YandexKey}" Grid.Column="2" Controls:TextBoxHelper.Watermark="Enter API Key" Margin="0,3,0,3" FontSize="16" />
         <TextBox Grid.Row="5" Text="{Binding GoogleKey}" Grid.Column="2" Controls:TextBoxHelper.Watermark="Enter API Key" Margin="0,3,0,3" FontSize="16" />
         <TextBox Grid.Row="6" Text="{Binding TGKey}" Grid.Column="2" Controls:TextBoxHelper.Watermark="Enter API Key" Margin="0,3,0,3" FontSize="16" />
-        <Button Grid.Row="0" Grid.Column="2" Content="Update" Style="{StaticResource AccentedSquareButtonStyle}" Margin="0,3,0,3" FontSize="16" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderThickness="0"  HorizontalContentAlignment="Center"/>
+        <Button Grid.Row="0" Grid.Column="2" Command="{Binding UpdateCommand}" Content="Update" Style="{StaticResource AccentedSquareButtonStyle}" Margin="0,3,0,3" FontSize="16" Controls:ControlsHelper.ContentCharacterCasing="Normal" BorderThickness="0"  HorizontalContentAlignment="Center" IsEnabled="{Binding UpdateEnable}"/>
         <Label Grid.Row="1" Grid.Column="2" Content="{Binding UpdateStatus}" FontSize="16" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
         <Grid Grid.Row="7" Grid.Column="2">
             <Grid.ColumnDefinitions>
