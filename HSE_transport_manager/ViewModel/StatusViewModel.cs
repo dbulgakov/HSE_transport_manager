@@ -200,9 +200,7 @@ namespace HSE_transport_manager.ViewModel
                 //var hb = dbService.GetFastestRoute("Общежитие 6", "Кирпичная 33", DateTime.Now);
                 int ffg = 6;
             try
-            {
-
-                
+            { 
                 var taxiService = plaginManager.LoadTaxiService();
                 var keyData = ReadXml();
                 var bot = new Api(keyData.BotServiceKey);

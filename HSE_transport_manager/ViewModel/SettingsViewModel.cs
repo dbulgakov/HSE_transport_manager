@@ -7,8 +7,8 @@ using HSE_transport_manager.Common.Interfaces;
 using HSE_transport_manager.Common.Models;
 using HSE_transport_manager.Properties;
 using System.Threading.Tasks;
-using HSE_transport_manager.Common.Models.TrainSchedulesData;
 using System;
+
 
 namespace HSE_transport_manager.ViewModel
 {
@@ -19,7 +19,7 @@ namespace HSE_transport_manager.ViewModel
         private const string FileName = "settings.xml";
         private IDialogProvider _dialogProvider;
         private PluginManager plaginManager = new PluginManager();
-        private MainViewModel mainViewModel;
+
 
         public SettingsViewModel()
         {
@@ -42,7 +42,6 @@ namespace HSE_transport_manager.ViewModel
             GoogleKey = keyData.MonitoringServiceKey;
             UberKey = keyData.TaxiServiceKey;
             _dialogProvider = new WpfMessageProvider();
-            mainViewModel = new MainViewModel(_dialogProvider);
         }
 
 
@@ -251,10 +250,6 @@ namespace HSE_transport_manager.ViewModel
             var task = await scheduleService.GetDailyScheduleAsync("s9600721", "s2000006");
             await Task.Run(() => dbService.RefreshTrainSchedule(task));
             UpdateStatus="Last update: "+ DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
-            // ПОТОМ ЭТО УБРАТЬ
-            _dialogProvider = new WpfMessageProvider();
-           _dialogProvider.ShowMessage("Complete");
-            //
         }
 
 

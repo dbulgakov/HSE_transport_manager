@@ -5,7 +5,8 @@
         Title="HSE transport manager" Height="420" Width="600"
         BorderThickness="0" 
         GlowBrush="Black"
-        DataContext="{Binding Main, Source={StaticResource Locator}}">
+        DataContext="{Binding Main, Source={StaticResource Locator}}"
+        WindowStartupLocation="CenterScreen" MinWidth="600" MinHeight="420">
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
