@@ -61,6 +61,16 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Char similar to -.
+        /// </summary>
+        internal static char ResponseBuilder_TaxiResponse_Separator {
+            get {
+                object obj = ResourceManager.GetObject("ResponseBuilder_TaxiResponse_Separator", resourceCulture);
+                return ((char)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error saving file!.
         /// </summary>
         internal static string SettingsViewModel_Reset_Error_saving_file_message {

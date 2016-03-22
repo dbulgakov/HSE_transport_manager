@@ -187,6 +187,7 @@ namespace HSE_transport_manager.ViewModel
         async void BotWork(Api bot, IDatabaseService dbService, ITaxiService taxiService)
         {
             var dict = new Dictionary<long,string>();
+            var rb = new ResponseBuilder(bot);
             await Task.Run(async () =>
             {
                 try
@@ -206,58 +207,17 @@ namespace HSE_transport_manager.ViewModel
                                     {
                                         case "/get_route":
                                         {
-                                            try
-                                            {
-                                                var response = update.Message.Text.Split('-');
-                                                bot.SendTextMessage(update.Message.Chat.Id, string.Format("{0} : {1}", response[0].Trim(), response[1]).Trim());
-                                                var route = dbService.GetFastestRoute(response[0].Trim(), response[1].Trim(), update.Message.Date);
-                                                bot.SendTextMessage(update.Message.Chat.Id, route.Routes.Capacity.ToString());
-                                            }
-                                            catch(Exception e)
-                                            {
-                                                bot.SendTextMessage(update.Message.Chat.Id, e.Message);
-                                            }
+                                            rb.FastestWayResponse(update, dbService);
                                             break;
                                         }
                                         case "/taxi_route":
-                                        {   
-                                            try
-                                            {
-                                                var response = update.Message.Text.Split('-');
-                                                await bot.SendChatAction(update.Message.Chat.Id, ChatAction.Typing);
-                                                var fromString = response[0].Trim();
-                                                var toString = response[1].Trim();
-                                                var c1 = dbService.GetCoordinates(fromString);
-                                                var c2 = dbService.GetCoordinates(toString);
-                                                var response2 = taxiService.GetRouteAsync(c1, c2).Result;
-                                                bot.SendTextMessage(update.Message.Chat.Id,
-                                                    string.Format(
-                                                        Resources.StatusViewModel_BotWork_Uber_response_message,
-                                                        fromString,toString,response2.Duration.Minute, response2.Price));
-                                            }
-                                            catch(Exception e)
-                                            {
-                                                bot.SendTextMessage(update.Message.Chat.Id, e.Message);
-                                            }
+                                        {
+                                            rb.TaxiResponse(update, dbService, taxiService);
                                             break;
                                         }
                                         case "/get_bus":
                                         {
-                                            try
-                                            {
-                                                var busSchedule = dbService.GetDubkiSchedule(update.Message.Text);
-                                                var stb = new StringBuilder();
-                                                foreach (var bus in busSchedule)
-                                                {
-                                                    stb.Append(bus.DepartureTime.ToString("t"));
-                                                    stb.Append("\n");
-                                                }
-                                                bot.SendTextMessage(update.Message.Chat.Id, string.Format("Расписание автобусов из {0}:\n{1}", update.Message.Text, stb.ToString()));
-                                            }
-                                            catch (Exception e)
-                                            {
-                                                bot.SendTextMessage(update.Message.Chat.Id, e.Message);
-                                            }
+                                            rb.GetBusResponse(update, dbService);
                                             break;
                                         }
                                     }

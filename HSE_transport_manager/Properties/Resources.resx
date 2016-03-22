@@ -176,4 +176,7 @@
   <data name="StatusViewModel_BotWork_That_message" xml:space="preserve">
     <value>Даша Бог БД</value>
   </data>
+  <data name="ResponseBuilder_TaxiResponse_Separator" type="System.Char, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xml:space="preserve">
+    <value>-</value>
+  </data>
 </root>
