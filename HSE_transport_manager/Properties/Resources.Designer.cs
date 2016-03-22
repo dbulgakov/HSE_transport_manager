@@ -297,6 +297,15 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Перед запуском необходимо ввести ключи Api!.
+        /// </summary>
+        internal static string StatusViewModel_Start_No_keys_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_Start_No_keys_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown error!.
         /// </summary>
         internal static string StatusViewModel_Start_Unknown_error_message {
@@ -309,17 +318,8 @@ namespace HSE_transport_manager.Properties {
         ///   Looks up a localized string similar to Bot is offline.
         /// </summary>
         internal static string StatusViewModel_Stop_Bot_is_offline_message {
-            get 
-            {
+            get {
                 return ResourceManager.GetString("StatusViewModel_Stop_Bot_is_offline_message", resourceCulture);
-            }
-        }
-
-        internal static string UberStatus
-        {
-            get
-            {
-                return ResourceManager.GetString("UberStatus", resourceCulture);
             }
         }
     }

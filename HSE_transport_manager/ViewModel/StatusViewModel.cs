@@ -219,7 +219,7 @@ namespace HSE_transport_manager.ViewModel
 
             catch (ArgumentException)
             {
-                _dialogProvider.ShowMessage("Перед запуском необходимо ввести ключи Api!");
+                _dialogProvider.ShowMessage(Resources.StatusViewModel_Start_No_keys_message);
             }
             catch (NullReferenceException)
             {

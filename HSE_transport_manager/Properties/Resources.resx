@@ -215,4 +215,7 @@
   <data name="StatusViewModel_Start_Unknown_error_message" xml:space="preserve">
     <value>Unknown error!</value>
   </data>
+  <data name="StatusViewModel_Start_No_keys_message" xml:space="preserve">
+    <value>Перед запуском необходимо ввести ключи Api!</value>
+  </data>
 </root>
