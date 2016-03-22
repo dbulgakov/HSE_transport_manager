@@ -20,6 +20,7 @@ namespace MSDatabaseService
         private TransportRoute transportRoute;
         private List<Route> routeList;
         private List<TransportRoute> transportList;
+        private List<TransportRoute> transportList2;
         private bool check;
         private string stationFix;
 
@@ -109,14 +110,13 @@ namespace MSDatabaseService
 
         public QueryResult GetRoute(string fromPoint, string toPoint, DateTime queryDate)
         {
-            
-
             if (context.Dormitories.Any(d => d.Name.Equals(fromPoint)) && context.HSEBuildings.Any(h => h.Name.Equals(toPoint)))
             {
                 dayAbbreviation = dtfi.GetShortestDayName(queryDate.DayOfWeek).ToUpper();
                 routeList = new List<Route>();
                 transportList = new List<TransportRoute>();
-                string dubkiTo="Одинцово";
+                transportList2 = new List<TransportRoute>();
+                string dubkiTo=" ";
 
                 var subwayStationHSE = context.SubwayStations.Where(s => s.HSEBuilding.Any(b => b.Name.Equals(toPoint))).Select(s => s.Name).ToList();
 
@@ -124,7 +124,7 @@ namespace MSDatabaseService
                 if (context.Dormitories.Where(r => r.Name.Equals(fromPoint)).Select(s => s.CheckDubkiBus).Single())
                 {
                     check = true;
-
+                    dubkiTo="Одинцово";
 
                     minutes = 20;
                     if (queryDate.Minute + 20 > 60)
@@ -185,13 +185,13 @@ namespace MSDatabaseService
                             {
                                 Transport = transportList
                             });
-
-                            transportList = new List<TransportRoute>();
                         }
 
                     }
                     else
-                        transportList.Add(new TransportRoute
+                    {
+                        
+                        transportList2.Add(new TransportRoute
                         {
                             DepartureTime = queryDate.AddMinutes(20),
                             ElapsedTime = queryDate.AddMinutes(25),
@@ -199,6 +199,16 @@ namespace MSDatabaseService
                             ToPoint = "Остановка автобуса",
                             TransportType = "OnFoot"
                         });
+                        
+                        transportList2.Add(new TransportRoute
+                            {
+                                DepartureTime = dubkiQuery.DepartureTime,
+                                ElapsedTime = dubkiQuery.DepartureTime.AddMinutes(35),
+                                FromPoint = "Дубки - Автобусная остановка",
+                                ToPoint = dubkiQuery.To,
+                                TransportType = dubkiQuery.TransportType
+                            });
+                    }
                 }
 
                 minutes = 20;
@@ -355,33 +365,40 @@ namespace MSDatabaseService
 
                 // LocalTrain - Works
 
-                if (context.Dormitories.Where(r => r.Name.Equals(fromPoint))
+                if ((context.Dormitories.Where(r => r.Name.Equals(fromPoint))
                                                           .Select(r => new
                                                           {
                                                               StationName = r.LocalTrainStation.Name,
                                                               Code = r.LocalTrainStation.Code
-                                                          }).Single() != null && (queryDate.Hour < 1 || queryDate.Hour == 5 && queryDate.Minute >= 30 || queryDate.Hour > 5))
+                                                          }).Single() != null || dubkiTo.Equals("Одинцово")) && (queryDate.Hour < 1 || queryDate.Hour == 5 && queryDate.Minute >= 30 || queryDate.Hour > 5))
 
                 {
-                    var localStation = context.Dormitories.Where(r => r.Name.Equals(fromPoint))
+                    var localStation = !dubkiTo.Equals("Одинцово") ? context.Dormitories.Where(r => r.Name.Equals(fromPoint))
                                                           .Select(r => new
                                                           {
                                                               StationName = r.LocalTrainStation.Name,
                                                               Code = r.LocalTrainStation.Code
-                                                          }).Single();
+                                                          }).Single()
+                                                          :
+                                                          context.LocalTrainStations.Where(r => r.Name.Equals(dubkiTo))
+                                                          .Select(r => new
+                                                          {
+                                                              StationName = r.Name,
+                                                              Code = r.Code
+                                                          }).Single(); 
 
 
-                    minutes = 30;
-                    if (check) if (dubkiTo==("Одинцово"))
+                    minutes = 20;
+                    if (check && dubkiTo.Equals("Одинцово"))
                     {
                         fromPoint = "Автовокзал";
-                        minutes = 65;
+                        minutes = 60;
                     }
 
                     if (queryDate.Minute + minutes > 60)
                     {
                         hours++;
-                        minutes = queryDate.Minute - 40;
+                        minutes = 60 - queryDate.Minute ;
                     }
 
                     if (context.LocalTrainsSchedule.Any(s => s.DepartureStation.Name.Equals(localStation.StationName) && (s.DepartureTime.Hour > queryDate.Hour + hours || s.DepartureTime.Hour == queryDate.Hour + hours && s.DepartureTime.Minute >= queryDate.Minute + minutes)))
@@ -404,17 +421,28 @@ namespace MSDatabaseService
                     foreach (var stationHSE in subwayStationHSE)
                     {
                         transportList = new List<TransportRoute>();
+                        if (transportList2.Count != 0)
+                        {
+                            transportList.Add(transportList2[0]);
+                            transportList.Add(transportList2[1]);
+                        }
                         foreach (var stationStop in localStationsQuery.Stops)
                         {
                             transportList = new List<TransportRoute>();
-                            transportList.Add(new TransportRoute
+                            if (transportList2.Count != 0)
                             {
-                                DepartureTime = queryDate.AddMinutes(minutes - 10),
-                                ElapsedTime = queryDate.AddMinutes(minutes),
-                                FromPoint = fromPoint,
-                                ToPoint = localStation.StationName,
-                                TransportType = "OnFoot"
-                            });
+                                transportList.Add(transportList2[0]);
+                                transportList.Add(transportList2[1]);
+                            }
+                            if (transportList2.Count == 0)
+                                transportList.Add(new TransportRoute
+                                {
+                                    DepartureTime = queryDate.AddMinutes(minutes),
+                                    ElapsedTime = queryDate.AddMinutes(minutes+10),
+                                    FromPoint = fromPoint,
+                                    ToPoint = localStation.StationName,
+                                    TransportType = "OnFoot"
+                                });
 
                             transportList.Add(new TransportRoute
                             {
@@ -455,6 +483,7 @@ namespace MSDatabaseService
                                 Transport = transportList
                             });
                         }
+                        
                       }
                     }
                 }
