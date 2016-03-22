@@ -127,11 +127,56 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last update: .
+        /// </summary>
+        internal static string SettingsViewModel_Last_update_message {
+            get {
+                return ResourceManager.GetString("SettingsViewModel_Last_update_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error saving file!.
         /// </summary>
         internal static string SettingsViewModel_Reset_Error_saving_file_message {
             get {
                 return ResourceManager.GetString("SettingsViewModel_Reset_Error_saving_file_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploading data in Database....
+        /// </summary>
+        internal static string SettingsViewModel_Update_DB_message {
+            get {
+                return ResourceManager.GetString("SettingsViewModel_Update_DB_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploading local train schedule from Yandex Service....
+        /// </summary>
+        internal static string SettingsViewModel_Update_Get_Schedule_message {
+            get {
+                return ResourceManager.GetString("SettingsViewModel_Update_Get_Schedule_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Перед запуском необходимо ввести ключи Api!.
+        /// </summary>
+        internal static string Start_No_keys_error_message {
+            get {
+                return ResourceManager.GetString("Start_No_keys_error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown error!.
+        /// </summary>
+        internal static string Start_Unknown_error_message {
+            get {
+                return ResourceManager.GetString("Start_Unknown_error_message", resourceCulture);
             }
         }
         
@@ -293,24 +338,6 @@ namespace HSE_transport_manager.Properties {
         internal static string StatusViewModel_Start_Load_error_message {
             get {
                 return ResourceManager.GetString("StatusViewModel_Start_Load_error_message", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Перед запуском необходимо ввести ключи Api!.
-        /// </summary>
-        internal static string StatusViewModel_Start_No_keys_message {
-            get {
-                return ResourceManager.GetString("StatusViewModel_Start_No_keys_message", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unknown error!.
-        /// </summary>
-        internal static string StatusViewModel_Start_Unknown_error_message {
-            get {
-                return ResourceManager.GetString("StatusViewModel_Start_Unknown_error_message", resourceCulture);
             }
         }
         

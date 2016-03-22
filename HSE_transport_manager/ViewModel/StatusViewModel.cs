@@ -199,7 +199,7 @@ namespace HSE_transport_manager.ViewModel
             var plaginManager = new PluginManager();
             var dbService = plaginManager.LoadDbService();
                 //var ki=dbService.GetTrainSchedule("Одинцово","Кунцево");
-            var hb = dbService.GetFastestRoute("Общежитие Дубки 1", "Кирпичная 33", DateTime.Now);
+            //var hb = dbService.GetFastestRoute("Общежитие Дубки 1", "Кирпичная 33", DateTime.Now);
             try
             {
                 var taxiService = plaginManager.LoadTaxiService();
@@ -213,6 +213,8 @@ namespace HSE_transport_manager.ViewModel
             catch (NullReferenceException)
             {
                 _dialogProvider.ShowMessage(Resources.StatusViewModel_Start_DLL_load_error_message);
+                StartEnable = true;
+                StopEnable = false;
             }
             catch (InvalidOperationException)
             {
@@ -220,7 +222,7 @@ namespace HSE_transport_manager.ViewModel
             }
             catch (Exception)
             {
-                _dialogProvider.ShowMessage(Resources.StatusViewModel_Start_Unknown_error_message);
+                _dialogProvider.ShowMessage(Resources.Start_Unknown_error_message);
             }
 
         }
@@ -363,13 +365,13 @@ namespace HSE_transport_manager.ViewModel
             
         }
 
-        private KeyData ReadXml()
+        private SettingsData ReadXml()
         {
-            KeyData keyData;
+            SettingsData keyData;
             using (var fs = new FileStream(FileName, FileMode.OpenOrCreate))
             {
-                var formatter = new XmlSerializer(typeof(KeyData));
-                keyData = (KeyData)formatter.Deserialize(fs);
+                var formatter = new XmlSerializer(typeof(SettingsData));
+                keyData = (SettingsData)formatter.Deserialize(fs);
             }
             return keyData;
         }
