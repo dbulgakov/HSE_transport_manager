@@ -107,7 +107,8 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ошибка поиска маршрута на общественном транспорте! Повторите запрос позже..
+        ///   Looks up a localized string similar to Ошибка построения маршрута: метро не работает!
+        ///Попробуйте повторить ваш запрос позже..
         /// </summary>
         internal static string ResponseBuilder_No_public_transport_error_message {
             get {
