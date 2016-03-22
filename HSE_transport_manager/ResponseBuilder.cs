@@ -39,9 +39,17 @@ namespace HSE_transport_manager
                         Resources.StatusViewModel_BotWork_Uber_response_message,
                         fromString, toString, response2.Duration.Minute, response2.Price));
                 }
-                catch
+                catch (IndexOutOfRangeException)
                 {
-                    _bot.SendTextMessage(update.Message.Chat.Id, "Возникла ошибка, повторите попытку!");
+                    _bot.SendTextMessage(update.Message.Chat.Id, Resources.ResponseBuilder_Input_separator_error_message);
+                }
+                catch (ArgumentException)
+                {
+                    _bot.SendTextMessage(update.Message.Chat.Id, Resources.ResponseBuilder_Input_data_value_error);
+                }
+                catch (Exception)
+                {
+                    _bot.SendTextMessage(update.Message.Chat.Id, Resources.ResponseBuilder_Internal_error_message);
                 }
             });
         }
@@ -53,15 +61,26 @@ namespace HSE_transport_manager
                 try
                 {
                     await _bot.SendChatAction(update.Message.Chat.Id, ChatAction.Typing);
-                    var response = update.Message.Text.Split('-');
-                    _bot.SendTextMessage(update.Message.Chat.Id,
-                        string.Format("{0} : {1}", response[0].Trim(), response[1]).Trim());
+                    var response = update.Message.Text.Split(Resources.ResponseBuilder_TaxiResponse_Separator);
                     var route = dbService.GetFastestRoute(response[0].Trim(), response[1].Trim(), update.Message.Date);
                     _bot.SendTextMessage(update.Message.Chat.Id, route.Routes.Capacity.ToString());
                 }
-                catch (Exception e)
+                catch (IndexOutOfRangeException)
                 {
-                    _bot.SendTextMessage(update.Message.Chat.Id, e.Message);
+                    _bot.SendTextMessage(update.Message.Chat.Id, Resources.ResponseBuilder_Input_separator_error_message);
+                }
+                catch (ArgumentNullException)
+                {
+                    _bot.SendTextMessage(update.Message.Chat.Id,
+                        Resources.ResponseBuilder_No_public_transport_error_message);
+                }
+                catch (ArgumentException)
+                {
+                    _bot.SendTextMessage(update.Message.Chat.Id, Resources.ResponseBuilder_Input_data_value_error);
+                }
+                catch (Exception)
+                {
+                    _bot.SendTextMessage(update.Message.Chat.Id, Resources.ResponseBuilder_Internal_error_message);
                 }
             });
         }
@@ -79,15 +98,22 @@ namespace HSE_transport_manager
                     var tripTime = update.Message.Text.Equals("Славянский Бульвар") ? DubkiSlav : DubkiOdi;
                     foreach (var bus in busSchedule)
                     {
-                        stb.Append(string.Format(Resources.ResponseBuilder_GetBusResponse_Bus_schedule_line_pattern, bus.From.Substring(0, 3), bus.To.Substring(0, 3), bus.DepartureTime.ToString("t"), bus.DepartureTime.AddMinutes(tripTime).ToString("t")));
+                        stb.Append(string.Format(Resources.ResponseBuilder_GetBusResponse_Bus_schedule_line_pattern,
+                            bus.From.Substring(0, 3), bus.To.Substring(0, 3), bus.DepartureTime.ToString("t"),
+                            bus.DepartureTime.AddMinutes(tripTime).ToString("t")));
                         stb.Append("\n");
                     }
                     _bot.SendTextMessage(update.Message.Chat.Id,
-                        string.Format(Resources.ResponseBuilder_GetBusResponse_Bus_response_header_message, update.Message.Text, stb.ToString()));
+                        string.Format(Resources.ResponseBuilder_GetBusResponse_Bus_response_header_message,
+                            update.Message.Text, stb.ToString()));
                 }
-                catch (Exception e)
+                catch (ArgumentException)
                 {
-                    _bot.SendTextMessage(update.Message.Chat.Id, e.Message);
+                    _bot.SendTextMessage(update.Message.Chat.Id, Resources.ResponseBuilder_Input_data_value_error);
+                }
+                catch (Exception)
+                {
+                    _bot.SendTextMessage(update.Message.Chat.Id, Resources.ResponseBuilder_Internal_error_message);
                 }
             });
         }
@@ -96,15 +122,23 @@ namespace HSE_transport_manager
         {
             Task.Run(async () =>
             {
-                await _bot.SendChatAction(update.Message.Chat.Id, ChatAction.Typing);
-                var stb = new StringBuilder();
-                var places = dbService.GetAllBuildings();
-                foreach (var place in places)
+                try
                 {
-                    stb.Append(place);
-                    stb.Append("\n ");
+                    await _bot.SendChatAction(update.Message.Chat.Id, ChatAction.Typing);
+                    var stb = new StringBuilder();
+                    var places = dbService.GetAllBuildings();
+                    foreach (var place in places)
+                    {
+                        stb.Append(place);
+                        stb.Append("\n ");
+                    }
+                    _bot.SendTextMessage(update.Message.Chat.Id,
+                        string.Format(Resources.StatusViewModel_BotWork_Places_response_message, stb.ToString()));
                 }
-                _bot.SendTextMessage(update.Message.Chat.Id, string.Format(Resources.StatusViewModel_BotWork_Places_response_message, stb.ToString()));                         
+                catch (Exception)
+                {
+                    _bot.SendTextMessage(update.Message.Chat.Id, Resources.ResponseBuilder_Internal_error_message);
+                }
             });
         }
     }

@@ -80,6 +80,42 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ошибка выполнения запроса! Проверьте входные данные..
+        /// </summary>
+        internal static string ResponseBuilder_Input_data_value_error {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_Input_data_value_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неверный ввод! Данные должны быть в формате Место - Место..
+        /// </summary>
+        internal static string ResponseBuilder_Input_separator_error_message {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_Input_separator_error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Внутренняя ошибка сервера..
+        /// </summary>
+        internal static string ResponseBuilder_Internal_error_message {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_Internal_error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка поиска маршрута на общественном транспорте! Повторите запрос позже..
+        /// </summary>
+        internal static string ResponseBuilder_No_public_transport_error_message {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_No_public_transport_error_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Char similar to -.
         /// </summary>
         internal static char ResponseBuilder_TaxiResponse_Separator {
