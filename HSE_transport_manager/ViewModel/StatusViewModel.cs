@@ -22,7 +22,13 @@ namespace HSE_transport_manager.ViewModel
         private CancellationTokenSource _ctoken;
         private readonly IDialogProvider _dialogProvider;
         private const string FileName = "settings.xml";
-        private PluginManager plaginManager = new PluginManager();
+
+        private const string InitialRequest = "/start";
+        private const string PlacesRequest = "/places";
+        private const string FastestRouteRequest = "/get_route";
+        private const string TaxiRequest = "/taxi_route";
+        private const string BusRequest = "/get_bus";
+        private const string ShmowzowRequest = "/shmowzow";
 
         public StatusViewModel()
         {
@@ -151,19 +157,15 @@ namespace HSE_transport_manager.ViewModel
         }
 
 
-        async void Start()
+        void Start()
         {
-            var dbService = plaginManager.LoadDbService();
-            var taxiService = plaginManager.LoadTaxiService();
-            DateTime timeNow = DateTime.Now;
-            //var k =dbService.GetRoute("Общежитие 1", "Трехсвятительский 3", timeNow);
-            //var c = dbService.GetCoordinates("Общежитие 6");
-            var p = dbService.GetDubkiSchedule("Дубки");
-            //var h = dbService.GetFastestRoute("Общежитие 6", "Трехсвятительский 3", timeNow);
-            int gv=9;
+            _ctoken = new CancellationTokenSource();
+            var plaginManager = new PluginManager();
             try
             {
-                _ctoken = new CancellationTokenSource();
+
+                var dbService = plaginManager.LoadDbService();
+                var taxiService = plaginManager.LoadTaxiService();
                 var keyData = ReadXml();
                 var bot = new Api(keyData.BotServiceKey);
                 taxiService.Initialize(keyData.TaxiServiceKey);
@@ -196,7 +198,7 @@ namespace HSE_transport_manager.ViewModel
                     var offset = 0;
                     while (true)
                     {
-                        var updates = bot.GetUpdates(offset).Result;
+                        var updates = await bot.GetUpdates(offset);
                         _ctoken.Token.ThrowIfCancellationRequested();
                         foreach (var update in updates)
                         {
@@ -206,17 +208,17 @@ namespace HSE_transport_manager.ViewModel
                                 {
                                     switch (dict[update.Message.Chat.Id])
                                     {
-                                        case "/get_route":
+                                        case FastestRouteRequest:
                                         {
                                             rb.FastestWayResponse(update, dbService, taxiService);
                                             break;
                                         }
-                                        case "/taxi_route":
+                                        case TaxiRequest:
                                         {
                                             rb.TaxiResponse(update, dbService, taxiService);
                                             break;
                                         }
-                                        case "/get_bus":
+                                        case BusRequest:
                                         {
                                             rb.GetBusResponse(update, dbService);
                                             break;
@@ -228,36 +230,36 @@ namespace HSE_transport_manager.ViewModel
                                 {
                                     switch (update.Message.Text)
                                     {
-                                        case "/start":
+                                        case InitialRequest:
                                         {
                                             bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Introduce_message).Wait();
                                             bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Intro_message);
                                             break;
                                         }
-                                        case "/places":
+                                        case PlacesRequest:
                                         {
                                             rb.GetPlacesResponse(update, dbService);
                                             break;
                                         }
-                                        case "/get_route":
+                                        case FastestRouteRequest:
                                         {
                                             bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Get_route_intro);
-                                            dict.Add(update.Message.Chat.Id, "/get_route");
+                                            dict.Add(update.Message.Chat.Id, FastestRouteRequest);
                                             break;
                                         }
-                                        case "/taxi_route":
+                                        case TaxiRequest:
                                         {
                                             bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Get_route_intro);
-                                            dict.Add(update.Message.Chat.Id, "/taxi_route");
+                                            dict.Add(update.Message.Chat.Id, TaxiRequest);
                                             break;
                                         }
-                                        case "/get_bus":
+                                        case BusRequest:
                                         {
                                             bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Get_Bus_response_message);
-                                            dict.Add(update.Message.Chat.Id, "/get_bus");
+                                            dict.Add(update.Message.Chat.Id, BusRequest);
                                             break;
                                         }
-                                        case "/shmowzow":
+                                        case ShmowzowRequest:
                                         {
                                             bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_That_message);
                                             break;
