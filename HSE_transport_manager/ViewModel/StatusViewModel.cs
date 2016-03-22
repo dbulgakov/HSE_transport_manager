@@ -199,16 +199,27 @@ namespace HSE_transport_manager.ViewModel
             var plaginManager = new PluginManager();
             var dbService = plaginManager.LoadDbService();
                 //var ki=dbService.GetTrainSchedule("Одинцово","Кунцево");
-            //var hb = dbService.GetFastestRoute("Общежитие Дубки 1", "Кирпичная 33", DateTime.Now);
-                int ffg = 6;
+           // var hb = dbService.GetFastestRoute("Общежитие Дубки 1", "Кирпичная 33", DateTime.Now);
             try
             {
                 var taxiService = plaginManager.LoadTaxiService();
                 var keyData = ReadXml();
+                if ((keyData.BotServiceKey == null) || keyData.MonitoringServiceKey == null ||
+                    keyData.ScheduleServiceKey == null || keyData.TaxiServiceKey == null)
+                {
+                    throw new ArgumentException();
+                }
                 var bot = new Api(keyData.BotServiceKey);
                 taxiService.Initialize(keyData.TaxiServiceKey);
                 BotStatus = Resources.StatusViewModel_Start_Bot_is_active_message;
                 BotWork(bot, dbService, taxiService);
+            }
+
+
+
+            catch (ArgumentException)
+            {
+                _dialogProvider.ShowMessage("Перед запуском необходимо ввести ключи Api!");
             }
             catch (NullReferenceException)
             {
