@@ -560,5 +560,20 @@ namespace MSDatabaseService
 
             return buildingsList;
         }
+
+
+        public List<TrainSchedule> GetTrainSchedule()
+        {
+            if (context.LocalTrainsSchedule.Count() != 0)
+                return context.LocalTrainsSchedule.Where(s => s.DepartureStation.Name.Equals("Одинцово"))
+                       .Select(r => new TrainSchedule
+                       {
+                           DepartureStation=r.DepartureStation.Name,
+                           DepartureTime = r.DepartureTime,
+                           Type = r.Type.Name
+                       }).ToList();
+
+            else throw new NullReferenceException();  
+        }
     }
 }

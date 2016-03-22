@@ -15,5 +15,6 @@ namespace HSE_transport_manager.Common.Interfaces
         List<DubkiSchedule> GetDubkiSchedule(string from);
         string GetStationCode(string station);
         List<string> GetAllBuildings();
+        List<TrainSchedule> GetTrainSchedule();
     }
 }
