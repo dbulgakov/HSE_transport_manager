@@ -175,9 +175,9 @@ namespace HSE_transport_manager.ViewModel
         }
 
 
-        private DateTime _lastUpdate;
+        private DateTime? _lastUpdate;
 
-        public DateTime LastUpdate
+        public DateTime? LastUpdate
         {
             get { return _lastUpdate; }
             set
@@ -197,7 +197,6 @@ namespace HSE_transport_manager.ViewModel
             StopEnable = true;
             _ctoken = new CancellationTokenSource();
             var plaginManager = new PluginManager();
-            //var hb = dbService.GetFastestRoute("Общежитие Дубки 1", "Кирпичная 33", DateTime.Now);
             try
             {
                 var taxiService = plaginManager.LoadTaxiService();

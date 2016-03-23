@@ -156,10 +156,6 @@
     <value>Неизвестная команда!
 Введите /start для получения списка возможных комманд.</value>
   </data>
-  <data name="StatusViewModel_BotWork_Get_route_intro" xml:space="preserve">
-    <value>Для поиска кратчайшего пути введите названия начального места и конечной точки в формате:
-Начальное место - Конечное место</value>
-  </data>
   <data name="StatusViewModel_BotWork_Uber_response_message" xml:space="preserve">
     <value>Поездка на такси:
 {0} - {1}
@@ -248,5 +244,9 @@
   </data>
   <data name="StatusViewModel_BotWork_Get_All_routes_response_message" xml:space="preserve">
     <value>Для поиска всех возможных путей введите названия начального места и конечной точки в формате: Начальное место - Конечное место</value>
+  </data>
+  <data name="StatusViewModel_BotWork_Get_route_intro" xml:space="preserve">
+    <value>Для поиска кратчайшего пути введите названия начального места и конечной точки в формате:
+Начальное место - Конечное место</value>
   </data>
 </root>
