@@ -54,7 +54,7 @@ namespace HSE_transport_manager.ViewModel
         public MainViewModel(IDialogProvider dialogProvider)
         {
             _dialogProvider = dialogProvider;
-            CurrentViewModel = StatusViewModel;
+            CurrentViewModel = SettingsViewModel;
             StatusCommand = new RelayCommand(ExecuteStatusCommand);
             SettingsCommand = new RelayCommand(ExecuteSettingsCommand);
             AboutCommand = new RelayCommand(ExecuteAboutCommand);
