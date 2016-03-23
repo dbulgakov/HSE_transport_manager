@@ -252,4 +252,7 @@
   <data name="StatusViewModel_CheckSettings_OK_status_message" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="StatusViewModel_No_keys_or_DB_message" xml:space="preserve">
+    <value>Fill your Api keys and update DB first!</value>
+  </data>
 </root>

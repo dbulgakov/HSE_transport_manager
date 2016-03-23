@@ -376,6 +376,15 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fill your Api keys and update DB first!.
+        /// </summary>
+        internal static string StatusViewModel_No_keys_or_DB_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_No_keys_or_DB_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bot is active.
         /// </summary>
         internal static string StatusViewModel_Start_Bot_is_active_message {
