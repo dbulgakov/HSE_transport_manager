@@ -17,7 +17,6 @@ namespace HSE_transport_manager.ViewModel
 {
     public class StatusViewModel : ViewModelBase
     {
-        private ICommand _startCommand;
         private CancellationTokenSource _ctoken;
         private readonly IDialogProvider _dialogProvider;
         private const string FileName = "settings.xml";
@@ -36,7 +35,7 @@ namespace HSE_transport_manager.ViewModel
             _dialogProvider = new WpfMessageProvider();
         }
 
-
+        private ICommand _startCommand;
         public ICommand StartCommand
         {
             get
@@ -47,6 +46,37 @@ namespace HSE_transport_manager.ViewModel
                     Start);
                 }
                 return _startCommand;
+            }
+        }
+
+
+        private bool _startEnable = true;
+
+        public bool StartEnable
+        {
+            get { return _startEnable; }
+            set
+            {
+                if (value != _startEnable)
+                {
+                    _startEnable = value;
+                    RaisePropertyChanged("StartEnable");
+                }
+            }
+        }
+
+        private bool _stopEnable = true;
+
+        public bool StopEnable
+        {
+            get { return _stopEnable; }
+            set
+            {
+                if (value != _stopEnable)
+                {
+                    _stopEnable = value;
+                    RaisePropertyChanged("StopEnable");
+                }
             }
         }
 
@@ -65,6 +95,7 @@ namespace HSE_transport_manager.ViewModel
             }
         }
 
+
         private string _uberStatus;
 
         public string UberStatus
@@ -79,6 +110,7 @@ namespace HSE_transport_manager.ViewModel
                 }
             }
         }
+
 
         private string _yandexStatus;
 
@@ -109,6 +141,7 @@ namespace HSE_transport_manager.ViewModel
                 }
             }
         }
+
 
         private string _tgStatus;
 
@@ -142,17 +175,17 @@ namespace HSE_transport_manager.ViewModel
         }
 
 
-        private int _errors;
+        private string _lastUpdate;
 
-        public int Errors
+        public string LastUpdate
         {
-            get { return _errors; }
+            get { return _lastUpdate; }
             set
             {
-                if (value != _errors)
+                if (value != _lastUpdate)
                 {
-                    _errors = value;
-                    RaisePropertyChanged("Errors");
+                    _lastUpdate = value;
+                    RaisePropertyChanged("LastUpdate");
                 }
             }
         }
@@ -160,22 +193,35 @@ namespace HSE_transport_manager.ViewModel
 
         void Start()
         {
+            StartEnable = false;
+            StopEnable = true;
             _ctoken = new CancellationTokenSource();
             var plaginManager = new PluginManager();
+            //var hb = dbService.GetFastestRoute("Общежитие Дубки 1", "Кирпичная 33", DateTime.Now);
             try
             {
-
-                var dbService = plaginManager.LoadDbService();
                 var taxiService = plaginManager.LoadTaxiService();
+                var dbService = plaginManager.LoadDbService();
                 var keyData = ReadXml();
-                var bot = new Api(keyData.BotServiceKey);
-                taxiService.Initialize(keyData.TaxiServiceKey);
-                BotStatus = Resources.StatusViewModel_Start_Bot_is_active_message;
-                BotWork(bot, dbService, taxiService);
+                if (CheckSettings(keyData))
+                {
+                    var bot = new Api(keyData.BotServiceKey);
+                    taxiService.Initialize(keyData.TaxiServiceKey);
+                    BotStatus = Resources.StatusViewModel_Start_Bot_is_active_message;
+                    BotWork(bot, dbService, taxiService);
+                }
+                else
+                {
+                    StartEnable = false;
+                    _dialogProvider.ShowMessage(Resources.StatusViewModel_No_keys_or_DB_message);
+                }
             }
+
             catch (NullReferenceException)
             {
                 _dialogProvider.ShowMessage(Resources.StatusViewModel_Start_DLL_load_error_message);
+                StartEnable = true;
+                StopEnable = false;
             }
             catch (InvalidOperationException)
             {
@@ -183,7 +229,7 @@ namespace HSE_transport_manager.ViewModel
             }
             catch (Exception)
             {
-                _dialogProvider.ShowMessage(Resources.StatusViewModel_Start_Unknown_error_message);
+                _dialogProvider.ShowMessage(Resources.Start_Unknown_error_message);
             }
 
         }
@@ -194,6 +240,8 @@ namespace HSE_transport_manager.ViewModel
             {
                 _ctoken.Cancel();
             }
+            StopEnable = false;
+            StartEnable = true;
             BotStatus = Resources.StatusViewModel__botStatus_Bot_is_inactive_message;
         }
 
@@ -226,6 +274,7 @@ namespace HSE_transport_manager.ViewModel
 
                                         case AllRoutesRequest:
                                         {
+                                            rb.AllRoutesRequest(update, dbService, taxiService);
                                             break;
                                         }
                                         
@@ -237,11 +286,12 @@ namespace HSE_transport_manager.ViewModel
 
                                         case SuburbanRequest:
                                         {
+                                            rb.GetSuburbanResponse(update, dbService);
                                             break;
                                         }
 
                                         case BusRequest:
-                                        {
+                                {
                                             rb.GetBusResponse(update, dbService);
                                             break;
                                         }
@@ -272,7 +322,8 @@ namespace HSE_transport_manager.ViewModel
 
                                         case AllRoutesRequest:
                                         {
-                                            bot.SendTextMessage(update.Message.Chat.Id, "Not implemented");
+                                            bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Get_All_routes_response_message);
+                                            dict.Add(update.Message.Chat.Id, AllRoutesRequest);
                                             break;
                                         }
 
@@ -285,7 +336,8 @@ namespace HSE_transport_manager.ViewModel
 
                                         case SuburbanRequest:
                                         {
-                                            bot.SendTextMessage(update.Message.Chat.Id, "Not implemented");
+                                            bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Get_suburban_message);
+                                            dict.Add(update.Message.Chat.Id, SuburbanRequest);
                                             break;
                                         }
 
@@ -324,13 +376,33 @@ namespace HSE_transport_manager.ViewModel
             
         }
 
-        private KeyData ReadXml()
+        private bool CheckSettings(SettingsData st)
         {
-            KeyData keyData;
+            bool all = true;
+            if (!string.IsNullOrEmpty(st.BotServiceKey))
+                TGStatus = Resources.StatusViewModel_CheckSettings_OK_status_message;
+            else all = false;
+            if (!string.IsNullOrEmpty(st.TaxiServiceKey))
+                UberStatus = Resources.StatusViewModel_CheckSettings_OK_status_message;
+            else all = false;
+            if (!string.IsNullOrEmpty(st.ScheduleServiceKey))
+                YandexStatus = Resources.StatusViewModel_CheckSettings_OK_status_message;
+            else all = false;
+            if (!string.IsNullOrEmpty(st.MonitoringServiceKey))
+                GoogleStatus = Resources.StatusViewModel_CheckSettings_OK_status_message;
+            else all = false;
+            if (st.UpdateTime.Ticks > 0)
+                LastUpdate = st.UpdateTime.ToString("d");
+            return all;
+        }
+
+        private SettingsData ReadXml()
+        {
+            SettingsData keyData;
             using (var fs = new FileStream(FileName, FileMode.OpenOrCreate))
             {
-                var formatter = new XmlSerializer(typeof(KeyData));
-                keyData = (KeyData)formatter.Deserialize(fs);
+                var formatter = new XmlSerializer(typeof(SettingsData));
+                keyData = (SettingsData)formatter.Deserialize(fs);
             }
             return keyData;
         }

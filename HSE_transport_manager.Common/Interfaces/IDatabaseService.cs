@@ -2,6 +2,7 @@
 using HSE_transport_manager.Common.Models.TrainSchedulesData;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Contexts;
 
 namespace HSE_transport_manager.Common.Interfaces
 {
@@ -15,6 +16,6 @@ namespace HSE_transport_manager.Common.Interfaces
         List<DubkiSchedule> GetDubkiSchedule(string from);
         string GetStationCode(string station);
         List<string> GetAllBuildings();
-        List<TrainSchedule> GetTrainSchedule();
+        List<TrainSchedule> GetTrainSchedule(string from, string to);
     }
 }

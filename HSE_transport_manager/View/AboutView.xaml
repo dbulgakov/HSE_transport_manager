@@ -10,25 +10,27 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.2*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" FontSize="16" Grid.Column="1" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+        <Label Grid.Row="0" FontSize="16" Grid.Column="1" Grid.ColumnSpan="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
             <TextBlock TextWrapping="Wrap" TextAlignment="Justify" > 
-Team: Bulgakov D., Rogova D., Trofimenko A. 
-<LineBreak/> 
-<LineBreak/> 
-About: 
-<LineBreak/> 
-This app provides an opportunity to manage a route from one point (dormitory) to another one (hse building) using TG bot. Moreover, it uses different means of transport (local train, tram, bus, taxi, subway) to create route, finds the fastest way and finally shows schedule for local trains and buses to/from Dubki.
+                Team: Bulgakov D., Rogova D., Trofimenko A. 
+                <LineBreak/> 
+                <LineBreak/> 
+                About: 
+                <LineBreak/> 
+                This app provides an opportunity to manage a route from one point (dormitory) to another one (hse building) using TG bot. Moreover, it uses different means of transport (local train, tram, bus, taxi, subway) to create route, finds the fastest way and finally shows schedule for local trains and buses to/from Dubki.
             </TextBlock>
         </Label>
         <Image Grid.Row="1" Grid.Column="1" Source="/HSE_transport_manager;component/Resources/yandex.png" />
         <Image Grid.Row="1" Grid.Column="2" Source="/HSE_transport_manager;component/Resources/uber.png" Margin="15"/>
+        <Image Grid.Row="1" Grid.Column="3" Source="/HSE_transport_manager;component/Resources/google.png" />
     </Grid>
 </UserControl>

@@ -7,26 +7,31 @@ using HSE_transport_manager.Common.Interfaces;
 using HSE_transport_manager.Common.Models;
 using HSE_transport_manager.Properties;
 using System.Threading.Tasks;
-using HSE_transport_manager.Common.Models.TrainSchedulesData;
+using System;
+
+
 
 namespace HSE_transport_manager.ViewModel
 {
     public class SettingsViewModel : ViewModelBase
     {
+        private StatusViewModel s = new StatusViewModel();
 
         private ICommand _saveCommand;
         private const string FileName = "settings.xml";
         private IDialogProvider _dialogProvider;
         private PluginManager plaginManager = new PluginManager();
 
+
         public SettingsViewModel()
         {
-            var keyData = new KeyData();
+            var settingsData = new SettingsData();
             if (File.Exists(FileName))
             {
                 try
                 {
-                    keyData = ReadXml();
+                    Enable = true;
+                    settingsData = ReadXml();
                 }
                 catch
                 {
@@ -34,13 +39,51 @@ namespace HSE_transport_manager.ViewModel
                 }
             }
 
-            TGKey = keyData.BotServiceKey;
-            YandexKey = keyData.ScheduleServiceKey;
-            GoogleKey = keyData.MonitoringServiceKey;
-            UberKey = keyData.TaxiServiceKey;
+            TGKey = settingsData.BotServiceKey;
+            YandexKey = settingsData.ScheduleServiceKey;
+            GoogleKey = settingsData.MonitoringServiceKey;
+            UberKey = settingsData.TaxiServiceKey;
+            if (settingsData.UpdateTime.Ticks > 0)
+            {
+                UpdateStatus = Resources.SettingsViewModel_Last_update_message + settingsData.UpdateTime.ToString("dd.MM.yyyy HH:mm:ss");
+                if (settingsData.UpdateTime.Date.Equals(DateTime.Now.Date))
+                {
+                    UpdateEnable = false;
+                }
+            }
             _dialogProvider = new WpfMessageProvider();
         }
 
+
+        private bool _updateEnable = true;
+
+        public bool UpdateEnable
+        {
+            get { return _updateEnable; }
+            set
+            {
+                if (value != _updateEnable)
+                {
+                    _updateEnable = value;
+                    RaisePropertyChanged("UpdateEnable");
+                }
+            }
+        }
+
+        private bool _enable ;
+
+        public bool Enable
+        {
+            get { return _enable; }
+            set
+            {
+                if (value != _enable)
+                {
+                    _enable = value;
+                    RaisePropertyChanged("Enable");
+                }
+            }
+        }
 
         public ICommand SaveCommand
         {
@@ -61,21 +104,6 @@ namespace HSE_transport_manager.ViewModel
             return (UberKey != null && YandexKey != null && GoogleKey != null && TGKey != null);
         }
 
-        private ICommand _resetCommand;
-
-        public ICommand ResetCommand
-        {
-            get
-            {
-                if (_resetCommand == null)
-                {
-                    _resetCommand = new RelayCommand(
-                    Reset,
-                    CheckKeys);
-                }
-                return _resetCommand;
-            }
-        }
 
         private ICommand _updateCommand;
 
@@ -89,6 +117,36 @@ namespace HSE_transport_manager.ViewModel
                     Update);
                 }
                 return _updateCommand;
+            }
+        }
+
+        private ICommand _resetCommand;
+
+        public ICommand ResetCommand
+        {
+            get
+            {
+                if (_resetCommand == null)
+                {
+                    _resetCommand = new RelayCommand(
+                    Reset);
+                }
+                return _resetCommand;
+            }
+        }
+
+        private string _updateStatus;
+
+        public string UpdateStatus
+        {
+            get { return _updateStatus; }
+            set
+            {
+                if (value != _updateStatus)
+                {
+                    _updateStatus = value;
+                    RaisePropertyChanged("UpdateStatus");
+                }
             }
         }
 
@@ -154,10 +212,26 @@ namespace HSE_transport_manager.ViewModel
             }
         }
 
+        private string _statusBarText;
+
+        public string StatusBarText
+        {
+            get { return _statusBarText; }
+            set
+            {
+                if (value != _statusBarText)
+                {
+                    _statusBarText = value;
+                    RaisePropertyChanged("StatusBarText");
+                }
+            }
+        }
+
 
         void Save()
         {
-            var keyData = new KeyData
+            Enable = false;
+            var keyData = new SettingsData
             {
                 BotServiceKey = TGKey,
                 MonitoringServiceKey = GoogleKey,
@@ -167,6 +241,7 @@ namespace HSE_transport_manager.ViewModel
             try
             {
                 SaveXml(keyData);
+                s.UberStatus = "OK";
             }
             catch
             {
@@ -180,9 +255,11 @@ namespace HSE_transport_manager.ViewModel
             YandexKey = null;
             GoogleKey = null;
             TGKey = null;
+            Enable = true;
             try
             {
-                SaveXml(new KeyData());
+                SaveXml(new SettingsData());
+
             }
             catch
             {
@@ -192,36 +269,61 @@ namespace HSE_transport_manager.ViewModel
 
         async void Update()
         {
-            var dbService = plaginManager.LoadDbService();
-            var keyData = ReadXml();
-            var scheduleService = plaginManager.LoadScheduleService();
-            scheduleService.Initialize(keyData.ScheduleServiceKey);
-            var task = await scheduleService.GetDailyScheduleAsync("s9600721", "s2000006");
-            await Task.Run(() => dbService.RefreshTrainSchedule(task));
+            try
+            {
+                UpdateEnable = false;
+                var dbService = plaginManager.LoadDbService();
+                var settingsData = ReadXml();
+                if (settingsData.ScheduleServiceKey == null)
+                    throw new InvalidOperationException();
+                var scheduleService = plaginManager.LoadScheduleService();
+                scheduleService.Initialize(settingsData.ScheduleServiceKey);
 
-            // ПОТОМ ЭТО УБРАТЬ
-            _dialogProvider = new WpfMessageProvider();
-           _dialogProvider.ShowMessage("Complete");
-            //
+                var task = await scheduleService.GetDailyScheduleAsync("s9600721", "s2000006");
+
+                await Task.Run(() => dbService.RefreshTrainSchedule(task));
+                var updateTime = DateTime.Now;
+                UpdateStatus = Resources.SettingsViewModel_Last_update_message +
+                               updateTime.ToString("dd.MM.yyyy HH:mm:ss");
+                settingsData.UpdateTime = updateTime;
+                SaveXml(settingsData);
+            }
+            catch (InvalidOperationException)
+            {
+                _dialogProvider.ShowMessage(Resources.Start_No_connecting_services);
+                UpdateEnable = true;
+            }
+            catch (NullReferenceException)
+            {
+                _dialogProvider.ShowMessage(Resources.Error_while_connecting_database_message);
+                UpdateEnable = true;
+            }
+            catch
+            {
+                _dialogProvider.ShowMessage(Resources.Start_Unknown_error_message);
+                UpdateEnable = true;
+            }
         }
 
+       
 
-        private void SaveXml(KeyData keyData)
+
+        private void SaveXml(SettingsData keyData)
         {
             using (var fs = new FileStream(FileName, FileMode.Create))
             {
-                var formatter = new XmlSerializer(typeof(KeyData));
+                var formatter = new XmlSerializer(typeof(SettingsData));
                 formatter.Serialize(fs, keyData);
             }
         }
 
-        private KeyData ReadXml()
+        private SettingsData ReadXml()
         {
-            KeyData keyData;
+            SettingsData keyData;
             using (var fs = new FileStream(FileName, FileMode.OpenOrCreate))
             {
-                    var formatter = new XmlSerializer(typeof(KeyData));
-                    keyData = (KeyData)formatter.Deserialize(fs);
+                    var formatter = new XmlSerializer(typeof(SettingsData));
+                    keyData = (SettingsData)formatter.Deserialize(fs);
             }
             return keyData;
         }

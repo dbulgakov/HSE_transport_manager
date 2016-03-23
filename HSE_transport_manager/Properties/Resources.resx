@@ -126,9 +126,6 @@
   <data name="StatusViewModel_Stop_Bot_is_offline_message" xml:space="preserve">
     <value>Bot is offline</value>
   </data>
-  <data name="StatusViewModel_BotWork_Unknown_input_message" xml:space="preserve">
-    <value>Неизвестная комманда.</value>
-  </data>
   <data name="StatusViewModel_BotWork__check_message" xml:space="preserve">
     <value>/get_route</value>
   </data>
@@ -159,10 +156,6 @@
     <value>Неизвестная команда!
 Введите /start для получения списка возможных комманд.</value>
   </data>
-  <data name="StatusViewModel_BotWork_Get_route_intro" xml:space="preserve">
-    <value>Для поиска кратчайшего пути введите названия начального места и конечной точки в формате:
-Начальное место - Конечное место</value>
-  </data>
   <data name="StatusViewModel_BotWork_Uber_response_message" xml:space="preserve">
     <value>Поездка на такси:
 {0} - {1}
@@ -184,7 +177,7 @@
     <value>Расписание автобусов из {0}:
 {1}</value>
   </data>
-  <data name="ResponseBuilder_GetBusResponse_Bus_schedule_line_pattern" xml:space="preserve">
+  <data name="ResponseBuilder_GetBusResponse_Schedule_line_pattern" xml:space="preserve">
     <value>{0}. - {1}.  {2} -- {3}</value>
   </data>
   <data name="StatusViewModel_BotWork_Get_Bus_response_message" xml:space="preserve">
@@ -197,7 +190,8 @@
     <value>Неверный ввод! Данные должны быть в формате Место - Место.</value>
   </data>
   <data name="ResponseBuilder_No_public_transport_error_message" xml:space="preserve">
-    <value>Ошибка поиска маршрута на общественном транспорте! Повторите запрос позже.</value>
+    <value>Ошибка построения маршрута: метро не работает!
+Попробуйте повторить ваш запрос позже.</value>
   </data>
   <data name="ResponseBuilder_Input_data_value_error" xml:space="preserve">
     <value>Ошибка выполнения запроса! Проверьте входные данные.</value>
@@ -211,7 +205,54 @@
   <data name="StatusViewModel_Start_Load_error_message" xml:space="preserve">
     <value>Error loading services!</value>
   </data>
-  <data name="StatusViewModel_Start_Unknown_error_message" xml:space="preserve">
+  <data name="Start_Unknown_error_message" xml:space="preserve">
     <value>Unknown error!</value>
+  </data>
+  <data name="Start_No_connecting_services" xml:space="preserve">
+    <value>Error connecting data services!</value>
+  </data>
+  <data name="SettingsViewModel_Update_Get_Schedule_message" xml:space="preserve">
+    <value>Uploading local train schedule from Yandex Service...</value>
+  </data>
+  <data name="SettingsViewModel_Update_DB_message" xml:space="preserve">
+    <value>Uploading data in Database...</value>
+  </data>
+  <data name="SettingsViewModel_Last_update_message" xml:space="preserve">
+    <value>Last update: </value>
+  </data>
+  <data name="Error_while_connecting_database_message" xml:space="preserve">
+    <value>Error while connecting database!</value>
+  </data>
+  <data name="StatusViewModel_BotWork_Get_suburban_message" xml:space="preserve">
+    <value>Расписание электричек из Одинцово. Поддерживаются следующие станции:
+1. Кунцево
+2. Фили
+3. Беговая
+4. Белорусский вокзал</value>
+  </data>
+  <data name="ResponseBuilder_GetSuburbanResponse_Unknown_station_message" xml:space="preserve">
+    <value>Неизвестная станция! Повторите попытку.</value>
+  </data>
+  <data name="ResponseBuilder_GetSuburbanResponse_message" xml:space="preserve">
+    <value>{0} -- {1}
+ Тип: {2} {3}р.</value>
+  </data>
+  <data name="ResponseBuilder_FastestWayResponse_message" xml:space="preserve">
+    <value>{0}:
+  От: {1} {2}
+  До: {3} {4}</value>
+  </data>
+  <data name="StatusViewModel_BotWork_Get_All_routes_response_message" xml:space="preserve">
+    <value>Для поиска всех возможных путей введите названия начального места и конечной точки в формате: Начальное место - Конечное место</value>
+  </data>
+  <data name="StatusViewModel_BotWork_Get_route_intro" xml:space="preserve">
+    <value>Для поиска кратчайшего пути введите названия начального места и конечной точки в формате:
+Начальное место - Конечное место</value>
+  </data>
+  <data name="StatusViewModel_CheckSettings_OK_status_message" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="StatusViewModel_No_keys_or_DB_message" xml:space="preserve">
+    <value>Fill your Api keys and update DB first!</value>
   </data>
 </root>

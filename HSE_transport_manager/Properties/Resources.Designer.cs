@@ -61,6 +61,26 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error while connecting database!.
+        /// </summary>
+        internal static string Error_while_connecting_database_message {
+            get {
+                return ResourceManager.GetString("Error_while_connecting_database_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}:
+        ///  От: {1} {2}
+        ///  До: {3} {4}.
+        /// </summary>
+        internal static string ResponseBuilder_FastestWayResponse_message {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_FastestWayResponse_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Расписание автобусов из {0}:
         ///{1}.
         /// </summary>
@@ -73,9 +93,28 @@ namespace HSE_transport_manager.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0}. - {1}.  {2} -- {3}.
         /// </summary>
-        internal static string ResponseBuilder_GetBusResponse_Bus_schedule_line_pattern {
+        internal static string ResponseBuilder_GetBusResponse_Schedule_line_pattern {
             get {
-                return ResourceManager.GetString("ResponseBuilder_GetBusResponse_Bus_schedule_line_pattern", resourceCulture);
+                return ResourceManager.GetString("ResponseBuilder_GetBusResponse_Schedule_line_pattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} -- {1}
+        /// Тип: {2} {3}р..
+        /// </summary>
+        internal static string ResponseBuilder_GetSuburbanResponse_message {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_GetSuburbanResponse_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неизвестная станция! Повторите попытку..
+        /// </summary>
+        internal static string ResponseBuilder_GetSuburbanResponse_Unknown_station_message {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_GetSuburbanResponse_Unknown_station_message", resourceCulture);
             }
         }
         
@@ -107,7 +146,8 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ошибка поиска маршрута на общественном транспорте! Повторите запрос позже..
+        ///   Looks up a localized string similar to Ошибка построения маршрута: метро не работает!
+        ///Попробуйте повторить ваш запрос позже..
         /// </summary>
         internal static string ResponseBuilder_No_public_transport_error_message {
             get {
@@ -126,11 +166,56 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last update: .
+        /// </summary>
+        internal static string SettingsViewModel_Last_update_message {
+            get {
+                return ResourceManager.GetString("SettingsViewModel_Last_update_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error saving file!.
         /// </summary>
         internal static string SettingsViewModel_Reset_Error_saving_file_message {
             get {
                 return ResourceManager.GetString("SettingsViewModel_Reset_Error_saving_file_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploading data in Database....
+        /// </summary>
+        internal static string SettingsViewModel_Update_DB_message {
+            get {
+                return ResourceManager.GetString("SettingsViewModel_Update_DB_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploading local train schedule from Yandex Service....
+        /// </summary>
+        internal static string SettingsViewModel_Update_Get_Schedule_message {
+            get {
+                return ResourceManager.GetString("SettingsViewModel_Update_Get_Schedule_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error connecting data services!.
+        /// </summary>
+        internal static string Start_No_connecting_services {
+            get {
+                return ResourceManager.GetString("Start_No_connecting_services", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown error!.
+        /// </summary>
+        internal static string Start_Unknown_error_message {
+            get {
+                return ResourceManager.GetString("Start_Unknown_error_message", resourceCulture);
             }
         }
         
@@ -162,6 +247,15 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Для поиска всех возможных путей введите названия начального места и конечной точки в формате: Начальное место - Конечное место.
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Get_All_routes_response_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Get_All_routes_response_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Введите станцию отправления. Поддерживаются следующие станции:
         ///1. Одинцово
         ///2. Дубки
@@ -180,6 +274,19 @@ namespace HSE_transport_manager.Properties {
         internal static string StatusViewModel_BotWork_Get_route_intro {
             get {
                 return ResourceManager.GetString("StatusViewModel_BotWork_Get_route_intro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Расписание электричек из Одинцово. Поддерживаются следующие станции:
+        ///1. Кунцево
+        ///2. Фили
+        ///3. Беговая
+        ///4. Белорусский вокзал.
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Get_suburban_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Get_suburban_message", resourceCulture);
             }
         }
         
@@ -240,15 +347,6 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Неизвестная комманда..
-        /// </summary>
-        internal static string StatusViewModel_BotWork_Unknown_input_message {
-            get {
-                return ResourceManager.GetString("StatusViewModel_BotWork_Unknown_input_message", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Неизвестная команда!
         ///Введите /start для получения списка возможных комманд..
         /// </summary>
@@ -265,6 +363,24 @@ namespace HSE_transport_manager.Properties {
         internal static string StatusViewModel_BotWork_Unsupported_message {
             get {
                 return ResourceManager.GetString("StatusViewModel_BotWork_Unsupported_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string StatusViewModel_CheckSettings_OK_status_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_CheckSettings_OK_status_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fill your Api keys and update DB first!.
+        /// </summary>
+        internal static string StatusViewModel_No_keys_or_DB_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_No_keys_or_DB_message", resourceCulture);
             }
         }
         
@@ -292,15 +408,6 @@ namespace HSE_transport_manager.Properties {
         internal static string StatusViewModel_Start_Load_error_message {
             get {
                 return ResourceManager.GetString("StatusViewModel_Start_Load_error_message", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unknown error!.
-        /// </summary>
-        internal static string StatusViewModel_Start_Unknown_error_message {
-            get {
-                return ResourceManager.GetString("StatusViewModel_Start_Unknown_error_message", resourceCulture);
             }
         }
         
