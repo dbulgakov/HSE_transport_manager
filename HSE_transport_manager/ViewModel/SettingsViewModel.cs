@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System;
 
 
+
 namespace HSE_transport_manager.ViewModel
 {
     public class SettingsViewModel : ViewModelBase
@@ -277,9 +278,9 @@ namespace HSE_transport_manager.ViewModel
                     throw new InvalidOperationException();
                 var scheduleService = plaginManager.LoadScheduleService();
                 scheduleService.Initialize(settingsData.ScheduleServiceKey);
-                StatusBarText = Resources.SettingsViewModel_Update_Get_Schedule_message;
+
                 var task = await scheduleService.GetDailyScheduleAsync("s9600721", "s2000006");
-                StatusBarText = Resources.SettingsViewModel_Update_DB_message;
+
                 await Task.Run(() => dbService.RefreshTrainSchedule(task));
                 var updateTime = DateTime.Now;
                 UpdateStatus = Resources.SettingsViewModel_Last_update_message +
