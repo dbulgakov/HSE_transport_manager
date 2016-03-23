@@ -61,6 +61,15 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error while connecting database!.
+        /// </summary>
+        internal static string Error_while_connecting_database_message {
+            get {
+                return ResourceManager.GetString("Error_while_connecting_database_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Расписание автобусов из {0}:
         ///{1}.
         /// </summary>
@@ -127,11 +136,56 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last update: .
+        /// </summary>
+        internal static string SettingsViewModel_Last_update_message {
+            get {
+                return ResourceManager.GetString("SettingsViewModel_Last_update_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error saving file!.
         /// </summary>
         internal static string SettingsViewModel_Reset_Error_saving_file_message {
             get {
                 return ResourceManager.GetString("SettingsViewModel_Reset_Error_saving_file_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploading data in Database....
+        /// </summary>
+        internal static string SettingsViewModel_Update_DB_message {
+            get {
+                return ResourceManager.GetString("SettingsViewModel_Update_DB_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploading local train schedule from Yandex Service....
+        /// </summary>
+        internal static string SettingsViewModel_Update_Get_Schedule_message {
+            get {
+                return ResourceManager.GetString("SettingsViewModel_Update_Get_Schedule_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error connecting data services!.
+        /// </summary>
+        internal static string Start_No_connecting_services {
+            get {
+                return ResourceManager.GetString("Start_No_connecting_services", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown error!.
+        /// </summary>
+        internal static string Start_Unknown_error_message {
+            get {
+                return ResourceManager.GetString("Start_Unknown_error_message", resourceCulture);
             }
         }
         
@@ -297,29 +351,11 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unknown error!.
-        /// </summary>
-        internal static string StatusViewModel_Start_Unknown_error_message {
-            get {
-                return ResourceManager.GetString("StatusViewModel_Start_Unknown_error_message", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Bot is offline.
         /// </summary>
         internal static string StatusViewModel_Stop_Bot_is_offline_message {
-            get 
-            {
+            get {
                 return ResourceManager.GetString("StatusViewModel_Stop_Bot_is_offline_message", resourceCulture);
-            }
-        }
-
-        internal static string UberStatus
-        {
-            get
-            {
-                return ResourceManager.GetString("UberStatus", resourceCulture);
             }
         }
     }

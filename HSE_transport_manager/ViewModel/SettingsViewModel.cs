@@ -24,13 +24,13 @@ namespace HSE_transport_manager.ViewModel
 
         public SettingsViewModel()
         {
-            var keyData = new KeyData();
+            var settingsData = new SettingsData();
             if (File.Exists(FileName))
             {
                 try
                 {
                     Enable = false;
-                    keyData = ReadXml();
+                    settingsData = ReadXml();
                 }
                 catch
                 {
@@ -38,10 +38,18 @@ namespace HSE_transport_manager.ViewModel
                 }
             }
 
-            TGKey = keyData.BotServiceKey;
-            YandexKey = keyData.ScheduleServiceKey;
-            GoogleKey = keyData.MonitoringServiceKey;
-            UberKey = keyData.TaxiServiceKey;
+            TGKey = settingsData.BotServiceKey;
+            YandexKey = settingsData.ScheduleServiceKey;
+            GoogleKey = settingsData.MonitoringServiceKey;
+            UberKey = settingsData.TaxiServiceKey;
+            if (settingsData.UpdateTime.Ticks > 0)
+            {
+                UpdateStatus = Resources.SettingsViewModel_Last_update_message + settingsData.UpdateTime.ToString("dd.MM.yyyy HH:mm:ss");
+                if (settingsData.UpdateTime.Date.Equals(DateTime.Now.Date))
+                {
+                    UpdateEnable = false;
+                }
+            }
             _dialogProvider = new WpfMessageProvider();
         }
 
@@ -222,7 +230,7 @@ namespace HSE_transport_manager.ViewModel
         void Save()
         {
             Enable = false;
-            var keyData = new KeyData
+            var keyData = new SettingsData
             {
                 BotServiceKey = TGKey,
                 MonitoringServiceKey = GoogleKey,
@@ -249,7 +257,7 @@ namespace HSE_transport_manager.ViewModel
             Enable = true;
             try
             {
-                SaveXml(new KeyData());
+                SaveXml(new SettingsData());
 
             }
             catch
@@ -260,37 +268,61 @@ namespace HSE_transport_manager.ViewModel
 
         async void Update()
         {
-            UpdateEnable = false;
-            var dbService = plaginManager.LoadDbService();
-            var keyData = ReadXml();
-            var scheduleService = plaginManager.LoadScheduleService();
-            scheduleService.Initialize(keyData.ScheduleServiceKey);
-            StatusBarText = "Uploading local train schedule from Yandex Service...";
-            var task = await scheduleService.GetDailyScheduleAsync("s9600721", "s2000006");
-            StatusBarText = "Uploading data in Database...";
-            await Task.Run(() => dbService.RefreshTrainSchedule(task));
-            UpdateStatus="Last update: "+ DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
+            try
+            {
+                UpdateEnable = false;
+                var dbService = plaginManager.LoadDbService();
+                var settingsData = ReadXml();
+                if (settingsData.ScheduleServiceKey == null)
+                    throw new InvalidOperationException();
+                var scheduleService = plaginManager.LoadScheduleService();
+                scheduleService.Initialize(settingsData.ScheduleServiceKey);
+                StatusBarText = Resources.SettingsViewModel_Update_Get_Schedule_message;
+                var task = await scheduleService.GetDailyScheduleAsync("s9600721", "s2000006");
+                StatusBarText = Resources.SettingsViewModel_Update_DB_message;
+                await Task.Run(() => dbService.RefreshTrainSchedule(task));
+                var updateTime = DateTime.Now;
+                UpdateStatus = Resources.SettingsViewModel_Last_update_message +
+                               updateTime.ToString("dd.MM.yyyy HH:mm:ss");
+                settingsData.UpdateTime = updateTime;
+                SaveXml(settingsData);
+            }
+            catch (InvalidOperationException)
+            {
+                _dialogProvider.ShowMessage(Resources.Start_No_connecting_services);
+                UpdateEnable = true;
+            }
+            catch (NullReferenceException)
+            {
+                _dialogProvider.ShowMessage(Resources.Error_while_connecting_database_message);
+                UpdateEnable = true;
+            }
+            catch
+            {
+                _dialogProvider.ShowMessage(Resources.Start_Unknown_error_message);
+                UpdateEnable = true;
+            }
         }
 
        
 
 
-        private void SaveXml(KeyData keyData)
+        private void SaveXml(SettingsData keyData)
         {
             using (var fs = new FileStream(FileName, FileMode.Create))
             {
-                var formatter = new XmlSerializer(typeof(KeyData));
+                var formatter = new XmlSerializer(typeof(SettingsData));
                 formatter.Serialize(fs, keyData);
             }
         }
 
-        private KeyData ReadXml()
+        private SettingsData ReadXml()
         {
-            KeyData keyData;
+            SettingsData keyData;
             using (var fs = new FileStream(FileName, FileMode.OpenOrCreate))
             {
-                    var formatter = new XmlSerializer(typeof(KeyData));
-                    keyData = (KeyData)formatter.Deserialize(fs);
+                    var formatter = new XmlSerializer(typeof(SettingsData));
+                    keyData = (SettingsData)formatter.Deserialize(fs);
             }
             return keyData;
         }

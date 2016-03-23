@@ -212,7 +212,22 @@
   <data name="StatusViewModel_Start_Load_error_message" xml:space="preserve">
     <value>Error loading services!</value>
   </data>
-  <data name="StatusViewModel_Start_Unknown_error_message" xml:space="preserve">
+  <data name="Start_Unknown_error_message" xml:space="preserve">
     <value>Unknown error!</value>
+  </data>
+  <data name="Start_No_connecting_services" xml:space="preserve">
+    <value>Error connecting data services!</value>
+  </data>
+  <data name="SettingsViewModel_Update_Get_Schedule_message" xml:space="preserve">
+    <value>Uploading local train schedule from Yandex Service...</value>
+  </data>
+  <data name="SettingsViewModel_Update_DB_message" xml:space="preserve">
+    <value>Uploading data in Database...</value>
+  </data>
+  <data name="SettingsViewModel_Last_update_message" xml:space="preserve">
+    <value>Last update: </value>
+  </data>
+  <data name="Error_while_connecting_database_message" xml:space="preserve">
+    <value>Error while connecting database!</value>
   </data>
 </root>
