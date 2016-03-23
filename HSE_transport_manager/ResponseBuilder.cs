@@ -100,7 +100,7 @@ namespace HSE_transport_manager
                 {
                     await _bot.SendChatAction(update.Message.Chat.Id, ChatAction.Typing);
                     var response = update.Message.Text.Split(Resources.ResponseBuilder_TaxiResponse_Separator);
-                    var routes = dbService.GetRoute(response[0].Trim(), response[1].Trim(), DateTime.Now.AddHours(4));
+                    var routes = dbService.GetRoute(response[0].Trim(), response[1].Trim(), DateTime.Now);
                     foreach (var route in routes.Routes)
                     {
                         var sb = new StringBuilder();
