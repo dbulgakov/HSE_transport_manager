@@ -82,9 +82,28 @@ namespace HSE_transport_manager.Properties {
         /// <summary>
         ///   Looks up a localized string similar to {0}. - {1}.  {2} -- {3}.
         /// </summary>
-        internal static string ResponseBuilder_GetBusResponse_Bus_schedule_line_pattern {
+        internal static string ResponseBuilder_GetBusResponse_Schedule_line_pattern {
             get {
-                return ResourceManager.GetString("ResponseBuilder_GetBusResponse_Bus_schedule_line_pattern", resourceCulture);
+                return ResourceManager.GetString("ResponseBuilder_GetBusResponse_Schedule_line_pattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} -- {1}
+        /// Тип: {2} {3}р..
+        /// </summary>
+        internal static string ResponseBuilder_GetSuburbanResponse_message {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_GetSuburbanResponse_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неизвестная станция! Повторите попытку..
+        /// </summary>
+        internal static string ResponseBuilder_GetSuburbanResponse_Unknown_station_message {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_GetSuburbanResponse_Unknown_station_message", resourceCulture);
             }
         }
         
@@ -239,6 +258,19 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Расписание электричек из Одинцово. Поддерживаются следующие станции:
+        ///1. Кунцево
+        ///2. Фили
+        ///3. Беговая
+        ///4. Белорусский вокзал.
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Get_suburban_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Get_suburban_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Я - телеграм бот для поиска всех возможных путей в университет для студентов НИУ ВШЭ!
         ///Умею следующие команды:
         ///  /places - Список поддерживаемых мест
@@ -291,15 +323,6 @@ namespace HSE_transport_manager.Properties {
         internal static string StatusViewModel_BotWork_Uber_response_message {
             get {
                 return ResourceManager.GetString("StatusViewModel_BotWork_Uber_response_message", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Неизвестная комманда..
-        /// </summary>
-        internal static string StatusViewModel_BotWork_Unknown_input_message {
-            get {
-                return ResourceManager.GetString("StatusViewModel_BotWork_Unknown_input_message", resourceCulture);
             }
         }
         

@@ -126,9 +126,6 @@
   <data name="StatusViewModel_Stop_Bot_is_offline_message" xml:space="preserve">
     <value>Bot is offline</value>
   </data>
-  <data name="StatusViewModel_BotWork_Unknown_input_message" xml:space="preserve">
-    <value>Неизвестная комманда.</value>
-  </data>
   <data name="StatusViewModel_BotWork__check_message" xml:space="preserve">
     <value>/get_route</value>
   </data>
@@ -184,7 +181,7 @@
     <value>Расписание автобусов из {0}:
 {1}</value>
   </data>
-  <data name="ResponseBuilder_GetBusResponse_Bus_schedule_line_pattern" xml:space="preserve">
+  <data name="ResponseBuilder_GetBusResponse_Schedule_line_pattern" xml:space="preserve">
     <value>{0}. - {1}.  {2} -- {3}</value>
   </data>
   <data name="StatusViewModel_BotWork_Get_Bus_response_message" xml:space="preserve">
@@ -229,5 +226,19 @@
   </data>
   <data name="Error_while_connecting_database_message" xml:space="preserve">
     <value>Error while connecting database!</value>
+  </data>
+  <data name="StatusViewModel_BotWork_Get_suburban_message" xml:space="preserve">
+    <value>Расписание электричек из Одинцово. Поддерживаются следующие станции:
+1. Кунцево
+2. Фили
+3. Беговая
+4. Белорусский вокзал</value>
+  </data>
+  <data name="ResponseBuilder_GetSuburbanResponse_Unknown_station_message" xml:space="preserve">
+    <value>Неизвестная станция! Повторите попытку.</value>
+  </data>
+  <data name="ResponseBuilder_GetSuburbanResponse_message" xml:space="preserve">
+    <value>{0} -- {1}
+ Тип: {2} {3}р.</value>
   </data>
 </root>

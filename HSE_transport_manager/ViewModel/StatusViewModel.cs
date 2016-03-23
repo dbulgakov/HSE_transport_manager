@@ -197,12 +197,11 @@ namespace HSE_transport_manager.ViewModel
             StopEnable = true;
             _ctoken = new CancellationTokenSource();
             var plaginManager = new PluginManager();
-            var dbService = plaginManager.LoadDbService();
-                //var ki=dbService.GetTrainSchedule("Одинцово","Кунцево");
             //var hb = dbService.GetFastestRoute("Общежитие Дубки 1", "Кирпичная 33", DateTime.Now);
             try
             {
                 var taxiService = plaginManager.LoadTaxiService();
+                var dbService = plaginManager.LoadDbService();
                 var keyData = ReadXml();
                 var bot = new Api(keyData.BotServiceKey);
                 taxiService.Initialize(keyData.TaxiServiceKey);
@@ -278,6 +277,7 @@ namespace HSE_transport_manager.ViewModel
 
                                         case SuburbanRequest:
                                         {
+                                            rb.GetSuburbanResponse(update, dbService);
                                             break;
                                         }
 
@@ -326,7 +326,8 @@ namespace HSE_transport_manager.ViewModel
 
                                         case SuburbanRequest:
                                         {
-                                            bot.SendTextMessage(update.Message.Chat.Id, "Not implemented");
+                                            bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Get_suburban_message);
+                                            dict.Add(update.Message.Chat.Id, SuburbanRequest);
                                             break;
                                         }
 
