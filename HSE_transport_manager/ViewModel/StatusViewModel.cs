@@ -175,17 +175,17 @@ namespace HSE_transport_manager.ViewModel
         }
 
 
-        private int _errors;
+        private DateTime _lastUpdate;
 
-        public int Errors
+        public DateTime LastUpdate
         {
-            get { return _errors; }
+            get { return _lastUpdate; }
             set
             {
-                if (value != _errors)
+                if (value != _lastUpdate)
                 {
-                    _errors = value;
-                    RaisePropertyChanged("Errors");
+                    _lastUpdate = value;
+                    RaisePropertyChanged("LastUpdate");
                 }
             }
         }

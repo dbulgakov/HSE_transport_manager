@@ -29,7 +29,7 @@ namespace HSE_transport_manager.ViewModel
             {
                 try
                 {
-                    Enable = false;
+                    Enable = true;
                     settingsData = ReadXml();
                 }
                 catch
@@ -69,7 +69,7 @@ namespace HSE_transport_manager.ViewModel
             }
         }
 
-        private bool _enable = true;
+        private bool _enable ;
 
         public bool Enable
         {
