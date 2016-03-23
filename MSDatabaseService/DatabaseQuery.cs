@@ -512,6 +512,7 @@ namespace MSDatabaseService
         {
                 return new TransportRoute
                 {
+                    DepartureTime=queryDate,
                     ElapsedTime = queryDate.AddMinutes(30),
                     FromPoint = stationFrom,
                     ToPoint = stationTo,
