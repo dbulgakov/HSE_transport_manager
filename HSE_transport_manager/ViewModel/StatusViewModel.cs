@@ -203,11 +203,18 @@ namespace HSE_transport_manager.ViewModel
                 var taxiService = plaginManager.LoadTaxiService();
                 var dbService = plaginManager.LoadDbService();
                 var keyData = ReadXml();
-                CheckSettings(keyData);
-                var bot = new Api(keyData.BotServiceKey);
-                taxiService.Initialize(keyData.TaxiServiceKey);
-                BotStatus = Resources.StatusViewModel_Start_Bot_is_active_message;
-                BotWork(bot, dbService, taxiService);
+                if (CheckSettings(keyData))
+                {
+                    var bot = new Api(keyData.BotServiceKey);
+                    taxiService.Initialize(keyData.TaxiServiceKey);
+                    BotStatus = Resources.StatusViewModel_Start_Bot_is_active_message;
+                    BotWork(bot, dbService, taxiService);
+                }
+                else
+                {
+                    StartEnable = false;
+                    _dialogProvider.ShowMessage(Resources.StatusViewModel_No_keys_or_DB_message);
+                }
             }
 
             catch (NullReferenceException)
@@ -369,18 +376,24 @@ namespace HSE_transport_manager.ViewModel
             
         }
 
-        private void CheckSettings(SettingsData st)
+        private bool CheckSettings(SettingsData st)
         {
+            bool all = true;
             if (!string.IsNullOrEmpty(st.BotServiceKey))
                 TGStatus = Resources.StatusViewModel_CheckSettings_OK_status_message;
+            else all = false;
             if (!string.IsNullOrEmpty(st.TaxiServiceKey))
                 UberStatus = Resources.StatusViewModel_CheckSettings_OK_status_message;
+            else all = false;
             if (!string.IsNullOrEmpty(st.ScheduleServiceKey))
                 YandexStatus = Resources.StatusViewModel_CheckSettings_OK_status_message;
+            else all = false;
             if (!string.IsNullOrEmpty(st.MonitoringServiceKey))
                 GoogleStatus = Resources.StatusViewModel_CheckSettings_OK_status_message;
+            else all = false;
             if (st.UpdateTime.Ticks > 0)
                 LastUpdate = st.UpdateTime.ToString("d");
+            return all;
         }
 
         private SettingsData ReadXml()
