@@ -175,9 +175,9 @@ namespace HSE_transport_manager.ViewModel
         }
 
 
-        private DateTime? _lastUpdate;
+        private string _lastUpdate;
 
-        public DateTime? LastUpdate
+        public string LastUpdate
         {
             get { return _lastUpdate; }
             set
@@ -202,6 +202,7 @@ namespace HSE_transport_manager.ViewModel
                 var taxiService = plaginManager.LoadTaxiService();
                 var dbService = plaginManager.LoadDbService();
                 var keyData = ReadXml();
+                CheckSettings(keyData);
                 var bot = new Api(keyData.BotServiceKey);
                 taxiService.Initialize(keyData.TaxiServiceKey);
                 BotStatus = Resources.StatusViewModel_Start_Bot_is_active_message;
@@ -365,6 +366,20 @@ namespace HSE_transport_manager.ViewModel
                 }
             }, _ctoken.Token);
             
+        }
+
+        private void CheckSettings(SettingsData st)
+        {
+            if (!string.IsNullOrEmpty(st.BotServiceKey))
+                TGStatus = Resources.StatusViewModel_CheckSettings_OK_status_message;
+            if (!string.IsNullOrEmpty(st.TaxiServiceKey))
+                UberStatus = Resources.StatusViewModel_CheckSettings_OK_status_message;
+            if (!string.IsNullOrEmpty(st.ScheduleServiceKey))
+                YandexStatus = Resources.StatusViewModel_CheckSettings_OK_status_message;
+            if (!string.IsNullOrEmpty(st.MonitoringServiceKey))
+                GoogleStatus = Resources.StatusViewModel_CheckSettings_OK_status_message;
+            if (st.UpdateTime.Ticks > 0)
+                LastUpdate = st.UpdateTime.ToString("d");
         }
 
         private SettingsData ReadXml()

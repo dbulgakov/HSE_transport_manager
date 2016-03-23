@@ -367,6 +367,15 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string StatusViewModel_CheckSettings_OK_status_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_CheckSettings_OK_status_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bot is active.
         /// </summary>
         internal static string StatusViewModel_Start_Bot_is_active_message {

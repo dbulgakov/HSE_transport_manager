@@ -249,4 +249,7 @@
     <value>Для поиска кратчайшего пути введите названия начального места и конечной точки в формате:
 Начальное место - Конечное место</value>
   </data>
+  <data name="StatusViewModel_CheckSettings_OK_status_message" xml:space="preserve">
+    <value>OK</value>
+  </data>
 </root>
