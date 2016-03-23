@@ -246,4 +246,7 @@
   От: {1} {2}
   До: {3} {4}</value>
   </data>
+  <data name="StatusViewModel_BotWork_Get_All_routes_response_message" xml:space="preserve">
+    <value>Для поиска всех возможных путей введите названия начального места и конечной точки в формате: Начальное место - Конечное место</value>
+  </data>
 </root>

@@ -247,6 +247,15 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Для поиска всех возможных путей введите названия начального места и конечной точки в формате: Начальное место - Конечное место.
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Get_All_routes_response_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Get_All_routes_response_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Введите станцию отправления. Поддерживаются следующие станции:
         ///1. Одинцово
         ///2. Дубки

@@ -266,6 +266,7 @@ namespace HSE_transport_manager.ViewModel
 
                                         case AllRoutesRequest:
                                         {
+                                            rb.AllRoutesRequest(update, dbService, taxiService);
                                             break;
                                         }
                                         
@@ -282,7 +283,7 @@ namespace HSE_transport_manager.ViewModel
                                         }
 
                                         case BusRequest:
-                                {
+                                        {
                                             rb.GetBusResponse(update, dbService);
                                             break;
                                         }
@@ -313,7 +314,8 @@ namespace HSE_transport_manager.ViewModel
 
                                         case AllRoutesRequest:
                                         {
-                                            bot.SendTextMessage(update.Message.Chat.Id, "Not implemented");
+                                            bot.SendTextMessage(update.Message.Chat.Id, Resources.StatusViewModel_BotWork_Get_All_routes_response_message);
+                                            dict.Add(update.Message.Chat.Id, AllRoutesRequest);
                                             break;
                                         }
 
