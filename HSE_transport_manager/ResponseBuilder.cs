@@ -63,8 +63,55 @@ namespace HSE_transport_manager
                     await _bot.SendChatAction(update.Message.Chat.Id, ChatAction.Typing);
                     var response = update.Message.Text.Split(Resources.ResponseBuilder_TaxiResponse_Separator);
                     TaxiResponse(update, dbService, taxiService);
-                    var route = dbService.GetFastestRoute(response[0].Trim(), response[1].Trim(), update.Message.Date);
-                    _bot.SendTextMessage(update.Message.Chat.Id, route.Routes.Capacity.ToString());
+                    var route = dbService.GetFastestRoute(response[0].Trim(), response[1].Trim(), DateTime.Now);
+                    var sb = new StringBuilder();
+                    foreach (var transport in route.Routes[0].Transport)
+                    {
+                        sb.Append(string.Format(Resources.ResponseBuilder_FastestWayResponse_message, transport.TransportType, transport.FromPoint, transport.DepartureTime.ToString("t"), transport.ToPoint, transport.ElapsedTime.ToString("t")));
+                        sb.Append("\n");
+                    }
+                    _bot.SendTextMessage(update.Message.Chat.Id, sb.ToString());
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    _bot.SendTextMessage(update.Message.Chat.Id, Resources.ResponseBuilder_Input_separator_error_message);
+                }
+                catch (ArgumentNullException)
+                {
+                    _bot.SendTextMessage(update.Message.Chat.Id,
+                        Resources.ResponseBuilder_No_public_transport_error_message);
+                }
+                catch (ArgumentException)
+                {
+                    _bot.SendTextMessage(update.Message.Chat.Id, Resources.ResponseBuilder_Input_data_value_error);
+                }
+                catch (Exception)
+                {
+                    _bot.SendTextMessage(update.Message.Chat.Id, Resources.ResponseBuilder_Internal_error_message);
+                }
+            });
+        }
+
+        public void AllRoutesRequest(Update update, IDatabaseService dbService, ITaxiService taxiService)
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    await _bot.SendChatAction(update.Message.Chat.Id, ChatAction.Typing);
+                    var response = update.Message.Text.Split(Resources.ResponseBuilder_TaxiResponse_Separator);
+                    var routes = dbService.GetRoute(response[0].Trim(), response[1].Trim(), DateTime.Now.AddHours(4));
+                    foreach (var route in routes.Routes)
+                    {
+                        var sb = new StringBuilder();
+                        foreach (var transport in route.Transport)
+                        {
+                            sb.Append(string.Format(Resources.ResponseBuilder_FastestWayResponse_message, transport.TransportType, transport.FromPoint, transport.DepartureTime.ToString("t"), transport.ToPoint, transport.ElapsedTime.ToString("t")));
+                            sb.Append("\n");
+                        }
+                        _bot.SendTextMessage(update.Message.Chat.Id, sb.ToString());
+                    }
+                    TaxiResponse(update, dbService, taxiService);
                 }
                 catch (IndexOutOfRangeException)
                 {

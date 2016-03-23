@@ -70,6 +70,17 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}:
+        ///  От: {1} {2}
+        ///  До: {3} {4}.
+        /// </summary>
+        internal static string ResponseBuilder_FastestWayResponse_message {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_FastestWayResponse_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Расписание автобусов из {0}:
         ///{1}.
         /// </summary>
@@ -236,6 +247,15 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Для поиска всех возможных путей введите названия начального места и конечной точки в формате: Начальное место - Конечное место.
+        /// </summary>
+        internal static string StatusViewModel_BotWork_Get_All_routes_response_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_BotWork_Get_All_routes_response_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Введите станцию отправления. Поддерживаются следующие станции:
         ///1. Одинцово
         ///2. Дубки
@@ -343,6 +363,15 @@ namespace HSE_transport_manager.Properties {
         internal static string StatusViewModel_BotWork_Unsupported_message {
             get {
                 return ResourceManager.GetString("StatusViewModel_BotWork_Unsupported_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string StatusViewModel_CheckSettings_OK_status_message {
+            get {
+                return ResourceManager.GetString("StatusViewModel_CheckSettings_OK_status_message", resourceCulture);
             }
         }
         
