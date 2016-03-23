@@ -70,6 +70,17 @@ namespace HSE_transport_manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}:
+        ///  От: {1} {2}
+        ///  До: {3} {4}.
+        /// </summary>
+        internal static string ResponseBuilder_FastestWayResponse_message {
+            get {
+                return ResourceManager.GetString("ResponseBuilder_FastestWayResponse_message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Расписание автобусов из {0}:
         ///{1}.
         /// </summary>

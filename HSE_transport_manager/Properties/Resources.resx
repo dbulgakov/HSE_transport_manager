@@ -241,4 +241,9 @@
     <value>{0} -- {1}
  Тип: {2} {3}р.</value>
   </data>
+  <data name="ResponseBuilder_FastestWayResponse_message" xml:space="preserve">
+    <value>{0}:
+  От: {1} {2}
+  До: {3} {4}</value>
+  </data>
 </root>

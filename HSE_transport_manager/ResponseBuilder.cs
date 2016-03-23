@@ -63,8 +63,14 @@ namespace HSE_transport_manager
                     await _bot.SendChatAction(update.Message.Chat.Id, ChatAction.Typing);
                     var response = update.Message.Text.Split(Resources.ResponseBuilder_TaxiResponse_Separator);
                     TaxiResponse(update, dbService, taxiService);
-                    var route = dbService.GetFastestRoute(response[0].Trim(), response[1].Trim(), update.Message.Date);
-                    _bot.SendTextMessage(update.Message.Chat.Id, route.Routes.Capacity.ToString());
+                    var route = dbService.GetFastestRoute(response[0].Trim(), response[1].Trim(), DateTime.Now.AddHours(4));
+                    var sb = new StringBuilder();
+                    foreach (var transport in route.Routes[0].Transport)
+                    {
+                        sb.Append(string.Format(Resources.ResponseBuilder_FastestWayResponse_message, transport.TransportType, transport.FromPoint, transport.DepartureTime.ToString("t"), transport.ToPoint, transport.ElapsedTime.ToString("t")));
+                        sb.Append("\n");
+                    }
+                    _bot.SendTextMessage(update.Message.Chat.Id, sb.ToString());
                 }
                 catch (IndexOutOfRangeException)
                 {
