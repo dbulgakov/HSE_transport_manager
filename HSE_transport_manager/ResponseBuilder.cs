@@ -27,12 +27,13 @@ namespace HSE_transport_manager
             {
                 try
                 {
+                    var db = dbService;
                     var response = update.Message.Text.Split(Resources.ResponseBuilder_TaxiResponse_Separator);
                     await _bot.SendChatAction(update.Message.Chat.Id, ChatAction.Typing);
                     var fromString = response[0].Trim();
                     var toString = response[1].Trim();
-                    var c1 = dbService.GetCoordinates(fromString);
-                    var c2 = dbService.GetCoordinates(toString);
+                    var c1 = db.GetCoordinates(fromString);
+                    var c2 = db.GetCoordinates(toString);
                     var response2 = await taxiService.GetRouteAsync(c1, c2);
                     _bot.SendTextMessage(update.Message.Chat.Id,
                     string.Format(
@@ -62,8 +63,8 @@ namespace HSE_transport_manager
                 {
                     await _bot.SendChatAction(update.Message.Chat.Id, ChatAction.Typing);
                     var response = update.Message.Text.Split(Resources.ResponseBuilder_TaxiResponse_Separator);
-                    TaxiResponse(update, dbService, taxiService);
                     var route = dbService.GetFastestRoute(response[0].Trim(), response[1].Trim(), DateTime.Now);
+                    TaxiResponse(update, dbService, taxiService);
                     var sb = new StringBuilder();
                     foreach (var transport in route.Routes[0].Transport)
                     {
