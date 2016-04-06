@@ -201,6 +201,8 @@ namespace MSDatabaseService.Migrations
                 });
             context.SaveChanges();
 
+            if (System.Diagnostics.Debugger.IsAttached == false)
+                System.Diagnostics.Debugger.Launch();
             //SubwayStations
             var subwayData = LoadFromCSV.LoadSubwayStationData("MSDatabaseService.Data.SubwayStations.csv");
             foreach (var station in subwayData)
@@ -211,45 +213,43 @@ namespace MSDatabaseService.Migrations
                         Name = station.Name,
                         Latitude = station.Latitude,
                         Longitude = station.Longitude,
-                        Type = context.TransportTypes.Single(t => t.Name.Equals(station.Type))
+                        Type = context.TransportTypes.Single(t => t.Name.Equals(station.Type)),
+                        PublicTransport = context.PublicTransportSchedule.Where(t => t.Number.Equals(station.BusNumber)).ToList()
                     });
             context.SaveChanges();
 
-            //Dormitories
-            var dormData = LoadFromCSV.LoadDormitoryData("MSDatabaseService.Data.Dormitories.csv");
-            foreach (var dorm in dormData)
-                context.Dormitories.AddOrUpdate(
+            //Buildings
+            var buildData = LoadFromCSV.LoadBuildingData("MSDatabaseService.Data.Buildings.csv");
+            foreach (var build in buildData)
+            {
+                if (build.TramStop!="")
+                context.TramStop.AddOrUpdate(
+                    t => t.Name,
+                    new TramStop
+                    {
+                        Name = build.TramStop
+                    });
+                context.SaveChanges();
+
+                context.Buildings.AddOrUpdate(
                     d => d.Address,
-                    new Dormitory
+                    new Building
                     {
-                        Name = dorm.Name,
-                        Region = dorm.Region,
-                        City = dorm.City,
-                        Address = dorm.Address,
-                        Latitude = dorm.Latitude,
-                        Longitude = dorm.Longitude,
-                        SubwayStation = context.SubwayStations.Where(s => dorm.SubwayStation.Contains(s.Name)).ToList(),
-                        CheckDubkiBus = dorm.CheckDubkiBus,
-                        LocalTrainStation = context.LocalTrainStations.SingleOrDefault(s => s.Name == dorm.LocalTrainStation),
-                        PublicTransport = context.PublicTransportSchedule.Where(t => dorm.PublicTransport.Contains(t.Number.ToString())).ToList()
+                        Name = build.Name,
+                        Region = build.Region,
+                        City = build.City,
+                        Address = build.Address,
+                        Latitude = build.Latitude,
+                        Longitude = build.Longitude,
+                        SubwayStation = context.SubwayStations.Where(s => build.SubwayStation.Contains(s.Name)).ToList(),
+                        CheckDubkiBus = build.CheckDubkiBus,
+                        LocalTrainStation = context.LocalTrainStations.SingleOrDefault(s => s.Name == build.LocalTrainStation),
+                        PublicTransport = context.PublicTransportSchedule.Where(t => build.PublicTransport.Contains(t.Number.ToString())).ToList(),
+                        TramStop=context.TramStop.SingleOrDefault(t=> t.Name==build.TramStop)
                     });
+            }
             context.SaveChanges();
-
-            //HSEBuildings
-            var hseBuildings = LoadFromCSV.LoadHSEBuildingData("MSDatabaseService.Data.HSEBuildings.csv");
-            foreach (var hse in hseBuildings)
-                context.HSEBuildings.AddOrUpdate(
-                    h => h.Address,
-                    new HSEBuilding
-                    {
-                        Name = hse.Name,
-                        Address = hse.Address,
-                        Latitude = hse.Latitude,
-                        Longitude = hse.Longitude,
-                        SubwayStation = context.SubwayStations.Where(s => hse.SubwayStation.Contains(s.Name)).ToList()
-                    });
-            context.SaveChanges();
-        
+ 
         }
     }
 }

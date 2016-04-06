@@ -2,7 +2,7 @@
 
 namespace MSDatabaseService.Models
 {
-    public class DormitoryData
+    public class BuildingData
     {
             public string Name { get; set; }
             public string Region { get; set; }
@@ -14,5 +14,6 @@ namespace MSDatabaseService.Models
             public string LocalTrainStation { get; set; }
             public bool CheckDubkiBus { get; set; }
             public List<string> PublicTransport { get; set; }
+            public string TramStop { get; set; }
     }
 }

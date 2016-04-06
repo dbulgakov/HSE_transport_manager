@@ -22,6 +22,7 @@ namespace MSDatabaseService.Entities
         [Required]
         public TransportType Type { get; set; }
         public List<DayofWeek> DayOfWeek { get; set; }
-        public List<Dormitory> Dormitory { get; set; }
+        public List<Building> Dormitory { get; set; }
+        public List<SubwayStation> SubwayStation { get; set; }
     }
 }

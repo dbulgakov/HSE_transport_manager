@@ -13,9 +13,10 @@ namespace MSDatabaseService.Entities
         public double Latitude { get; set; }
         [Required]
         public double Longitude { get; set; }
-        public List<Dormitory> Dormitory { get; set; }
-        public List<HSEBuilding> HSEBuilding { get; set; }
+        public List<Building> Building { get; set; }
         [Required]
         public TransportType Type { get; set; }
+        public List<PublicTransport> PublicTransport { get; set; }
+
     }
 }

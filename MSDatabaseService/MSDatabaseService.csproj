@@ -51,9 +51,8 @@
     <Compile Include="Context.cs" />
     <Compile Include="DatabaseQuery.cs" />
     <Compile Include="Entities\DayofWeek.cs" />
-    <Compile Include="Entities\Dormitory.cs" />
+    <Compile Include="Entities\Building.cs" />
     <Compile Include="Entities\DubkiBusSchedule.cs" />
-    <Compile Include="Entities\HSEBuilding.cs" />
     <Compile Include="Entities\LocalTrainPrice.cs" />
     <Compile Include="Entities\LocalTrainSchedule.cs" />
     <Compile Include="Entities\LocalTrainStation.cs" />
@@ -61,6 +60,7 @@
     <Compile Include="Entities\PublicTransport.cs" />
     <Compile Include="Entities\PublicTransportPrice.cs" />
     <Compile Include="Entities\SubwayStation.cs" />
+    <Compile Include="Entities\TramStop.cs" />
     <Compile Include="Entities\TransportType.cs" />
     <Compile Include="LoadFromCSV.cs" />
     <Compile Include="Migrations\201603201829270_Initial.cs" />
@@ -71,29 +71,41 @@
     <Compile Include="Migrations\201603201928120_DeleteTable.Designer.cs">
       <DependentUpon>201603201928120_DeleteTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604062144240_Changes.cs" />
+    <Compile Include="Migrations\201604062144240_Changes.Designer.cs">
+      <DependentUpon>201604062144240_Changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604062220192_SomeChnages.cs" />
+    <Compile Include="Migrations\201604062220192_SomeChnages.Designer.cs">
+      <DependentUpon>201604062220192_SomeChnages.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\DormitoryData.cs" />
+    <Compile Include="Models\BuildingData.cs" />
     <Compile Include="Models\DubkiBusData.cs" />
-    <Compile Include="Models\HSEBuildingData.cs" />
     <Compile Include="Models\PublicTransportData.cs" />
     <Compile Include="Models\SubwayStationData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Data\Dubki.csv" />
-    <EmbeddedResource Include="Data\HSEBuildings.csv" />
     <EmbeddedResource Include="Migrations\201603201829270_Initial.resx">
       <DependentUpon>201603201829270_Initial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603201928120_DeleteTable.resx">
       <DependentUpon>201603201928120_DeleteTable.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604062144240_Changes.resx">
+      <DependentUpon>201604062144240_Changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604062220192_SomeChnages.resx">
+      <DependentUpon>201604062220192_SomeChnages.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EmbeddedResource Include="Data\SubwayStations.csv" />
-    <EmbeddedResource Include="Data\Dormitories.csv" />
+    <EmbeddedResource Include="Data\Buildings.csv" />
+    <EmbeddedResource Include="Data\Dubki.csv" />
     <EmbeddedResource Include="Data\PublicTransport.csv" />
+    <EmbeddedResource Include="Data\SubwayStations.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
